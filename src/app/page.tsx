@@ -1,7 +1,10 @@
+import { GeneratorForm } from "@/components/GeneratorForm";
 
 
 export default function Home() {
   return (
-    <div>Hello World!</div>
+    <div className="w-[50%]">
+      <GeneratorForm />
+    </div>
   );
 }
