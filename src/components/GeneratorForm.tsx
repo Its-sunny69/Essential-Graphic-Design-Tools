@@ -5,6 +5,7 @@ import { GoogleGenAI } from "@google/genai";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import Markdown from "react-markdown";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +25,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Clipboard, Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
+import { Tooltip } from "react-tooltip";
+import { Skeleton } from "./ui/skeleton";
 
 const formSchema = z.object({
   designType: z.string().min(1, {
@@ -56,6 +61,7 @@ async function generator(basePrompt: string) {
 
 export function GeneratorForm() {
   const [prompt, setPrompt] = useState<string | undefined>("");
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -68,165 +74,230 @@ export function GeneratorForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
 
-    const basePrompt = `Please create a ${values.stylePreference} ${values.designType} for a brand operating in the ${values.industry} industry. ${values.brandName && `The brand name is "${values.brandName}". Please 
-incorporate this into the brief accordingly.`} Provide a concise and professional design brief suitable for a creative designer. The output should be max 70 words`;
+    const basePrompt = `Please create a ${values.stylePreference} ${
+      values.designType
+    } for a brand operating in the ${values.industry} industry. ${
+      values.brandName &&
+      `The brand name is "${values.brandName}". Please 
+incorporate this into the brief accordingly.`
+    } Provide a concise and professional design brief suitable for a creative designer. The output should be max 70 words`;
 
     const res = await generator(basePrompt);
 
-    console.log(basePrompt);
-
-    console.log(res);
-
     setPrompt(res);
+    setLoading(false);
   }
+
+  const handleCopy = () => {
+    if (prompt) {
+      navigator.clipboard.writeText(prompt).then(() => {
+        toast.success("Prompt Copied!", {
+          position: "top-right",
+        });
+      });
+    }
+  };
 
   return (
     <>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="designType"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Design Type</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+      <p className="text-4xl font-bold text-center">
+        AI DESIGN BRIEF GENERATOR
+      </p>
+      <div className="border p-8 my-8 rounded-md shadow-md">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="designType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Design Type</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a design type" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="Logo">Logo</SelectItem>
+                      <SelectItem value="Business Card">
+                        Business Card
+                      </SelectItem>
+                      <SelectItem value="Poster">Poster</SelectItem>
+                      <SelectItem value="Flyer">Flyer</SelectItem>
+                      <SelectItem value="Social Media Post">
+                        Social Media Post
+                      </SelectItem>
+                      <SelectItem value="Brochure">Brochure</SelectItem>
+                      <SelectItem value="Product Packaging">
+                        Product Packaging
+                      </SelectItem>
+                      <SelectItem value="Banner">Banner</SelectItem>
+                      <SelectItem value="Book Cover">Book Cover</SelectItem>
+                      <SelectItem value="T-Shirt Design">
+                        T-Shirt Design
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="industry"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Select your industry</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your industry" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="Technology">Technology</SelectItem>
+                      <SelectItem value="Fashion">Fashion</SelectItem>
+                      <SelectItem value="Education">Education</SelectItem>
+                      <SelectItem value="Healthcare">Healthcare</SelectItem>
+                      <SelectItem value="Fitness & Wellness">
+                        Fitness & Wellness
+                      </SelectItem>
+                      <SelectItem value="Real Estate">Real Estate</SelectItem>
+                      <SelectItem value="Food & Beverage">
+                        Food & Beverage
+                      </SelectItem>
+                      <SelectItem value="Travel">Travel</SelectItem>
+                      <SelectItem value="E-commerce">E-commerce</SelectItem>
+                      <SelectItem value="Finance">Finance</SelectItem>
+                      <SelectItem value="Entertainment">
+                        Entertainment
+                      </SelectItem>
+                      <SelectItem value="NGO / Charity">
+                        NGO / Charity
+                      </SelectItem>
+                      <SelectItem value="Sports">Sports</SelectItem>
+                      <SelectItem value="Gaming">Gaming</SelectItem>
+                      <SelectItem value="Legal">Legal</SelectItem>
+                      <SelectItem value="Automotive">Automotive</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="stylePreference"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Select a style</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a style" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="Minimalistic">Minimalistic</SelectItem>
+                      <SelectItem value="Modern">Modern</SelectItem>
+                      <SelectItem value="Retro / Vintage">
+                        Retro / Vintage
+                      </SelectItem>
+                      <SelectItem value="Playful">Playful</SelectItem>
+                      <SelectItem value="Elegant">Elegant</SelectItem>
+                      <SelectItem value="Futuristic">Futuristic</SelectItem>
+                      <SelectItem value="Bold & Loud">Bold & Loud</SelectItem>
+                      <SelectItem value="Hand-drawn">Hand-drawn</SelectItem>
+                      <SelectItem value="Corporate / Professional">
+                        Corporate / Professional
+                      </SelectItem>
+                      <SelectItem value="Geometric">Geometric</SelectItem>
+                      <SelectItem value="Artistic / Abstract">
+                        Artistic / Abstract
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="brandName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Enter your brand name (optional)</FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a design type" />
-                    </SelectTrigger>
+                    <Input placeholder="Enter you brand name" {...field} />
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="Logo">Logo</SelectItem>
-                    <SelectItem value="Business Card">Business Card</SelectItem>
-                    <SelectItem value="Poster">Poster</SelectItem>
-                    <SelectItem value="Flyer">Flyer</SelectItem>
-                    <SelectItem value="Social Media Post">
-                      Social Media Post
-                    </SelectItem>
-                    <SelectItem value="Brochure">Brochure</SelectItem>
-                    <SelectItem value="Product Packaging">
-                      Product Packaging
-                    </SelectItem>
-                    <SelectItem value="Banner">Banner</SelectItem>
-                    <SelectItem value="Book Cover">Book Cover</SelectItem>
-                    <SelectItem value="T-Shirt Design">
-                      T-Shirt Design
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="industry"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Select your industry</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your industry" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="Technology">Technology</SelectItem>
-                    <SelectItem value="Fashion">Fashion</SelectItem>
-                    <SelectItem value="Education">Education</SelectItem>
-                    <SelectItem value="Healthcare">Healthcare</SelectItem>
-                    <SelectItem value="Fitness & Wellness">
-                      Fitness & Wellness
-                    </SelectItem>
-                    <SelectItem value="Real Estate">Real Estate</SelectItem>
-                    <SelectItem value="Food & Beverage">
-                      Food & Beverage
-                    </SelectItem>
-                    <SelectItem value="Travel">Travel</SelectItem>
-                    <SelectItem value="E-commerce">E-commerce</SelectItem>
-                    <SelectItem value="Finance">Finance</SelectItem>
-                    <SelectItem value="Entertainment">Entertainment</SelectItem>
-                    <SelectItem value="NGO / Charity">NGO / Charity</SelectItem>
-                    <SelectItem value="Sports">Sports</SelectItem>
-                    <SelectItem value="Gaming">Gaming</SelectItem>
-                    <SelectItem value="Legal">Legal</SelectItem>
-                    <SelectItem value="Automotive">Automotive</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <Button type="submit" disabled={loading}>
+              {loading ? (
+                <>
+                  <Loader2 className="animate-spin" />
+                  Generating
+                </>
+              ) : (
+                "Generate"
+              )}
+            </Button>
+          </form>
+        </Form>
 
-          <FormField
-            control={form.control}
-            name="stylePreference"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Select a style</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a style" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="Minimalistic">Minimalistic</SelectItem>
-                    <SelectItem value="Modern">Modern</SelectItem>
-                    <SelectItem value="Retro / Vintage">
-                      Retro / Vintage
-                    </SelectItem>
-                    <SelectItem value="Playful">Playful</SelectItem>
-                    <SelectItem value="Elegant">Elegant</SelectItem>
-                    <SelectItem value="Futuristic">Futuristic</SelectItem>
-                    <SelectItem value="Bold & Loud">Bold & Loud</SelectItem>
-                    <SelectItem value="Hand-drawn">Hand-drawn</SelectItem>
-                    <SelectItem value="Corporate / Professional">
-                      Corporate / Professional
-                    </SelectItem>
-                    <SelectItem value="Geometric">Geometric</SelectItem>
-                    <SelectItem value="Artistic / Abstract">
-                      Artistic / Abstract
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <div className=" p-4 rounded-md mt-8">
+          {loading ? (
+            <Skeleton className="h-6" />
+          ) : (
+            prompt && (
+              <div>
+                <div className="flex justify-between items-center">
+                  <p className="text-3xl">Generated Prompt</p>
+                  <button
+                    className="border rounded p-1 m-1 hover:opacity-50"
+                    onClick={handleCopy}
+                    data-tooltip-id="clipboard-tooltip"
+                    data-tooltip-content="Copy to clipboard"
+                    data-tooltip-place="top"
+                  >
+                    <Clipboard />
+                  </button>
+                </div>
 
-          <FormField
-            control={form.control}
-            name="brandName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Enter your brand name (optional)</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter you brand name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                <hr className="my-4" />
 
-          <Button type="submit">Generate</Button>
-        </form>
-      </Form>
-
-      <p>{prompt}</p>
-      {/* use react-markdown............. */}
+                <div className="bg-gray-100 border rounded-xl p-4">
+                  <Markdown>{prompt}</Markdown>
+                </div>
+              </div>
+            )
+          )}
+        </div>
+      </div>
+      <Tooltip
+        id="clipboard-tooltip"
+        delayShow={300}
+        noArrow={true}
+        style={{ padding: "4px 8px" }}
+      />
     </>
   );
 }
