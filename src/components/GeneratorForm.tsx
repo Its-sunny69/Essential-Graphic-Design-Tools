@@ -26,10 +26,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Clipboard, Loader2 } from "lucide-react";
-import toast from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
 import { Skeleton } from "./ui/skeleton";
-
+import { copyToClipboard } from "@/utils/clipboard";
 const formSchema = z.object({
   designType: z.string().min(1, {
     message: "Please select a design type.",
@@ -92,11 +91,7 @@ incorporate this into the brief accordingly.`
 
   const handleCopy = () => {
     if (prompt) {
-      navigator.clipboard.writeText(prompt).then(() => {
-        toast.success("Prompt Copied!", {
-          position: "top-right",
-        });
-      });
+      copyToClipboard(prompt);
     }
   };
 
