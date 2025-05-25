@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { GoogleGenAI } from "@google/genai";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -29,6 +28,8 @@ import { Clipboard, Loader2 } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import { Skeleton } from "./ui/skeleton";
 import { copyToClipboard } from "@/utils/clipboard";
+import { geminiResponse } from "@/utils/geminiResponse";
+
 const formSchema = z.object({
   designType: z.string().min(1, {
     message: "Please select a design type.",
@@ -47,18 +48,7 @@ const formSchema = z.object({
     .optional(),
 });
 
-const ai = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GEMINI_API });
-
-async function generator(basePrompt: string) {
-  const response = await ai.models.generateContent({
-    model: "gemini-2.0-flash",
-    contents: basePrompt,
-  });
-
-  return response.text;
-}
-
-export function GeneratorForm() {
+function GeneratorForm() {
   const [prompt, setPrompt] = useState<string | undefined>("");
   const [loading, setLoading] = useState(false);
 
@@ -83,7 +73,7 @@ export function GeneratorForm() {
 incorporate this into the brief accordingly.`
     } Provide a concise and professional design brief suitable for a creative designer. The output should be max 70 words`;
 
-    const res = await generator(basePrompt);
+    const res = await geminiResponse(basePrompt);
 
     setPrompt(res);
     setLoading(false);
@@ -296,3 +286,5 @@ incorporate this into the brief accordingly.`
     </>
   );
 }
+
+export default GeneratorForm;
