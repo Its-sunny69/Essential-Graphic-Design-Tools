@@ -10,26 +10,15 @@ import { Divide, Loader2 } from "lucide-react";
 import { fetchGoogleFont } from "@/utils/fetchGoogleFont";
 import { FontPreview } from "./FontPreview";
 import { FontDownloadButton } from "./FontDownloadButton";
-
-type FontItem = {
-  family: string;
-  files: {
-    regular: string;
-    italic?: string;
-  };
-  category: string;
-};
-
-type FontResponse = {
-  items: FontItem[];
-};
+import { getFontsFromCache } from "@/utils/getFontsFromCache";
+import FontCard from "./FontCard";
 
 function FontFinder() {
   const [keyword, setKeyword] = useState<string | undefined>("");
   const [error, setError] = useState<string | undefined>("");
   const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState<FontResponse | undefined>();
-  const [previewText, setPreviewText] = useState<string | undefined>("Preview");
+  const [response, setResponse] = useState([]);
+  const [previewText, setPreviewText] = useState<string>("Preview");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -47,7 +36,7 @@ function FontFinder() {
     } else {
       setLoading(true);
 
-      const basePrompt = `You are a font recommendation AI. The user will provide a single word. Your task is to understand the meaning and connotation of the following word and recommend one and only Google Font family name that best visually represents it. The word is: "${keyword}". Output only the font family name. Do not include any other text, explanations, or formatting.`;
+      const basePrompt = `You are a font recommendation AI. The user will provide a single array of word. Your task is to understand the meaning and connotation of the following word and recommend only 5 best Google Font family name that best visually represents it. The word is: "${keyword}". Output only the font family name array. Do not include any other text, explanations, or formatting.`;
 
       try {
         const fontFamily = await geminiResponse(basePrompt);
@@ -58,9 +47,9 @@ function FontFinder() {
           return;
         }
 
-        const params = `&family=${fontFamily?.replace(/ /g, "+")}`;
+        const res = await getFontsFromCache(JSON.parse(fontFamily));
 
-        const res = await fetchGoogleFont(params);
+        console.log(res);
         setResponse(res);
       } catch (error) {
         toast.error("Internal Server Error");
@@ -100,59 +89,34 @@ function FontFinder() {
         )}
       </Button>
 
-      <div>
-        {response && (
+      {response.length !== 0 && (
+        <div>
           <div>
-            <p>
-              <span>Font Name: </span>
-              {response.items[0].family}
-            </p>
+            <span>Font Preview: </span>
             <div>
-              <span>Font Preview: </span>
-              <div>
-                <Label htmlFor="keyword">
-                  Enter text to Preview (e.g., school, luxury, comic)
-                </Label>
-                <Input
-                  id="previewText"
-                  type="text"
-                  placeholder="Enter a text"
-                  value={previewText}
-                  onChange={handlePreviewChange}
-                />
-                {error && <p className="text-sm text-red-500">{error}</p>}
-              </div>
-              {Object.entries(response.items[0].files)
-                .filter(
-                  ([variant]) => variant === "regular" || variant === "italic"
-                )
-                .map(([variant, url]) => (
-                  <div>
-                    <p>{variant}</p>
-                    <FontPreview
-                      key={variant}
-                      fontFamily={response.items[0].family}
-                      fontUrl={url}
-                      text={previewText}
-                    />
-                  </div>
-                ))}
+              <Label htmlFor="keyword">
+                Enter text to Preview (e.g., school, luxury, comic)
+              </Label>
+              <Input
+                id="previewText"
+                type="text"
+                placeholder="Enter a text"
+                value={previewText}
+                onChange={handlePreviewChange}
+              />
+              {error && <p className="text-sm text-red-500">{error}</p>}
             </div>
-            <p>
-              <span>Category: </span>
-              {response.items[0].category}
-            </p>
 
-            {Object.entries(response.items[0].files)
-              .filter(
-                ([variant]) => variant === "regular" || variant === "italic"
-              )
-              .map(([variant, url]) => (
-                <FontDownloadButton key={variant} label={variant} url={url} />
-              ))}
+            {response.map((font, index) => (
+              <FontCard key={index} font={font} previewText={previewText} />
+            ))}
+
+            {/* {response.items.map((font, index) => (
+                  <FontDownloadButton key={index} url={url} />
+                ))} */}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
