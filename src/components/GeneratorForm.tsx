@@ -88,11 +88,14 @@ incorporate this into the brief accordingly.`
   return (
     <>
       <p className="text-4xl font-bold text-center">
-        AI DESIGN BRIEF GENERATOR
+        Design Smarter. Start with an AI Brief
       </p>
       <div className="border p-8 my-8 rounded-md shadow-md">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="grid grid-flow-row grid-cols-2 gap-x-4 gap-y-6"
+          >
             <FormField
               control={form.control}
               name="designType"
@@ -226,57 +229,66 @@ incorporate this into the brief accordingly.`
               name="brandName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Enter your brand name (optional)</FormLabel>
+                  <FormLabel>
+                    Got a brand? Drop the name here (optional)
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter you brand name" {...field} />
+                    <Input placeholder="Enter your brand name..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading} className="w-fit">
               {loading ? (
                 <>
                   <Loader2 className="animate-spin" />
                   Generating
                 </>
               ) : (
-                "Generate"
+                "Generate Magic ✨"
               )}
             </Button>
           </form>
         </Form>
-
-        <div className=" p-4 rounded-md mt-8">
-          {loading ? (
-            <Skeleton className="h-6" />
-          ) : (
-            prompt && (
-              <div>
-                <div className="flex justify-between items-center">
-                  <p className="text-3xl">Generated Prompt</p>
-                  <button
-                    className="border rounded p-1 m-1 hover:opacity-50"
-                    onClick={handleCopy}
-                    data-tooltip-id="clipboard-tooltip"
-                    data-tooltip-content="Copy to clipboard"
-                    data-tooltip-place="top"
-                  >
-                    <Clipboard />
-                  </button>
-                </div>
-
-                <hr className="my-4" />
-
-                <div className="bg-gray-100 border rounded-xl p-4">
-                  <Markdown>{prompt}</Markdown>
-                </div>
-              </div>
-            )
-          )}
-        </div>
       </div>
+
+      {loading ? (
+        <div className="p-4 rounded-md my-8">
+          <div className="mb-8">
+            <p className="text-3xl font-bold">Crafting Your Prompt...⚡</p>
+          </div>
+
+          <div className="p-4">
+            <Skeleton className="h-6" />
+          </div>
+        </div>
+      ) : (
+        prompt && (
+          <div className="p-4 rounded-md my-8">
+            <div className="flex justify-between items-center mb-8">
+              <p className="text-3xl font-bold">
+                Your Custom Prompt is Ready! 🎉
+              </p>
+              <button
+                className="border rounded p-1 m-1 hover:opacity-50"
+                onClick={handleCopy}
+                data-tooltip-id="clipboard-tooltip"
+                data-tooltip-content="Copy to clipboard"
+                data-tooltip-place="top"
+              >
+                <Clipboard />
+              </button>
+            </div>
+
+            <div className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4">
+              <Markdown>{prompt}</Markdown>
+            </div>
+          </div>
+        )
+      )}
+
       <Tooltip
         id="clipboard-tooltip"
         delayShow={300}
