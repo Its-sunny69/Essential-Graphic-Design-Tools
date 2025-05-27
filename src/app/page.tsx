@@ -5,9 +5,9 @@ import ColorExtractor from "@/components/ImageColorPalette";
 export default function Home() {
   return (
     <div className="w-[50%] mx-auto">
-      {/* <GeneratorForm /> */}
-      {/* <ColorExtractor /> */}
-      {<FontFinder />}
+      <GeneratorForm />
+      <ColorExtractor />
+      {/* {<FontFinder />} */}
     </div>
   );
 }
