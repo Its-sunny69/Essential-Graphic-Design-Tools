@@ -29,7 +29,7 @@ export async function POST(req: Request) {
         JSON.stringify({
           blocked: true,
           message:
-            "⚠️ Due to high usage, you have reached the maximum number of AI design brief requests for today. Please try again tomorrow.",
+            "Due to high usage, you have reached the maximum number of AI design brief requests for today. Please try again tomorrow.",
         }),
         {
           status: 429,
@@ -41,18 +41,19 @@ export async function POST(req: Request) {
       entry.lastRequest = now;
       await entry.save();
     }
-    try {
-      const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
-        contents: prompt,
-      });
+  }
 
-      return NextResponse.json({ result: response.text });
-    } catch (error) {
-      return NextResponse.json(
-        { error: "AI generation failed" },
-        { status: 500 }
-      );
-    }
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: prompt,
+    });
+
+    return NextResponse.json({ result: response.text });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "AI generation failed" },
+      { status: 500 }
+    );
   }
 }

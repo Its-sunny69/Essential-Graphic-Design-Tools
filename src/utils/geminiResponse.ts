@@ -19,12 +19,14 @@ export async function geminiResponse(prompt: string): Promise<string> {
       body: JSON.stringify({ prompt }),
     });
 
+    console.log(res)
+
     if (!res.ok) {
       const data = await res.json();
       const message = data?.message || "Failed to generate response";
 
       if (res.status === 429) {
-        throw new Error(`Rate limit: ${message}`);
+        throw new Error(message);
       }
 
       throw new Error(message);
@@ -33,6 +35,6 @@ export async function geminiResponse(prompt: string): Promise<string> {
     const data = await res.json();
     return data.result;
   } catch (error: any) {
-    return error?.message || "Something went wrong generating the response";
+    throw new Error(error?.message || "Someting went wrong!");
   }
 }

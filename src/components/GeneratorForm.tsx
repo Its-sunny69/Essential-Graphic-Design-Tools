@@ -50,6 +50,7 @@ const formSchema = z.object({
 
 function GeneratorForm() {
   const [prompt, setPrompt] = useState<string | undefined>("");
+  const [error, setError] = useState<string | undefined>("");
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -73,9 +74,16 @@ function GeneratorForm() {
 incorporate this into the brief accordingly.`
     } Provide a concise and professional design brief suitable for a creative designer. The output should be max 70 words`;
 
-    const res = await geminiResponse(basePrompt);
+    try {
+      const res = await geminiResponse(basePrompt);
+      
+      setError("")
+      setPrompt(res);
+    } catch (error: any) {
+      setPrompt("");
+      setError(error.message);
+    }
 
-    setPrompt(res);
     setLoading(false);
   }
 
@@ -84,6 +92,8 @@ incorporate this into the brief accordingly.`
       copyToClipboard(prompt);
     }
   };
+
+  console.log(error);
 
   return (
     <>
@@ -265,28 +275,41 @@ incorporate this into the brief accordingly.`
           </div>
         </div>
       ) : (
-        prompt && (
-          <div className="p-4 rounded-md my-8">
-            <div className="flex justify-between items-center mb-8">
-              <p className="text-3xl font-bold">
-                Your Custom Prompt is Ready! 🎉
-              </p>
-              <button
-                className="border rounded p-1 m-1 hover:opacity-50"
-                onClick={handleCopy}
-                data-tooltip-id="clipboard-tooltip"
-                data-tooltip-content="Copy to clipboard"
-                data-tooltip-place="top"
-              >
-                <Clipboard />
-              </button>
-            </div>
+        <div className="p-4 rounded-md my-8">
+          {error ? (
+            <>
+              <div className="my-8">
+                <p className="text-3xl font-bold mb-8">
+                  ⚠️ Reached limit, Try again tomorrow!
+                </p>
+              </div>
+              <div className="bg-red-100 border-l-4 border-red-300 border text-red-600 rounded-xl p-4">
+                {error}
+              </div>
+            </>
+          ) : prompt && (
+            <>
+              <div className="flex justify-between items-center mb-8">
+                <p className="text-3xl font-bold">
+                  Your Custom Prompt is Ready! 🎉
+                </p>
+                <button
+                  className="border rounded p-1 m-1 hover:opacity-50"
+                  onClick={handleCopy}
+                  data-tooltip-id="clipboard-tooltip"
+                  data-tooltip-content="Copy to clipboard"
+                  data-tooltip-place="top"
+                >
+                  <Clipboard />
+                </button>
+              </div>
 
-            <div className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4">
-              <Markdown>{prompt}</Markdown>
-            </div>
-          </div>
-        )
+              <div className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4">
+                <Markdown>{prompt}</Markdown>
+              </div>
+            </>
+          )}
+        </div>
       )}
 
       <Tooltip
