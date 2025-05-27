@@ -1,12 +1,38 @@
-import { GoogleGenAI } from "@google/genai";
+// import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GEMINI_API });
+// const ai = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GEMINI_API });
 
-export async function geminiResponse(basePrompt: string) {
-  const response = await ai.models.generateContent({
-    model: "gemini-2.0-flash",
-    contents: basePrompt,
-  });
+// export async function geminiResponse(basePrompt: string) {
+//   const response = await ai.models.generateContent({
+//     model: "gemini-2.0-flash",
+//     contents: basePrompt,
+//   });
 
-  return response.text;
+//   return response.text;
+// }
+
+export async function geminiResponse(prompt: string): Promise<string> {
+  try {
+    const res = await fetch("/api/generate-brief", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt }),
+    });
+
+    if (!res.ok) {
+      const data = await res.json();
+      const message = data?.message || "Failed to generate response";
+
+      if (res.status === 429) {
+        throw new Error(`Rate limit: ${message}`);
+      }
+
+      throw new Error(message);
+    }
+
+    const data = await res.json();
+    return data.result;
+  } catch (error: any) {
+    return error?.message || "Something went wrong generating the response";
+  }
 }
