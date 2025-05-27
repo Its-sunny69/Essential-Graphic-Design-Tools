@@ -30,7 +30,7 @@ export default function RootLayout({
         <AdDetection>
           <main>{children}</main>
         </AdDetection>
-        <Toaster />
+        <Toaster position="top-right"/>
       </body>
     </html>
   );

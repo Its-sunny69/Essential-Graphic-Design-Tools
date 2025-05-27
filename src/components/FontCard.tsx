@@ -24,33 +24,30 @@ function FontCard({ font, previewText }: FontCardProps) {
   )}`;
 
   return (
-    <div>
-      <p>
-        <span>Font Name: </span>
-        {font.family}
-      </p>
+    <div className="border rounded-md p-4">
+      <p className="text-xl font-bold">{font.family}</p>
 
-      <div>
-        <p>Regular</p>
+      <div className="my-3 border-l-4 rounded-sm pl-2">
+        <p>Preview:</p>
         <FontPreview
           key={font.family}
           fontFamily={font.family}
           fontUrl={font.files.regular}
           text={previewText}
         />
-
-        <p>
-          <span>Category: </span>
-          {font.category}
-        </p>
       </div>
 
-      <p className="text-sm italic text-gray-600">
-        <span className="font-semibold">License: </span>
-        All fonts are released under open source licenses. You can use them in
-        any non-commercial or commercial project.
+      <p>
+        <span className="font-semibold">Category: </span>
+        {font.category}
       </p>
-      <Button onClick={() => window.open(fontUrl, "_blank")}>Go To Font</Button>
+
+      <p className="text-sm italic text-gray-600 my-1">
+        <span className="font-semibold">License: </span>
+        SIL Open Font License
+      </p>
+
+      <Button className="mt-2 w-full" onClick={() => window.open(fontUrl, "_blank")}>Go to Google Font</Button>
     </div>
   );
 }

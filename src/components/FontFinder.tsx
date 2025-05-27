@@ -7,17 +7,24 @@ import { Button } from "./ui/button";
 import { geminiResponse } from "@/utils/geminiResponse";
 import toast from "react-hot-toast";
 import { Divide, Loader2 } from "lucide-react";
-import { fetchGoogleFont } from "@/utils/fetchGoogleFont";
 import { FontPreview } from "./FontPreview";
-import { FontDownloadButton } from "./FontDownloadButton";
 import { getFontsFromCache } from "@/utils/getFontsFromCache";
 import FontCard from "./FontCard";
+import { Skeleton } from "./ui/skeleton";
+
+type FontItem = {
+  family: string;
+  files: {
+    regular: string;
+  };
+  category: string;
+};
 
 function FontFinder() {
   const [keyword, setKeyword] = useState<string | undefined>("");
   const [error, setError] = useState<string | undefined>("");
   const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState([]);
+  const [response, setResponse] = useState<FontItem[]>([]);
   const [previewText, setPreviewText] = useState<string>("Preview");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,64 +67,79 @@ function FontFinder() {
   };
 
   return (
-    <div>
+    <>
       <p className="text-4xl font-bold text-center">
-        Keyword-Based Font Finder
+        Type a Word, Get Stunning Fonts
       </p>
-      <div>
-        <Label htmlFor="keyword">
-          Enter a keyword (e.g., school, luxury, comic)
-        </Label>
-        <Input
-          id="keyword"
-          type="text"
-          placeholder="Enter a keyword"
-          value={keyword}
-          onChange={handleChange}
-        />
-        {error && <p className="text-sm text-red-500">{error}</p>}
+      <div className="border p-8 my-8 rounded-md shadow-md space-y-4">
+        <div>
+          <Label htmlFor="keyword">
+            Tell us your theme. One word is all it takes!
+          </Label>
+          <Input
+            id="keyword"
+            type="text"
+            placeholder="(e.g., school, luxury, comic)"
+            value={keyword}
+            onChange={handleChange}
+            className="mt-4"
+          />
+          {error && <p className="text-sm text-red-500">{error}</p>}
+        </div>
+
+        <Button onClick={handleSearch} disabled={loading}>
+          {loading ? (
+            <>
+              <Loader2 className="animate-spin" />
+              Searching
+            </>
+          ) : (
+            "Go Font Hunting 🚀"
+          )}
+        </Button>
       </div>
 
-      <Button onClick={handleSearch} disabled={loading}>
-        {loading ? (
-          <>
-            <Loader2 className="animate-spin" />
-            Searching
-          </>
-        ) : (
-          "Search"
-        )}
-      </Button>
+      {loading ? (
+        <div className="p-4 rounded-md my-8">
+          <p className="text-3xl font-bold">Searching for Font...🔍</p>
 
-      {response.length !== 0 && (
-        <div>
-          <div>
-            <span>Font Preview: </span>
-            <div>
+          <div className="my-8">
+            <Skeleton className="h-5" />
+            <Skeleton className="h-9 mt-4" />
+          </div>
+          <div className="grid grid-cols-2 gap-4 mb-8">
+            <Skeleton className="h-56" />
+            <Skeleton className="h-56" />
+          </div>
+        </div>
+      ) : (
+        response.length !== 0 && (
+          <div className="p-4 rounded-md my-8">
+            <p className="text-3xl font-bold">Here Are Your Font Matches!</p>
+
+            <div className="my-8">
               <Label htmlFor="keyword">
-                Enter text to Preview (e.g., school, luxury, comic)
+                Want a Sneak Peek? Enter Your Text Below
               </Label>
               <Input
                 id="previewText"
                 type="text"
-                placeholder="Enter a text"
+                placeholder="Enter a your text..."
                 value={previewText}
                 onChange={handlePreviewChange}
+                className="mt-4"
               />
-              {error && <p className="text-sm text-red-500">{error}</p>}
             </div>
 
-            {response.map((font, index) => (
-              <FontCard key={index} font={font} previewText={previewText} />
-            ))}
-
-            {/* {response.items.map((font, index) => (
-                  <FontDownloadButton key={index} url={url} />
-                ))} */}
+            <div className="grid grid-cols-2 gap-4">
+              {response.map((font, index) => (
+                <FontCard key={index} font={font} previewText={previewText} />
+              ))}
+            </div>
           </div>
-        </div>
+        )
       )}
-    </div>
+    </>
   );
 }
 
