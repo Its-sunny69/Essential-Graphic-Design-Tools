@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { model, models } from "mongoose";
 
 const RateLimitSchema = new mongoose.Schema({
   ip: { type: String, required: true, unique: true },
@@ -6,4 +6,6 @@ const RateLimitSchema = new mongoose.Schema({
   lastRequest: { type: Date, default: Date.now },
 });
 
-export default mongoose.model("RateLimit", RateLimitSchema);
+const RateLimit = models.RateLimit || model("RateLimit", RateLimitSchema);
+
+export default RateLimit;
