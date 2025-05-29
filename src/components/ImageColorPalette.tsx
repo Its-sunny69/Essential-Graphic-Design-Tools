@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import ColorThief from "colorthief";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 import {
   Check,
   Copy,
@@ -135,7 +135,7 @@ const ColorExtractor: React.FC = () => {
               </button>
             </div>
 
-            <img
+            <Image
               src={imageUrl}
               ref={imgRef}
               crossOrigin="anonymous"
@@ -176,7 +176,9 @@ const ColorExtractor: React.FC = () => {
       ) : (
         palette.length > 0 && (
           <div className="p-4 rounded-md my-8">
-            <p className="text-3xl font-bold">Here’s Your Custom Color Palette 🎨</p>
+            <p className="text-3xl font-bold">
+              Here’s Your Custom Color Palette 🎨
+            </p>
 
             <div
               ref={paletteRef}

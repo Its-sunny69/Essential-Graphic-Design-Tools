@@ -1,146 +1,146 @@
-"use client";
+// "use client";
 
-import React, { useState } from "react";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Button } from "./ui/button";
-import { geminiResponse } from "@/utils/geminiResponse";
-import toast from "react-hot-toast";
-import { Divide, Loader2 } from "lucide-react";
-import { FontPreview } from "./FontPreview";
-import { getFontsFromCache } from "@/utils/getFontsFromCache";
-import FontCard from "./FontCard";
-import { Skeleton } from "./ui/skeleton";
+// import React, { useState } from "react";
+// import { Input } from "./ui/input";
+// import { Label } from "./ui/label";
+// import { Button } from "./ui/button";
+// import { geminiResponse } from "@/utils/geminiResponse";
+// import toast from "react-hot-toast";
+// import { Loader2 } from "lucide-react";
 
-type FontItem = {
-  family: string;
-  files: {
-    regular: string;
-  };
-  category: string;
-};
+// import { getFontsFromCache } from "@/utils/getFontsFromCache";
+// import FontCard from "./FontCard";
+// import { Skeleton } from "./ui/skeleton";
 
-function FontFinder() {
-  const [keyword, setKeyword] = useState<string | undefined>("");
-  const [error, setError] = useState<string | undefined>("");
-  const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState<FontItem[]>([]);
-  const [previewText, setPreviewText] = useState<string>("Preview");
+// type FontItem = {
+//   family: string;
+//   files: {
+//     regular: string;
+//   };
+//   category: string;
+// };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+// function FontFinder() {
+//   const [keyword, setKeyword] = useState<string | undefined>("");
+//   const [error, setError] = useState<string | undefined>("");
+//   const [loading, setLoading] = useState(false);
+//   const [response, setResponse] = useState<FontItem[]>([]);
+//   const [previewText, setPreviewText] = useState<string>("Preview");
 
-    if (e.target.value.trim() !== "") setError("");
-  };
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setKeyword(e.target.value);
 
-  const handlePreviewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPreviewText(e.target.value);
-  };
+//     if (e.target.value.trim() !== "") setError("");
+//   };
 
-  const handleSearch = async () => {
-    if (keyword?.trim() === "") {
-      setError("Please enter a keyword!");
-    } else {
-      setLoading(true);
+//   const handlePreviewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setPreviewText(e.target.value);
+//   };
 
-      const basePrompt = `You are a font recommendation AI. The user will provide a single array of word. Your task is to understand the meaning and connotation of the following word and recommend only 5 best Google Font family name that best visually represents it. The word is: "${keyword}". Output only the font family name array. Do not include any other text, explanations, or formatting.`;
+//   const handleSearch = async () => {
+//     if (keyword?.trim() === "") {
+//       setError("Please enter a keyword!");
+//     } else {
+//       setLoading(true);
 
-      try {
-        const fontFamily = await geminiResponse(basePrompt);
+//       const basePrompt = `You are a font recommendation AI. The user will provide a single array of word. Your task is to understand the meaning and connotation of the following word and recommend only 5 best Google Font family name that best visually represents it. The word is: "${keyword}". Output only the font family name array. Do not include any other text, explanations, or formatting.`;
 
-        console.log("fontFamily:", fontFamily);
-        if (!fontFamily) {
-          toast.error("Internal Server Error");
-          return;
-        }
+//       try {
+//         const fontFamily = await geminiResponse(basePrompt);
 
-        const res = await getFontsFromCache(JSON.parse(fontFamily));
+//         console.log("fontFamily:", fontFamily);
+//         if (!fontFamily) {
+//           toast.error("Internal Server Error");
+//           return;
+//         }
 
-        console.log(res);
-        setResponse(res);
-      } catch (error) {
-        toast.error("Internal Server Error");
-      }
+//         const res = await getFontsFromCache(JSON.parse(fontFamily));
 
-      setLoading(false);
-    }
-  };
+//         console.log(res);
+//         setResponse(res);
+//       } catch (error) {
+//         toast.error((error as Error).message || "Internal Server Error");
+//       }
 
-  return (
-    <>
-      <p className="text-4xl font-bold text-center">
-        Type a Word, Get Stunning Fonts
-      </p>
-      <div className="border p-8 my-8 rounded-md shadow-md space-y-4">
-        <div>
-          <Label htmlFor="keyword">
-            Tell us your theme. One word is all it takes!
-          </Label>
-          <Input
-            id="keyword"
-            type="text"
-            placeholder="(e.g., school, luxury, comic)"
-            value={keyword}
-            onChange={handleChange}
-            className="mt-4"
-          />
-          {error && <p className="text-sm text-red-500">{error}</p>}
-        </div>
+//       setLoading(false);
+//     }
+//   };
 
-        <Button onClick={handleSearch} disabled={loading}>
-          {loading ? (
-            <>
-              <Loader2 className="animate-spin" />
-              Searching
-            </>
-          ) : (
-            "Go Font Hunting 🚀"
-          )}
-        </Button>
-      </div>
+//   return (
+//     <>
+//       <p className="text-4xl font-bold text-center">
+//         Type a Word, Get Stunning Fonts
+//       </p>
+//       <div className="border p-8 my-8 rounded-md shadow-md space-y-4">
+//         <div>
+//           <Label htmlFor="keyword">
+//             Tell us your theme. One word is all it takes!
+//           </Label>
+//           <Input
+//             id="keyword"
+//             type="text"
+//             placeholder="(e.g., school, luxury, comic)"
+//             value={keyword}
+//             onChange={handleChange}
+//             className="mt-4"
+//           />
+//           {error && <p className="text-sm text-red-500">{error}</p>}
+//         </div>
 
-      {loading ? (
-        <div className="p-4 rounded-md my-8">
-          <p className="text-3xl font-bold">Searching for Font...🔍</p>
+//         <Button onClick={handleSearch} disabled={loading}>
+//           {loading ? (
+//             <>
+//               <Loader2 className="animate-spin" />
+//               Searching
+//             </>
+//           ) : (
+//             "Go Font Hunting 🚀"
+//           )}
+//         </Button>
+//       </div>
 
-          <div className="my-8">
-            <Skeleton className="h-5" />
-            <Skeleton className="h-9 mt-4" />
-          </div>
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <Skeleton className="h-56" />
-            <Skeleton className="h-56" />
-          </div>
-        </div>
-      ) : (
-        response.length !== 0 && (
-          <div className="p-4 rounded-md my-8">
-            <p className="text-3xl font-bold">Here Are Your Font Matches!</p>
+//       {loading ? (
+//         <div className="p-4 rounded-md my-8">
+//           <p className="text-3xl font-bold">Searching for Font...🔍</p>
 
-            <div className="my-8">
-              <Label htmlFor="keyword">
-                Want a Sneak Peek? Enter Your Text Below
-              </Label>
-              <Input
-                id="previewText"
-                type="text"
-                placeholder="Enter a your text..."
-                value={previewText}
-                onChange={handlePreviewChange}
-                className="mt-4"
-              />
-            </div>
+//           <div className="my-8">
+//             <Skeleton className="h-5" />
+//             <Skeleton className="h-9 mt-4" />
+//           </div>
+//           <div className="grid grid-cols-2 gap-4 mb-8">
+//             <Skeleton className="h-56" />
+//             <Skeleton className="h-56" />
+//           </div>
+//         </div>
+//       ) : (
+//         response.length !== 0 && (
+//           <div className="p-4 rounded-md my-8">
+//             <p className="text-3xl font-bold">Here Are Your Font Matches!</p>
 
-            <div className="grid grid-cols-2 gap-4">
-              {response.map((font, index) => (
-                <FontCard key={index} font={font} previewText={previewText} />
-              ))}
-            </div>
-          </div>
-        )
-      )}
-    </>
-  );
-}
+//             <div className="my-8">
+//               <Label htmlFor="keyword">
+//                 Want a Sneak Peek? Enter Your Text Below
+//               </Label>
+//               <Input
+//                 id="previewText"
+//                 type="text"
+//                 placeholder="Enter a your text..."
+//                 value={previewText}
+//                 onChange={handlePreviewChange}
+//                 className="mt-4"
+//               />
+//             </div>
 
-export default FontFinder;
+//             <div className="grid grid-cols-2 gap-4">
+//               {response.map((font, index) => (
+//                 <FontCard key={index} font={font} previewText={previewText} />
+//               ))}
+//             </div>
+//           </div>
+//         )
+//       )}
+//     </>
+//   );
+// }
+
+// export default FontFinder;
