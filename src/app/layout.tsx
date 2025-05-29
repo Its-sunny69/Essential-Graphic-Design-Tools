@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
+import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import AdDetection from "@/components/AdDetection";
 import Header from "@/components/Header";
@@ -20,6 +21,15 @@ const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
 });
+
+const inter = Inter({ subsets: ["latin"] });
+export const metadata: Metadata = {
+  title: {
+    default: "Essential Graphic Design Tools",
+    template: "%s - My Awesome Tools",
+  },
+  description: "Come and use this awesome tools",
+};
 
 export default function RootLayout({
   children,

@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import RateLimit from "@/models/RateLimit";
-const ai = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GEMINI_API });
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API });
 
 export async function POST(req: Request) {
   await connectDB();
