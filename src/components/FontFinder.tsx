@@ -47,22 +47,13 @@ function FontFinder() {
   const handlePreviewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPreviewText(e.target.value);
   };
-  const handlePreviewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPreviewText(e.target.value);
-  };
 
   const handleSearch = async () => {
     if (keyword?.trim() === "") {
       setError("Please enter a keyword!");
     } else {
       setLoading(true);
-  const handleSearch = async () => {
-    if (keyword?.trim() === "") {
-      setError("Please enter a keyword!");
-    } else {
-      setLoading(true);
 
-      const basePrompt = `You are a font recommendation AI. The user will provide a single array of word. Your task is to understand the meaning and connotation of the following word and recommend only 5 best Google Font family name that best visually represents it. The word is: "${keyword}". Output only the font family name array. Do not include any other text, explanations, or formatting.`;
       const basePrompt = `You are a font recommendation AI. The user will provide a single array of word. Your task is to understand the meaning and connotation of the following word and recommend only 5 best Google Font family name that best visually represents it. The word is: "${keyword}". Output only the font family name array. Do not include any other text, explanations, or formatting.`;
 
       try {
@@ -80,22 +71,13 @@ function FontFinder() {
         }
 
         const res = await getFontsFromCache(JSON.parse(fontFamily));
-        const res = await getFontsFromCache(JSON.parse(fontFamily));
 
         console.log(res);
         setResponse(res);
       } catch (error) {
         toast.error((error as Error).message || "Internal Server Error");
       }
-        console.log(res);
-        setResponse(res);
-      } catch (error) {
-        toast.error((error as Error).message || "Internal Server Error");
-      }
-
-      setLoading(false);
-    }
-  };
+        
       setLoading(false);
     }
   };
