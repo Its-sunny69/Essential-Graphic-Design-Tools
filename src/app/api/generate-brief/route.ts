@@ -11,18 +11,18 @@ export async function POST(req: Request) {
   const forwarded = req.headers.get("x-forwarded-for");
   const ip = forwarded?.split(",")[0] || "unknown";
 
-  const now = new Date();
-  const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  const resetTime = new Date();
+  const atMidnight = resetTime.setHours(0, 0, 0, 0);
 
   let entry = await RateLimit.findOne({ ip });
 
   if (!entry) {
     await RateLimit.create({ ip });
   } else {
-    if (entry.lastRequest < twentyFourHoursAgo) {
-      // Reset count
+    //At time of request check the last request is smaller than the midnight (in milliseconds)
+    if (entry.lastRequest < atMidnight) {
       entry.count = 1;
-      entry.lastRequest = now;
+      entry.lastRequest = resetTime;
       await entry.save();
     } else if (entry.count >= 5) {
       return new NextResponse(
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
       );
     } else {
       entry.count += 1;
-      entry.lastRequest = now;
+      entry.lastRequest = resetTime;
       await entry.save();
     }
   }
