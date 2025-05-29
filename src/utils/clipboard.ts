@@ -4,7 +4,7 @@ export const copyToClipboard = async (
   text: string,
   options?: {
     onSuccess?: () => void;
-    onError?: (err: any) => void;
+    onError?: (err: Error) => void;
   }
 ) => {
   try {
@@ -14,6 +14,6 @@ export const copyToClipboard = async (
     if (options?.onSuccess) options.onSuccess();
   } catch (err) {
     toast.error("Failed to copy!");
-    if (options?.onError) options.onError(err);
+    if (options?.onError) options.onError(err as Error);
   }
 };

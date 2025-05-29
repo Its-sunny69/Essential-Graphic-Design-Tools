@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -88,9 +87,9 @@ incorporate this into the brief accordingly.`
 
       setError("");
       setPrompt(res);
-    } catch (error: any) {
+    } catch (error) {
       setPrompt("");
-      setError(error.message);
+      setError((error as Error).message);
     }
 
     setLoading(false);

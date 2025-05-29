@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import React, { useState } from "react";
 import { Input } from "./ui/input";
@@ -19,59 +19,59 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-type FontItem = {
-  family: string;
-  files: {
-    regular: string;
-  };
-  category: string;
-};
+// type FontItem = {
+//   family: string;
+//   files: {
+//     regular: string;
+//   };
+//   category: string;
+// };
 
-function FontFinder() {
-  const [keyword, setKeyword] = useState<string | undefined>("");
-  const [error, setError] = useState<string | undefined>("");
-  const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState<FontItem[]>([]);
-  const [previewText, setPreviewText] = useState<string>("Preview");
+// function FontFinder() {
+//   const [keyword, setKeyword] = useState<string | undefined>("");
+//   const [error, setError] = useState<string | undefined>("");
+//   const [loading, setLoading] = useState(false);
+//   const [response, setResponse] = useState<FontItem[]>([]);
+//   const [previewText, setPreviewText] = useState<string>("Preview");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setKeyword(e.target.value);
 
-    if (e.target.value.trim() !== "") setError("");
-  };
+//     if (e.target.value.trim() !== "") setError("");
+//   };
 
-  const handlePreviewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPreviewText(e.target.value);
-  };
+//   const handlePreviewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setPreviewText(e.target.value);
+//   };
 
-  const handleSearch = async () => {
-    if (keyword?.trim() === "") {
-      setError("Please enter a keyword!");
-    } else {
-      setLoading(true);
+//   const handleSearch = async () => {
+//     if (keyword?.trim() === "") {
+//       setError("Please enter a keyword!");
+//     } else {
+//       setLoading(true);
 
-      const basePrompt = `You are a font recommendation AI. The user will provide a single array of word. Your task is to understand the meaning and connotation of the following word and recommend only 5 best Google Font family name that best visually represents it. The word is: "${keyword}". Output only the font family name array. Do not include any other text, explanations, or formatting.`;
+//       const basePrompt = `You are a font recommendation AI. The user will provide a single array of word. Your task is to understand the meaning and connotation of the following word and recommend only 5 best Google Font family name that best visually represents it. The word is: "${keyword}". Output only the font family name array. Do not include any other text, explanations, or formatting.`;
 
       try {
         const fontFamily = await geminiFontResponse(basePrompt);
 
-        console.log("fontFamily:", fontFamily);
-        if (!fontFamily) {
-          toast.error("Internal Server Error");
-          return;
-        }
+//         console.log("fontFamily:", fontFamily);
+//         if (!fontFamily) {
+//           toast.error("Internal Server Error");
+//           return;
+//         }
 
-        const res = await getFontsFromCache(JSON.parse(fontFamily));
+//         const res = await getFontsFromCache(JSON.parse(fontFamily));
 
-        console.log(res);
-        setResponse(res);
-      } catch (error) {
-        toast.error("Internal Server Error");
-      }
+//         console.log(res);
+//         setResponse(res);
+//       } catch (error) {
+//         toast.error((error as Error).message || "Internal Server Error");
+//       }
 
-      setLoading(false);
-    }
-  };
+//       setLoading(false);
+//     }
+//   };
 
   console.log(response)
   return (
@@ -95,17 +95,17 @@ function FontFinder() {
           {error && <p className="text-sm text-red-500">{error}</p>}
         </div>
 
-        <Button onClick={handleSearch} disabled={loading}>
-          {loading ? (
-            <>
-              <Loader2 className="animate-spin" />
-              Searching
-            </>
-          ) : (
-            "Go Font Hunting 🚀"
-          )}
-        </Button>
-      </div>
+//         <Button onClick={handleSearch} disabled={loading}>
+//           {loading ? (
+//             <>
+//               <Loader2 className="animate-spin" />
+//               Searching
+//             </>
+//           ) : (
+//             "Go Font Hunting 🚀"
+//           )}
+//         </Button>
+//       </div>
 
       <div key={loading ? "loading" : "loaded"} className="animate-fade">
         {loading ? (
@@ -237,4 +237,4 @@ function FontFinder() {
   );
 }
 
-export default FontFinder;
+// export default FontFinder;
