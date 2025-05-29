@@ -19,7 +19,7 @@ export async function geminiResponse(prompt: string): Promise<string> {
       body: JSON.stringify({ prompt }),
     });
 
-    console.log(res)
+    console.log(res);
 
     if (!res.ok) {
       const data = await res.json();
@@ -34,7 +34,7 @@ export async function geminiResponse(prompt: string): Promise<string> {
 
     const data = await res.json();
     return data.result;
-  } catch (error: any) {
-    throw new Error(error?.message || "Someting went wrong!");
+  } catch (error) {
+    throw new Error((error as Error).message || "Someting went wrong!");
   }
 }

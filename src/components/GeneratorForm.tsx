@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -76,12 +75,12 @@ incorporate this into the brief accordingly.`
 
     try {
       const res = await geminiResponse(basePrompt);
-      
-      setError("")
+
+      setError("");
       setPrompt(res);
-    } catch (error: any) {
+    } catch (error) {
       setPrompt("");
-      setError(error.message);
+      setError((error as Error).message);
     }
 
     setLoading(false);
@@ -287,27 +286,29 @@ incorporate this into the brief accordingly.`
                 {error}
               </div>
             </>
-          ) : prompt && (
-            <>
-              <div className="flex justify-between items-center mb-8">
-                <p className="text-3xl font-bold">
-                  Your Custom Prompt is Ready! 🎉
-                </p>
-                <button
-                  className="border rounded p-1 m-1 hover:opacity-50"
-                  onClick={handleCopy}
-                  data-tooltip-id="clipboard-tooltip"
-                  data-tooltip-content="Copy to clipboard"
-                  data-tooltip-place="top"
-                >
-                  <Clipboard />
-                </button>
-              </div>
+          ) : (
+            prompt && (
+              <>
+                <div className="flex justify-between items-center mb-8">
+                  <p className="text-3xl font-bold">
+                    Your Custom Prompt is Ready! 🎉
+                  </p>
+                  <button
+                    className="border rounded p-1 m-1 hover:opacity-50"
+                    onClick={handleCopy}
+                    data-tooltip-id="clipboard-tooltip"
+                    data-tooltip-content="Copy to clipboard"
+                    data-tooltip-place="top"
+                  >
+                    <Clipboard />
+                  </button>
+                </div>
 
-              <div className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4">
-                <Markdown>{prompt}</Markdown>
-              </div>
-            </>
+                <div className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4">
+                  <Markdown>{prompt}</Markdown>
+                </div>
+              </>
+            )
           )}
         </div>
       )}

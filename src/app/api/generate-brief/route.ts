@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   const resetTime = new Date();
   const atMidnight = resetTime.setHours(0, 0, 0, 0);
 
-  let entry = await RateLimit.findOne({ ip });
+  const entry = await RateLimit.findOne({ ip });
 
   if (!entry) {
     await RateLimit.create({ ip });
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ result: response.text });
   } catch (error) {
     return NextResponse.json(
-      { error: "AI generation failed" },
+      { error: error || "AI generation failed" },
       { status: 500 }
     );
   }
