@@ -19,7 +19,7 @@ export async function geminiResponse(prompt: string): Promise<string> {
       body: JSON.stringify({ prompt }),
     });
 
-    console.log(res)
+    console.log("geminiFunc:", res)
 
     if (!res.ok) {
       const data = await res.json();

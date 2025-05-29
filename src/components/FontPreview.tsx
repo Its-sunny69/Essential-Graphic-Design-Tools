@@ -23,7 +23,7 @@ export function FontPreview({ fontFamily, fontUrl, text }: FontPreviewProps) {
   }, [fontFamily, fontUrl]);
 
   return (
-    <div className="text-3xl min-h-9" style={{ fontFamily }}>
+    <div className="text-3xl min-h-9 break-words" style={{ fontFamily }}>
       {text}
     </div>
   );

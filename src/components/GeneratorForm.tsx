@@ -24,11 +24,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Clipboard, Loader2 } from "lucide-react";
+import { Check, Clipboard, Loader2 } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import { Skeleton } from "./ui/skeleton";
 import { copyToClipboard } from "@/utils/clipboard";
 import { geminiResponse } from "@/utils/geminiResponse";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const formSchema = z.object({
   designType: z.string().min(1, {
@@ -51,6 +57,7 @@ const formSchema = z.object({
 function GeneratorForm() {
   const [prompt, setPrompt] = useState<string | undefined>("");
   const [error, setError] = useState<string | undefined>("");
+  const [copied, setCopied] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -76,8 +83,10 @@ incorporate this into the brief accordingly.`
 
     try {
       const res = await geminiResponse(basePrompt);
-      
-      setError("")
+
+      console.log("form", res);
+
+      setError("");
       setPrompt(res);
     } catch (error: any) {
       setPrompt("");
@@ -89,14 +98,19 @@ incorporate this into the brief accordingly.`
 
   const handleCopy = () => {
     if (prompt) {
-      copyToClipboard(prompt);
+      copyToClipboard(prompt, {
+        onSuccess: () => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1000);
+        },
+      });
     }
   };
 
   console.log(error);
 
   return (
-    <>
+    <div className="animate-fade-up">
       <p className="text-4xl font-bold text-center">
         Design Smarter. Start with an AI Brief
       </p>
@@ -264,53 +278,144 @@ incorporate this into the brief accordingly.`
         </Form>
       </div>
 
-      {loading ? (
-        <div className="p-4 rounded-md my-8">
-          <div className="mb-8">
-            <p className="text-3xl font-bold">Crafting Your Prompt...⚡</p>
-          </div>
+      <div key={loading ? "loading" : "loaded"} className="animate-fade">
+        {loading ? (
+          <div className="p-4 rounded-md my-8">
+            <div className="mb-8">
+              <p className="text-3xl font-bold">Crafting Your Prompt...⚡</p>
+            </div>
 
-          <div className="p-4">
-            <Skeleton className="h-6" />
+            <div className="p-4">
+              <Skeleton className="h-6" />
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="p-4 rounded-md my-8">
-          {error ? (
-            <>
-              <div className="my-8">
-                <p className="text-3xl font-bold mb-8">
-                  ⚠️ Reached limit, Try again tomorrow!
-                </p>
+        ) : (
+          (error || prompt) && <div className="p-4 rounded-md my-8">
+            {error ? (
+              <div>
+                <div className="mb-8">
+                  <p className="text-3xl font-bold">
+                    ⚠️ Reached limit, Try again tomorrow!
+                  </p>
+                </div>
+                <div className="bg-red-100 border-l-4 border-red-300 border text-red-600 rounded-xl p-4">
+                  {error}
+                </div>
               </div>
-              <div className="bg-red-100 border-l-4 border-red-300 border text-red-600 rounded-xl p-4">
-                {error}
-              </div>
-            </>
-          ) : prompt && (
-            <>
-              <div className="flex justify-between items-center mb-8">
-                <p className="text-3xl font-bold">
-                  Your Custom Prompt is Ready! 🎉
-                </p>
-                <button
-                  className="border rounded p-1 m-1 hover:opacity-50"
-                  onClick={handleCopy}
-                  data-tooltip-id="clipboard-tooltip"
-                  data-tooltip-content="Copy to clipboard"
-                  data-tooltip-place="top"
-                >
-                  <Clipboard />
-                </button>
-              </div>
+            ) : (
+              prompt && (
+                <div className="animate-fade">
+                  <div className="flex justify-between items-center mb-8">
+                    <p className="text-3xl font-bold">
+                      Your Custom Prompt is Ready! 🎉
+                    </p>
+                    <button
+                      className=" rounded p-2 m-1 hover:bg-gray-100 active:scale-95 transition-all"
+                      onClick={handleCopy}
+                      data-tooltip-id="clipboard-tooltip"
+                      data-tooltip-content="Copy to clipboard"
+                      data-tooltip-place="top"
+                    >
+                      {copied ? <Check /> : <Clipboard />}
+                    </button>
+                  </div>
 
-              <div className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4">
-                <Markdown>{prompt}</Markdown>
-              </div>
-            </>
-          )}
-        </div>
-      )}
+                  <div className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4">
+                    <Markdown>{prompt}</Markdown>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+        )}
+      </div>
+
+      <div className="mt-16 mb-8">
+        <p className="text-4xl font-bold mb-6">How Prompt Generator works ?</p>
+
+        <ul className="pl-4 list-decimal text-lg">
+          <li className="my-2">
+            Users select a design type, industry, and style preference from
+            simple dropdowns.
+          </li>
+          <li className="my-2">
+            Optionally, users can enter a brand name to personalize the brief.
+          </li>
+          <li className="my-2">
+            Our AI model intelligently crafts a short and professional design
+            brief based on your inputs.
+          </li>
+          <li className="my-2">
+            Briefs are written in under 70 words, optimized for clarity and
+            client communication.
+          </li>
+          <li className="my-2">
+            Generated prompts are instantly copyable for use in proposals or
+            creative direction.
+          </li>
+        </ul>
+        <p className="italic my-2">
+          ⚠️ Note: In rare cases, generation may temporarily fail due to high
+          demand. Simply try again after a few moments.
+        </p>
+        <p className="my-2 text-lg border-l-4 pl-2 py-1 bg-gray-50 rounded-lg">
+          <span className="font-semibold">Ideal for: </span>Logos, flyers,
+          posters, banners, social posts, packaging & more.
+        </p>
+      </div>
+
+      <div className="my-8">
+        <p className="text-4xl font-bold mb-6">FAQs</p>
+
+        <Accordion type="single" className="pl-4" collapsible>
+          <AccordionItem value="item-1">
+            <AccordionTrigger>
+              How accurate are the AI-generated briefs?
+            </AccordionTrigger>
+            <AccordionContent>
+              The briefs are crafted using advanced language models to match
+              your design type, industry, and style. While concise, they're
+              tailored to spark creative direction effectively.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2">
+            <AccordionTrigger>
+              Can I regenerate or edit the brief?
+            </AccordionTrigger>
+            <AccordionContent>
+              Yes! You can re-submit different inputs or manually tweak the
+              brief after copying it for full customization.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3">
+            <AccordionTrigger>
+              Why does it sometimes fail to generate a brief?
+            </AccordionTrigger>
+            <AccordionContent>
+              Occasionally, high usage may delay generation. If this happens,
+              please wait a moment and try again — the system resets at 12:00 Midnight
+              automatically.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-4">
+            <AccordionTrigger>
+              Can I use the brief for client projects or pitches?
+            </AccordionTrigger>
+            <AccordionContent>
+              Absolutely. The briefs are made for real-world design use — you
+              can share them with clients, include them in proposals, or use
+              them internally.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-5">
+            <AccordionTrigger>Is the tool completely free?</AccordionTrigger>
+            <AccordionContent>
+              Yes, it's free and doesn’t require login. We simply limit overuse
+              to keep it accessible for everyone.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
 
       <Tooltip
         id="clipboard-tooltip"
@@ -318,7 +423,7 @@ incorporate this into the brief accordingly.`
         noArrow={true}
         style={{ padding: "4px 8px" }}
       />
-    </>
+    </div>
   );
 }
 
