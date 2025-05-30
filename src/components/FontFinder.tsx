@@ -4,21 +4,21 @@ import React, { useState } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
-import { geminiResponse } from "@/utils/geminiResponse";
 import toast from "react-hot-toast";
 import { Divide, Loader2 } from "lucide-react";
 import { FontPreview } from "./FontPreview";
 import { getFontsFromCache } from "@/utils/getFontsFromCache";
 import FontCard from "./FontCard";
 import { Skeleton } from "./ui/skeleton";
-import { geminiFontResponse } from "@/utils/geminiFontResponse";
+// import { geminiFontResponse } from "@/utils/geminiFontResponse";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
+import { useGeminiAPI } from "@/hooks/useGeminiAPI";
+import { string } from "zod";
 type FontItem = {
   family: string;
   files: {
@@ -30,17 +30,15 @@ type FontItem = {
 function FontFinder() {
   const [keyword, setKeyword] = useState<string | undefined>("");
   const [error, setError] = useState<string | undefined>("");
-  const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<FontItem[]>([]);
   const [previewText, setPreviewText] = useState<string>("Preview");
+  const route = process.env.NEXT_PUBLIC_FONT_FINDER_ROUTE!;
+  const fontCacheRoute = process.env.NEXT_PUBLIC_FONT_CACHE_ROUTE!;
+  const { sendPrompt, loading, apiError, result } = useGeminiAPI(route);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setKeyword(e.target.value);
 
-      if (e.target.value.trim() !== "") setError("");
-    };
     if (e.target.value.trim() !== "") setError("");
   };
 
@@ -52,33 +50,21 @@ function FontFinder() {
     if (keyword?.trim() === "") {
       setError("Please enter a keyword!");
     } else {
-      setLoading(true);
-
       const basePrompt = `You are a font recommendation AI. The user will provide a single array of word. Your task is to understand the meaning and connotation of the following word and recommend only 5 best Google Font family name that best visually represents it. The word is: "${keyword}". Output only the font family name array. Do not include any other text, explanations, or formatting.`;
-
       try {
-        const fontFamily = await geminiFontResponse(basePrompt);
-
-        console.log("fontFamily:", fontFamily);
+        const fontFamily = await sendPrompt(basePrompt);
         if (!fontFamily) {
           toast.error("Internal Server Error");
           return;
         }
-        console.log("fontFamily:", fontFamily);
-        if (!fontFamily) {
-          toast.error("Internal Server Error");
-          return;
-        }
-
-        const res = await getFontsFromCache(JSON.parse(fontFamily));
-
-        console.log(res);
+        const res = await getFontsFromCache(
+          JSON.parse(fontFamily),
+          fontCacheRoute
+        );
         setResponse(res);
       } catch (error) {
         toast.error((error as Error).message || "Internal Server Error");
       }
-
-      setLoading(false);
     }
   };
 
@@ -131,8 +117,8 @@ function FontFinder() {
             </div>
           </div>
         ) : (
-          response.length !== 0 && (
-            <div className="p-4 my-8">
+          result?.length !== 0 && (
+            <div className="p-4 rounded-md my-8">
               <p className="text-3xl font-bold">Here Are Your Font Matches!</p>
 
               <div className="my-8">
