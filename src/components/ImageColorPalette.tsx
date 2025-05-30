@@ -151,8 +151,6 @@ const ColorExtractor: React.FC = () => {
               crossOrigin="anonymous"
               alt="Uploaded"
               className="w-full h-80 rounded-xl shadow-md object-contain border"
-              width={100}
-              height={100}
             />
           </div>
         )}
