@@ -74,7 +74,7 @@ function FontFinder() {
       <p className="text-4xl font-bold text-center">
         Type a Word, Get Stunning Fonts
       </p>
-      <div className="border p-8 my-8 rounded-md shadow-md space-y-4">
+      <div className="border p-8 my-8 rounded-xl shadow-md space-y-4">
         <div>
           <Label htmlFor="keyword">
             Tell us your theme. One word is all it takes!
@@ -89,9 +89,8 @@ function FontFinder() {
           />
           {error && <p className="text-sm text-red-500">{error}</p>}
         </div>
-        //{" "}
+
         <Button onClick={handleSearch} disabled={loading}>
-          //{" "}
           {loading ? (
             <>
               <Loader2 className="animate-spin" />
@@ -105,7 +104,7 @@ function FontFinder() {
 
       <div key={loading ? "loading" : "loaded"} className="animate-fade">
         {loading ? (
-          <div className="p-4 rounded-md my-8">
+          <div className="p-4 my-8">
             <p className="text-3xl font-bold">Searching for Font...🔍</p>
 
             <div className="my-8">
