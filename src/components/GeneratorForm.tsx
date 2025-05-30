@@ -277,7 +277,7 @@ incorporate this into the brief accordingly.`
             </div>
 
             <div className="p-4">
-              <Skeleton className="h-6" />
+              <Skeleton className="h-6 rounded-xl" />
             </div>
           </div>
         ) : (
@@ -326,7 +326,7 @@ incorporate this into the brief accordingly.`
       <div className="mt-16 mb-8">
         <p className="text-4xl font-bold mb-6">How Prompt Generator works ?</p>
 
-        <ul className="pl-4 list-decimal text-lg">
+        <ul className="pl-4 list-decimal">
           <li className="my-2">
             Users select a design type, industry, and style preference from
             simple dropdowns.
@@ -351,16 +351,191 @@ incorporate this into the brief accordingly.`
           ⚠️ Note: In rare cases, generation may temporarily fail due to high
           demand. Simply try again after a few moments.
         </p>
-        <p className="my-2 text-lg border-l-4 pl-2 py-1 bg-gray-50 rounded-lg">
+        <p className="my-2 border-l-4 pl-2 py-1 bg-gray-50 rounded-lg">
           <span className="font-semibold">Ideal for: </span>Logos, flyers,
           posters, banners, social posts, packaging & more.
         </p>
       </div>
 
       <div className="my-8">
+        <header>
+          <h1 className="text-4xl mb-6 font-bold">
+            The Best Free AI Prompt Generator to Supercharge Your Creative
+            Workflow
+          </h1>
+          <p className="mt-2">
+            Discover the top AI prompt generator designed for creatives.
+            Generate high-quality design briefs instantly and for free. No login
+            required.
+          </p>
+        </header>
+
+        <section>
+          <h2 className="text-2xl font-semibold mt-8">
+            Why AI Prompt Generators Are Game-Changers
+          </h2>
+          <p className="mt-2">
+            In today’s fast-paced creative world, having a clear and structured
+            design brief can make or break a project. Whether you're a
+            freelancer, agency designer, or hobbyist, the ideation phase can be
+            mentally taxing. This is where an{" "}
+            <strong>AI prompt generator</strong> steps in to simplify and
+            supercharge your creative process.
+          </p>
+          <p className="mt-2">
+            These tools not only reduce the time spent brainstorming, but also
+            improve clarity between clients and designers. You’re not starting
+            from a blank page — you’re launching from an intelligent starting
+            point crafted by a machine that understands industry context.
+          </p>
+          <p className="mt-2">
+            If you've ever typed "ai prompt generator" or "free ai prompt
+            generator" into Google, you're likely seeking a tool that can
+            eliminate creative blocks and help you get started instantly. Our{" "}
+            <strong>AI Design Brief Generator</strong> does exactly that.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mt-8">
+            What Is an AI Prompt Generator?
+          </h2>
+          <p className="mt-2">
+            An AI prompt generator is a smart tool that leverages artificial
+            intelligence to create well-structured prompts or briefs based on
+            user inputs. These prompts can be used for various tasks such as:
+          </p>
+          <ul className="list-disc list-inside mt-2">
+            <li>Graphic design projects</li>
+            <li>Branding & logo design</li>
+            <li>Marketing campaigns</li>
+            <li>Content planning</li>
+            <li>Website layout guidance</li>
+            <li>Ad copy or social media creatives</li>
+          </ul>
+          <p className="mt-2">
+            Unlike traditional generators that offer random suggestions,
+            AI-driven tools analyze context and generate results that are highly
+            relevant and actionable. They learn from large datasets and
+            understand patterns in how good briefs are structured — giving users
+            a head start.
+          </p>
+          <p className="mt-2">
+            These generators can serve as idea accelerators, allowing teams to
+            align quickly and move forward with clarity.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mt-8">
+            Meet Our AI Design Brief Generator
+          </h2>
+          <p className="mt-2">
+            Our <strong>AI Design Brief Generator</strong> is built specifically
+            for designers who need high-quality, concise, and clear design
+            briefs. It uses advanced AI (powered by Google Gemini) to understand
+            user inputs like design type, industry, and style preferences.
+          </p>
+          <p className="mt-2">
+            Whether you're designing a sleek logo for a fintech startup or a
+            vibrant poster for an event, the tool adapts to your needs, ensuring
+            every brief feels personalized.
+          </p>
+          <h3 className="text-xl font-semibold mt-4">Key Features</h3>
+          <ul className="list-disc list-inside mt-2">
+            <li>
+              No Login Required – Use it instantly, no signup or payment needed.
+            </li>
+            <li>
+              Fast & Responsive – Generate a complete brief in less than 5
+              seconds.
+            </li>
+            <li>
+              Customizable – Input brand name, select style, and industry.
+            </li>
+            <li>Copy-Ready Output – Easy to copy and paste wherever needed.</li>
+            <li>
+              Mobile Friendly – Works seamlessly on smartphones and tablets.
+            </li>
+            <li>
+              Minimal Interface – Clean UI focused purely on generating your
+              brief.
+            </li>
+          </ul>
+          <p className="mt-2">
+            The generator removes the guesswork from brainstorming and acts as a
+            virtual assistant for creatives under deadlines.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mt-8">Real-World Examples</h2>
+          <p className="mt-2">
+            Here are a few sample outputs generated using different input
+            combinations:
+          </p>
+          <ul className="list-disc list-inside mt-2">
+            <li>
+              <strong>Logo for a tech company</strong>: “Design a modern,
+              geometric logo for a cybersecurity startup. Use dark blue and
+              silver tones.”
+            </li>
+            <li>
+              <strong>Poster for a music festival</strong>: “Create a playful
+              and bold poster for an indie music fest targeting college
+              students.”
+            </li>
+            <li>
+              <strong>Packaging for organic tea</strong>: “Design a minimalist
+              package for an herbal tea brand with earthy colors and elegant
+              typography.”
+            </li>
+          </ul>
+          <p className="mt-2">
+            These examples showcase the versatility of the AI engine and its
+            ability to interpret context.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mt-8">
+            Why Designers Love This Tool
+          </h2>
+          <p className="mt-2">
+            Designers appreciate tools that reduce repetitive thinking and
+            increase creativity. Our AI Brief Generator is trusted because:
+          </p>
+          <ul className="list-disc list-inside mt-2">
+            <li>It removes the blank-page syndrome entirely</li>
+            <li>It’s reliable under deadlines</li>
+            <li>It offers professional tone briefs every time</li>
+            <li>It’s useful for client projects and internal ideation alike</li>
+          </ul>
+          <p className="mt-2">
+            Whether you're a student trying to meet a tight deadline or a
+            freelancer juggling multiple clients, this tool ensures consistency
+            and clarity.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mt-8">Conclusion</h2>
+          <p className="mt-2">
+            In a world where speed and clarity are crucial, having a reliable
+            partner like an AI Prompt Generator makes a huge difference. It’s
+            not about replacing creativity — it’s about accelerating it.
+          </p>
+          <p className="mt-2">
+            If you're ready to work smarter, try our free tool and join
+            thousands of designers already supercharging their workflow.
+          </p>
+        </section>
+      </div>
+
+      <div className="my-8">
         <p className="text-4xl font-bold mb-6">FAQs</p>
 
-        <Accordion type="single" className="pl-4" collapsible>
+        <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger>
               How accurate are the AI-generated briefs?
