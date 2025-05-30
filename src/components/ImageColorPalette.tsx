@@ -100,14 +100,14 @@ const ColorExtractor: React.FC = () => {
         Image-Based Color Palette Generator
       </p>
 
-      <div className="border p-8 my-8 rounded-md shadow-md">
+      <div className="border p-8 my-8 rounded-xl shadow-md">
         <div className="mb-8">
           <p className="font-semibold mb-4">Upload your reference image:</p>
 
           <div className="flex items-center justify-center w-full">
             <Label
               htmlFor="dropzone-file"
-              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 hover:border-gray-900 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all"
+              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 hover:border-gray-900 border-dashed rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all"
             >
               <div className="flex flex-col items-center justify-center">
                 <UploadCloudIcon size={64} className="text-gray-400" />
@@ -148,7 +148,9 @@ const ColorExtractor: React.FC = () => {
               ref={imgRef}
               crossOrigin="anonymous"
               alt="Uploaded"
-              className="w-full h-80 rounded shadow-md object-contain border"
+              className="w-full h-80 rounded-xl shadow-md object-contain border"
+              width={100}
+              height={100}
             />
           </div>
         )}
@@ -160,11 +162,11 @@ const ColorExtractor: React.FC = () => {
 
       <div>
         {loading ? (
-          <div className="p-4 rounded-md my-8">
+          <div className="p-4 my-8">
             <p className="text-3xl font-bold">Painting Your Palette...🖌️</p>
 
             <div className="grid grid-flow-row grid-cols-2 gap-4 my-8">
-              <div className="flex border py-2 px-3 justify-center items-center rounded-lg bg-slate-50">
+              <div className="flex border py-2 px-3 justify-center items-center rounded-xl bg-slate-50">
                 <Skeleton className="w-12 h-12 rounded border" />
                 <div className="w-full py-2 pl-4 flex flex-col gap-4 font-mono">
                   <Skeleton className="w-full h-3" />
@@ -172,7 +174,7 @@ const ColorExtractor: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex border py-2 px-3 justify-center items-center rounded-lg bg-slate-50">
+              <div className="flex border py-2 px-3 justify-center items-center rounded-xl bg-slate-50">
                 <Skeleton className="w-12 h-12 rounded border" />
                 <div className="w-full py-2 pl-4 flex flex-col gap-4 font-mono">
                   <Skeleton className="w-full h-3" />
@@ -183,7 +185,7 @@ const ColorExtractor: React.FC = () => {
           </div>
         ) : (
           palette.length > 0 && (
-            <div className="p-4 rounded-md my-8 animate-fade">
+            <div className="p-4 my-8 animate-fade">
               <p className="text-3xl font-bold">
                 Here’s Your Custom Color Palette 🎨
               </p>
@@ -200,7 +202,7 @@ const ColorExtractor: React.FC = () => {
                   return (
                     <div
                       key={i}
-                      className="flex border py-2 px-3 justify-center items-center rounded-lg bg-slate-50"
+                      className="flex border py-2 px-3 justify-center items-center rounded-xl bg-slate-50"
                     >
                       <div
                         className={`w-12 h-12 rounded border`}
@@ -311,6 +313,159 @@ const ColorExtractor: React.FC = () => {
           <span className="font-semibold">Perfect for: </span>Color inspiration,
           brand guides, theme creation, and product packaging.
         </p>
+      </div>
+
+      <div className="my-8">
+        <header>
+          <h1 className="text-4xl font-bold leading-tight tracking-tight">
+            Discover Stunning Color Palettes with Our AI Color Palette Generator
+          </h1>
+          <p className="mt-2 ">
+            Transform your images into professional-grade color palettes in
+            seconds. Whether you're designing a brand, building a website, or
+            crafting a presentation — our AI-powered tool extracts the top 10
+            dominant colors with precision.
+          </p>
+        </header>
+
+        <section className="mt-8">
+          <h2 className="text-2xl font-semibold mb-2">
+            Why Color Palettes Are Crucial in Design
+          </h2>
+          <p className="mt-2 ">
+            Colors influence emotions, behavior, and perception. A well-curated
+            color palette strengthens visual identity and guides user attention
+            effectively. Designers often spend hours trying to extract
+            harmonious color schemes — our{" "}
+            <strong>AI Color Palette Generator</strong> solves this instantly.
+          </p>
+          <p className="mt-2 ">
+            Whether you're branding, creating a website, or designing packaging,
+            consistent and compelling colors enhance user experience and brand
+            recall.
+          </p>
+        </section>
+
+        <section className="mt-8">
+          <h2 className="text-2xl font-semibold mb-2">
+            What Is the AI Color Palette Generator?
+          </h2>
+          <p className="mt-2 ">
+            Our tool uses machine learning and image analysis to scan your
+            uploaded image and generate a palette of the 10 most dominant
+            colors. It supports PNG, JPG, and other common formats.
+          </p>
+          <p className="mt-2 ">
+            Designed to be intuitive and fast, this tool is perfect for UI
+            designers, artists, developers, or anyone looking to derive
+            beautiful, ready-to-use color schemes.
+          </p>
+        </section>
+
+        <section className="mt-8">
+          <h2 className="text-2xl font-semibold mb-2">How It Works</h2>
+          <ol className="list-decimal list-inside mt-2  space-y-1">
+            <li>Upload a reference image (PNG, JPG).</li>
+            <li>
+              The tool analyzes the image using AI-based color recognition.
+            </li>
+            <li>
+              It extracts the top 10 dominant colors based on frequency and
+              contrast.
+            </li>
+            <li>
+              You instantly see swatches along with their HEX and RGB values.
+            </li>
+            <li>Export options include PNG, JSON, and CSS variables.</li>
+          </ol>
+        </section>
+
+        <section className="mt-8">
+          <h2 className="text-2xl font-semibold mb-2">
+            Why Use This AI Color Extractor?
+          </h2>
+          <ul className="list-disc pl-6  space-y-2">
+            <li>
+              <strong>Accurate</strong> – Identifies the most used and visually
+              dominant tones.
+            </li>
+            <li>
+              <strong>Fast</strong> – Generates palettes within seconds.
+            </li>
+            <li>
+              <strong>Flexible Exports</strong> – Download as PNG, CSS, or JSON
+              formats.
+            </li>
+            <li>
+              <strong>Customizable</strong> – Copy individual HEX/RGB codes
+              instantly.
+            </li>
+            <li>
+              <strong>No Login Required</strong> – Free, private, and ready to
+              use.
+            </li>
+          </ul>
+        </section>
+
+        <section className="mt-8">
+          <h2 className="text-2xl font-semibold mb-2">
+            Use Cases & Creative Applications
+          </h2>
+          <ul className="list-disc pl-6  space-y-2">
+            <li>
+              <strong>UI/UX Designers</strong> – Quickly build design systems
+              based on visual references.
+            </li>
+            <li>
+              <strong>Branding Experts</strong> – Extract color identity from
+              product photos or moodboards.
+            </li>
+            <li>
+              <strong>Developers</strong> – Generate CSS color tokens from
+              design assets.
+            </li>
+            <li>
+              <strong>Photographers</strong> – Analyze dominant tones for
+              editing consistency.
+            </li>
+            <li>
+              <b>Interior Designers</b> – Sample palettes from real-world decor
+              images.
+            </li>
+          </ul>
+        </section>
+
+        <section className="mt-8">
+          <h2 className="text-2xl font-semibold mb-2">
+            SEO Benefits of Using Consistent Color Palettes
+          </h2>
+          <p className="mt-2 ">
+            Consistent and accessible color palettes improve site performance,
+            reduce bounce rates, and increase engagement. A visually pleasant UI
+            keeps users on your page longer, indirectly benefiting search
+            rankings.
+          </p>
+          <ul className="list-disc pl-6  space-y-2">
+            <li>Improves brand recall</li>
+            <li>Boosts user trust through visual consistency</li>
+            <li>Enhances accessibility when paired with good contrast</li>
+            <li>Increases social shareability with attractive visuals</li>
+          </ul>
+        </section>
+
+        <section className="mt-8">
+          <h2 className="text-2xl font-semibold mb-2">Final Thoughts</h2>
+          <p className="mt-2 ">
+            Our <strong>AI Color Palette Generator</strong> is designed for
+            anyone who values color harmony — from creatives and coders to
+            marketers and makers. Stop guessing and start designing with
+            confidence.
+          </p>
+          <p className="mt-2 ">
+            Try it out now and turn your inspiration into stunning visual
+            identities.
+          </p>
+        </section>
       </div>
 
       <div className="my-8">

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -6,9 +7,9 @@ function Footer() {
     <div className="w-full bg-black text-white border-b py-2 px-8 bottom-0">
       <div className="flex justify-between items-center my-4">
         <div className="hover:scale-105 active:scale-95 transition-all">
-          <Link href="/" className="flex justify-center items-center">
-            <img src="/logoLight.svg" className="w-14 mr-2"></img>
-            <span className="text-white">Briefoxspan</span>
+          <Link href="/" className="flex justify-center items-center font-bold">
+            <Image width={56} height={56} alt="logo" src="/logoLight.svg" className="mr-1"></Image>
+            <span className="text-white">Briefox</span>
             <span className="text-[#CACACA]">.com</span>
           </Link>
         </div>

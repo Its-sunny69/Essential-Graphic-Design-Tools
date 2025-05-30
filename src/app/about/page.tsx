@@ -17,7 +17,7 @@ export default function Features() {
       <section className="my-8">
         <h1 className="text-4xl font-bold">&#128640; Why It Exists</h1>
 
-        <ul className="list-disc mt-4 pl-4">
+        <ul className="list-disc mt-4 pl-4 text-lg">
           <li>
             Design briefs often take too long to write — now AI does it for you.
           </li>
@@ -37,7 +37,7 @@ export default function Features() {
           &#128736;&#65039; What's Included
         </h1>
 
-        <ul className="list-disc mt-4 pl-4">
+        <ul className="list-disc mt-4 pl-4 text-lg">
           <li>
             <b>AI Design Brief Generator</b>
             <ul>
@@ -73,7 +73,7 @@ export default function Features() {
           &#x1F4E2; No Logins. No Paywalls.
         </h1>
 
-        <p className="text-justify mt-4 pl-4">
+        <p className="text-justify mt-4 pl-4 text-lg">
           Everything is completely free to use — no sign-up required, no
           subscriptions, and no annoying blockers. This is built for designers,
           by someone who understands the hustle of getting creative work done

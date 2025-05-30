@@ -1,8 +1,17 @@
 import { Sparkle, Sparkles } from "lucide-react";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import Link from "next/link";
+import Carousel from "@/components/ui/Carousel/Carousel";
 
 export default function Home() {
+  const carouselItem = [
+    { description: "Cool text animations for your projects." },
+    { description: "Smooth animations for your projects." },
+    { description: "Reusable components for your projects." },
+    { description: "Beautiful backgrounds and patterns for your projects." },
+    { description: "Common UI components are coming soon!" },
+  ];
+
   return (
     <div className="w-[70%] mx-auto">
       <div className="my-20">
@@ -30,6 +39,25 @@ export default function Home() {
           <p className="text-xs text-gray-600 italic mt-1">
             No login required. 100% free.
           </p>
+        </div>
+      </div>
+
+      <div className="my-20 grid grid-cols-2">
+        <div className="text-left">
+          <p className="text-6xl font-bold">Spark Creativity?</p>
+          <p className="mt-8 text-lg"> Try these amazing AI-powered prompts to jumpstart your next design, unlock fresh ideas, and bring your creative vision to life — instantly.</p>
+        </div>
+
+        <div className="flex justify-end">
+          <Carousel
+            baseWidth={400}
+            autoplay={true}
+            autoplayDelay={3000}
+            pauseOnHover={true}
+            loop={true}
+            round={false}
+            items={carouselItem}
+          />
         </div>
       </div>
 
