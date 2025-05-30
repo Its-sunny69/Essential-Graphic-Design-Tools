@@ -1,16 +1,25 @@
+type FontItem = {
+  family: string;
+  files: {
+    regular: string;
+  };
+  category: string;
+};
+
 let fontCache: any[] = [];
 let lastFetchTime = 0;
 const TTL = 1000 * 60 * 60 * 24; // 24 hours
 
-export async function getFontsFromCache(fontFamily: string[]) {
-  const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_CLOUD_API;
-
+export async function getFontsFromCache(
+  fontFamily: string[],
+  apiRoute: string
+): Promise<FontItem[]> {
   const isCacheValid = fontCache.length && Date.now() - lastFetchTime < TTL;
-
   if (!isCacheValid) {
-    const response = await fetch(
-      `https://www.googleapis.com/webfonts/v1/webfonts?key=${API_KEY}`
-    );
+    const response = await fetch(apiRoute, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
 
     if (!response.ok) {
       throw new Error("Failed to fetch fonts");
@@ -18,7 +27,7 @@ export async function getFontsFromCache(fontFamily: string[]) {
 
     const data = await response.json();
 
-    fontCache = data.items;
+    fontCache = data.result.items;
     lastFetchTime = Date.now();
   }
 

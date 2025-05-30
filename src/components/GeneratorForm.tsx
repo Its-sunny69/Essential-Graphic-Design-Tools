@@ -27,13 +27,14 @@ import { Check, Clipboard, Loader2 } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import { Skeleton } from "./ui/skeleton";
 import { copyToClipboard } from "@/utils/clipboard";
-import { geminiResponse } from "@/utils/geminiResponse";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useGeminiAPI } from "@/hooks/useGeminiAPI";
 
 const formSchema = z.object({
   designType: z.string().min(1, {
@@ -54,10 +55,11 @@ const formSchema = z.object({
 });
 
 function GeneratorForm() {
-  const [prompt, setPrompt] = useState<string | undefined>("");
+  // const [prompt, setPrompt] = useState<string | undefined>("");
   const [error, setError] = useState<string | undefined>("");
   const [copied, setCopied] = useState<boolean>(false);
-  const [loading, setLoading] = useState(false);
+  const route = process.env.NEXT_PUBLIC_PROMPT_ROUTE!;
+  const { sendPrompt, apiError, loading, result } = useGeminiAPI(route);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -70,8 +72,6 @@ function GeneratorForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setLoading(true);
-
     const basePrompt = `Please create a ${values.stylePreference} ${
       values.designType
     } for a brand operating in the ${values.industry} industry. ${
@@ -81,23 +81,17 @@ incorporate this into the brief accordingly.`
     } Provide a concise and professional design brief suitable for a creative designer. The output should be max 70 words`;
 
     try {
-      const res = await geminiResponse(basePrompt);
-
-      console.log("form", res);
+      const res = await sendPrompt(basePrompt);
 
       setError("");
-      setPrompt(res);
     } catch (error) {
-      setPrompt("");
       setError((error as Error).message);
     }
-
-    setLoading(false);
   }
 
   const handleCopy = () => {
-    if (prompt) {
-      copyToClipboard(prompt, {
+    if (result) {
+      copyToClipboard(result, {
         onSuccess: () => {
           setCopied(true);
           setTimeout(() => setCopied(false), 1000);
@@ -105,8 +99,6 @@ incorporate this into the brief accordingly.`
       });
     }
   };
-
-  console.log(error);
 
   return (
     <div className="animate-fade-up">
@@ -289,43 +281,45 @@ incorporate this into the brief accordingly.`
             </div>
           </div>
         ) : (
-          (error || prompt) && <div className="p-4 rounded-md my-8">
-            {error ? (
-              <div>
-                <div className="mb-8">
-                  <p className="text-3xl font-bold">
-                    ⚠️ Reached limit, Try again tomorrow!
-                  </p>
-                </div>
-                <div className="bg-red-100 border-l-4 border-red-300 border text-red-600 rounded-xl p-4">
-                  {error}
-                </div>
-              </div>
-            ) : (
-              prompt && (
-                <div className="animate-fade">
-                  <div className="flex justify-between items-center mb-8">
+          (apiError || result) && (
+            <div className="p-4 rounded-md my-8">
+              {apiError ? (
+                <div>
+                  <div className="mb-8">
                     <p className="text-3xl font-bold">
-                      Your Custom Prompt is Ready! 🎉
+                      ⚠️ Reached limit, Try again tomorrow!
                     </p>
-                    <button
-                      className=" rounded p-2 m-1 hover:bg-gray-100 active:scale-95 transition-all"
-                      onClick={handleCopy}
-                      data-tooltip-id="clipboard-tooltip"
-                      data-tooltip-content="Copy to clipboard"
-                      data-tooltip-place="top"
-                    >
-                      {copied ? <Check /> : <Clipboard />}
-                    </button>
                   </div>
-
-                  <div className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4">
-                    <Markdown>{prompt}</Markdown>
+                  <div className="bg-red-100 border-l-4 border-red-300 border text-red-600 rounded-xl p-4">
+                    {apiError}
                   </div>
                 </div>
-              )
-            )}
-          </div>
+              ) : (
+                result && (
+                  <div className="animate-fade">
+                    <div className="flex justify-between items-center mb-8">
+                      <p className="text-3xl font-bold">
+                        Your Custom Prompt is Ready! 🎉
+                      </p>
+                      <button
+                        className=" rounded p-2 m-1 hover:bg-gray-100 active:scale-95 transition-all"
+                        onClick={handleCopy}
+                        data-tooltip-id="clipboard-tooltip"
+                        data-tooltip-content="Copy to clipboard"
+                        data-tooltip-place="top"
+                      >
+                        {copied ? <Check /> : <Clipboard />}
+                      </button>
+                    </div>
+
+                    <div className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4">
+                      <Markdown>{result}</Markdown>
+                    </div>
+                  </div>
+                )
+              )}
+            </div>
+          )
         )}
       </div>
 
@@ -392,8 +386,8 @@ incorporate this into the brief accordingly.`
             </AccordionTrigger>
             <AccordionContent>
               Occasionally, high usage may delay generation. If this happens,
-              please wait a moment and try again — the system resets at 12:00 Midnight
-              automatically.
+              please wait a moment and try again — the system resets at 12:00
+              Midnight automatically.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-4">

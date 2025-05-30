@@ -144,6 +144,8 @@ const ColorExtractor: React.FC = () => {
             </div>
 
             <Image
+              width={800}
+              height={400}
               src={imageUrl}
               ref={imgRef}
               crossOrigin="anonymous"
