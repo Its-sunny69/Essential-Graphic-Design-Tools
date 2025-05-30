@@ -24,7 +24,7 @@ function FontCard({ font, previewText }: FontCardProps) {
   )}`;
 
   return (
-    <div className="border rounded-md p-4 flex flex-col justify-between">
+    <div className="border rounded-xl p-4 flex flex-col justify-between">
       <div>
         <p className="text-xl font-bold">{font.family}</p>
 

@@ -3,10 +3,14 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="w-full bg-black text-white border-b py-4 px-8 bottom-0">
+    <div className="w-full bg-black text-white border-b py-2 px-8 bottom-0">
       <div className="flex justify-between items-center my-4">
-        <div className="hover:text-gray-400 active:scale-95 transition-all">
-          <Link href="/">Header</Link>
+        <div className="hover:scale-105 active:scale-95 transition-all">
+          <Link href="/" className="flex justify-center items-center">
+            <img src="/logoLight.svg" className="w-14 mr-2"></img>
+            <span className="text-white">Briefoxspan</span>
+            <span className="text-[#CACACA]">.com</span>
+          </Link>
         </div>
 
         <div className="flex">
@@ -24,7 +28,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      
+
       <div className="text-center my-2">
         <p className="text-sm text-gray-400">
           © 2025 DesignToolbox. All rights reserved. |{" "}

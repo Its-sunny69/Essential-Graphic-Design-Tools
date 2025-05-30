@@ -113,7 +113,7 @@ incorporate this into the brief accordingly.`
       <p className="text-4xl font-bold text-center">
         Design Smarter. Start with an AI Brief
       </p>
-      <div className="border p-8 my-8 rounded-md shadow-md">
+      <div className="border p-8 my-8 rounded-xl shadow-md">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -279,7 +279,7 @@ incorporate this into the brief accordingly.`
 
       <div key={loading ? "loading" : "loaded"} className="animate-fade">
         {loading ? (
-          <div className="p-4 rounded-md my-8">
+          <div className="p-4 my-8">
             <div className="mb-8">
               <p className="text-3xl font-bold">Crafting Your Prompt...⚡</p>
             </div>
@@ -289,7 +289,7 @@ incorporate this into the brief accordingly.`
             </div>
           </div>
         ) : (
-          (error || prompt) && <div className="p-4 rounded-md my-8">
+          (error || prompt) && <div className="p-4 my-8">
             {error ? (
               <div>
                 <div className="mb-8">

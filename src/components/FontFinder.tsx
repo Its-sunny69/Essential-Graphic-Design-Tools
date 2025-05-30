@@ -36,11 +36,11 @@ function FontFinder() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setKeyword(e.target.value);
 
-    if (e.target.value.trim() !== "") setError("");
-  };
+      if (e.target.value.trim() !== "") setError("");
+    };
     if (e.target.value.trim() !== "") setError("");
   };
 
@@ -77,18 +77,18 @@ function FontFinder() {
       } catch (error) {
         toast.error((error as Error).message || "Internal Server Error");
       }
-        
+
       setLoading(false);
     }
   };
 
-  console.log(response)
+  console.log(response);
   return (
     <div className="animate-fade-up">
       <p className="text-4xl font-bold text-center">
         Type a Word, Get Stunning Fonts
       </p>
-      <div className="border p-8 my-8 rounded-md shadow-md space-y-4">
+      <div className="border p-8 my-8 rounded-xl shadow-md space-y-4">
         <div>
           <Label htmlFor="keyword">
             Tell us your theme. One word is all it takes!
@@ -104,8 +104,8 @@ function FontFinder() {
           {error && <p className="text-sm text-red-500">{error}</p>}
         </div>
 
-//         <Button onClick={handleSearch} disabled={loading}>
-//           {loading ? (
+        <Button onClick={handleSearch} disabled={loading}>
+          {loading ? (
             <>
               <Loader2 className="animate-spin" />
               Searching
@@ -118,7 +118,7 @@ function FontFinder() {
 
       <div key={loading ? "loading" : "loaded"} className="animate-fade">
         {loading ? (
-          <div className="p-4 rounded-md my-8">
+          <div className="p-4 my-8">
             <p className="text-3xl font-bold">Searching for Font...🔍</p>
 
             <div className="my-8">
@@ -132,7 +132,7 @@ function FontFinder() {
           </div>
         ) : (
           response.length !== 0 && (
-            <div className="p-4 rounded-md my-8">
+            <div className="p-4 my-8">
               <p className="text-3xl font-bold">Here Are Your Font Matches!</p>
 
               <div className="my-8">
