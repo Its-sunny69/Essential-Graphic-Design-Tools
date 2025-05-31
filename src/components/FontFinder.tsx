@@ -32,6 +32,7 @@ function FontFinder() {
   const [error, setError] = useState<string | undefined>("");
   const [response, setResponse] = useState<FontItem[]>([]);
   const [previewText, setPreviewText] = useState<string>("Preview");
+  const [fontLoading, setFontLoading] = useState(false);
   const route = process.env.NEXT_PUBLIC_FONT_FINDER_ROUTE!;
   const fontCacheRoute = process.env.NEXT_PUBLIC_FONT_CACHE_ROUTE!;
   const { sendPrompt, loading, apiError, result } = useGeminiAPI(route);
@@ -48,8 +49,8 @@ function FontFinder() {
   };
 
   const handleSearch = async () => {
-    setResponseLoading(true);
-
+    setFontLoading(true);
+    setResponse([]);
     if (keyword?.trim() === "") {
       setError("Please enter a keyword!");
     } else {
@@ -60,6 +61,7 @@ function FontFinder() {
           toast.error("Internal Server Error");
           return;
         }
+
         const res = await getFontsFromCache(
           JSON.parse(fontFamily),
           fontCacheRoute
@@ -69,11 +71,12 @@ function FontFinder() {
         setResponseLoading(false);
       } catch (error) {
         toast.error((error as Error).message || "Internal Server Error");
+      } finally {
+        setFontLoading(false);
       }
     }
   };
 
-  console.log(response);
   return (
     <div className="animate-fade-up">
       <p className="sm:text-4xl text-2xl font-bold text-center">
@@ -95,8 +98,8 @@ function FontFinder() {
           {error && <p className="text-sm text-red-500">{error}</p>}
         </div>
 
-        <Button onClick={handleSearch} disabled={loading}>
-          {loading ? (
+        <Button onClick={handleSearch} disabled={fontLoading}>
+          {fontLoading ? (
             <>
               <Loader2 className="animate-spin" />
               Searching
@@ -107,8 +110,8 @@ function FontFinder() {
         </Button>
       </div>
 
-      <div key={loading ? "loading" : "loaded"} className="animate-fade">
-        {responseLoading ? (
+      <div key={fontLoading ? "loading" : "loaded"} className="animate-fade">
+        {fontLoading ? (
           <div className="p-4 my-8">
             <p className="sm:text-3xl text-2xl font-bold">Searching for Font...🔍</p>
 
@@ -122,8 +125,9 @@ function FontFinder() {
             </div>
           </div>
         ) : (
-          <div className="p-4 rounded-md my-8">
-            <p className="sm:text-3xl text-2xl font-bold">Here Are Your Font Matches!</p>
+          response?.length !== 0 && (
+            <div className="p-4 rounded-md my-8">
+              <p className="text-3xl font-bold">Here Are Your Font Matches!</p>
 
             <div className="sm:w-[50%] my-8">
               <Label htmlFor="keyword">
