@@ -1,3 +1,9 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+};
+
 export default function Features() {
   return (
     <div className="md:w-[70%] sm:w-[80%] w-[90%] mx-auto">
