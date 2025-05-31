@@ -1,7 +1,15 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+};
+
 export default function Features() {
   return (
     <div className="md:w-[70%] sm:w-[80%] w-[90%] mx-auto">
-      <h1 className="md:text-6xl sm:text-5xl text-4xl my-8 font-bold text-center">About</h1>
+      <h1 className="md:text-6xl sm:text-5xl text-4xl my-8 font-bold text-center">
+        About
+      </h1>
 
       <section className="my-8">
         <p className="text-lg text-justify">
@@ -15,7 +23,9 @@ export default function Features() {
       </section>
 
       <section className="my-8">
-        <h1 className="sm:text-3xl text-2xl font-bold">&#128640; Why It Exists</h1>
+        <h1 className="sm:text-3xl text-2xl font-bold">
+          &#128640; Why It Exists
+        </h1>
 
         <ul className="list-disc mt-4 pl-4 ">
           <li>

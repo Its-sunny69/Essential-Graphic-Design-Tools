@@ -25,7 +25,7 @@ const roboto = Roboto({
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: {
-    default: "Essential Graphic Design Tools",
+    default: "Briefox",
     template: "%s - My Awesome Tools",
   },
   description: "Come and use this awesome tools",
