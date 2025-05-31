@@ -57,7 +57,7 @@ export default function Home() {
 
         <div className="flex md:justify-end justify-center items-center">
           <Carousel
-            baseWidth={370}
+            baseWidth={350}
             autoplay={true}
             autoplayDelay={3000}
             pauseOnHover={true}
@@ -74,92 +74,104 @@ export default function Home() {
         </p>
 
         <div className="sm:grid grid-cols-3 gap-2 pt-8">
-          <CardContainer>
-            <CardBody className="bg-gray-50 relative group/card border-black/[0.1] rounded-xl md:p-6 p-3 border">
-              <CardItem
-                translateZ="50"
-                className="md:py-5 py-3 md:text-5xl text-3xl"
-              >
-                {"\u2728"}
-              </CardItem>
+          <Link
+            href="/features?tool=prompt-generator"
+            className="cursor-pointer"
+          >
+            <CardContainer>
+              <CardBody className="bg-gray-50 relative group/card border-black/[0.1] rounded-xl md:p-6 p-3 border">
+                <CardItem
+                  translateZ="50"
+                  className="md:py-5 py-3 md:text-5xl text-3xl"
+                >
+                  {"\u2728"}
+                </CardItem>
 
-              <CardItem
-                as="p"
-                translateZ="60"
-                className="text-neutral-900 w-full md:text-lg font-semibold sm:text-center mt-2"
-              >
-                AI Design Brief <br className="md:hidden sm:inline hidden" />
-                Generator
-              </CardItem>
+                <CardItem
+                  as="p"
+                  translateZ="60"
+                  className="text-neutral-900 w-full md:text-lg font-semibold sm:text-center mt-2"
+                >
+                  AI Design Brief <br className="md:hidden sm:inline hidden" />
+                  Generator
+                </CardItem>
 
-              <CardItem
-                translateZ="80"
-                as="button"
-                className="px-2 py-2 rounded-xl text-sm bg-black text-white text-justify mt-4"
-              >
-                Generate concise and professional design briefs tailored to your
-                industry, style, and brand.
-              </CardItem>
-            </CardBody>
-          </CardContainer>
+                <CardItem
+                  translateZ="80"
+                  as="button"
+                  className="px-2 py-2 rounded-xl text-sm bg-black text-white text-justify mt-4"
+                >
+                  Generate concise and professional design briefs tailored to
+                  your industry, style, and brand.
+                </CardItem>
+              </CardBody>
+            </CardContainer>
+          </Link>
 
-          <CardContainer>
-            <CardBody className="bg-gray-50 relative group/card border-black/[0.1] rounded-xl md:p-6 p-3 border">
-              <CardItem
-                translateZ="50"
-                className="md:py-5 py-3 md:text-5xl text-3xl"
-              >
-                {"\u2712\uFE0F"}
-              </CardItem>
+          <Link href="/features?tool=font-finder" className="cursor-pointer">
+            <CardContainer>
+              <CardBody className="bg-gray-50 relative group/card border-black/[0.1] rounded-xl md:p-6 p-3 border">
+                <CardItem
+                  translateZ="50"
+                  className="md:py-5 py-3 md:text-5xl text-3xl"
+                >
+                  {"\u2712\uFE0F"}
+                </CardItem>
 
-              <CardItem
-                as="p"
-                translateZ="60"
-                className="text-neutral-900 w-full md:text-lg font-semibold sm:text-center mt-2"
-              >
-                Keyword-Based <br className="md:hidden sm:inline hidden" />
-                Font Finder
-              </CardItem>
+                <CardItem
+                  as="p"
+                  translateZ="60"
+                  className="text-neutral-900 w-full md:text-lg font-semibold sm:text-center mt-2"
+                >
+                  Keyword-Based <br className="md:hidden sm:inline hidden" />
+                  Font Finder
+                </CardItem>
 
-              <CardItem
-                translateZ="80"
-                as="button"
-                className="px-2 py-2 rounded-xl bg-black text-sm text-white text-justify mt-4"
-              >
-                Enter a theme-related keyword like "school", "luxury", or
-                "comic", and get 5 free commercial-use fonts.
-              </CardItem>
-            </CardBody>
-          </CardContainer>
+                <CardItem
+                  translateZ="80"
+                  as="button"
+                  className="px-2 py-2 rounded-xl bg-black text-sm text-white text-justify mt-4"
+                >
+                  Enter a theme-related keyword like "school", "luxury", or
+                  "comic", and get 5 free commercial-use fonts.
+                </CardItem>
+              </CardBody>
+            </CardContainer>
+          </Link>
 
-          <CardContainer>
-            <CardBody className="bg-gray-50 relative group/card border-black/[0.1] rounded-xl md:p-6 p-3 border">
-              <CardItem
-                translateZ="50"
-                className="md:py-5 py-3 md:text-5xl text-3xl"
-              >
-                {"\u{1F308}"}
-              </CardItem>
+          <Link
+            href="/features?tool=color-extractor"
+            className="cursor-pointer"
+          >
+            <CardContainer>
+              <CardBody className="bg-gray-50 relative group/card border-black/[0.1] rounded-xl md:p-6 p-3 border">
+                <CardItem
+                  translateZ="50"
+                  className="md:py-5 py-3 md:text-5xl text-3xl"
+                >
+                  {"\u{1F308}"}
+                </CardItem>
 
-              <CardItem
-                as="p"
-                translateZ="60"
-                className="text-neutral-900 w-full md:text-lg font-semibold sm:text-center mt-2"
-              >
-                Color Palette <br className="md:hidden sm:inline hidden" />
-                Extractor
-              </CardItem>
+                <CardItem
+                  as="p"
+                  translateZ="60"
+                  className="text-neutral-900 w-full md:text-lg font-semibold sm:text-center mt-2"
+                >
+                  Color Palette <br className="md:hidden sm:inline hidden" />
+                  Extractor
+                </CardItem>
 
-              <CardItem
-                translateZ="80"
-                as="button"
-                className="px-2 py-2 rounded-xl bg-black text-sm text-white text-justify mt-4"
-              >
-                Upload an image (e.g., product photo or moodboard) and get 10
-                dominant HEX and RGB colors.
-              </CardItem>
-            </CardBody>
-          </CardContainer>
+                <CardItem
+                  translateZ="80"
+                  as="button"
+                  className="px-2 py-2 rounded-xl bg-black text-sm text-white text-justify mt-4"
+                >
+                  Upload an image (e.g., product photo or moodboard) and get 10
+                  dominant HEX and RGB colors.
+                </CardItem>
+              </CardBody>
+            </CardContainer>
+          </Link>
         </div>
       </div>
     </div>

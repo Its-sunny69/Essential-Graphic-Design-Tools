@@ -138,10 +138,10 @@ export default function Carousel({
   return (
     <div
       ref={containerRef}
-      className={`relative overflow-hidden p-4 ${
+      className={`relative overflow-hidden p-2.5 sm:p-4 ${
         round
           ? "rounded-full border border-white"
-          : "rounded-[24px] "
+          : "rounded-[24px]"
       }`}
       style={{
         width: `${baseWidth}px`,

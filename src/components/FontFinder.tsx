@@ -67,8 +67,6 @@ function FontFinder() {
           fontCacheRoute
         );
         setResponse(res);
-
-        setResponseLoading(false);
       } catch (error) {
         toast.error((error as Error).message || "Internal Server Error");
       } finally {

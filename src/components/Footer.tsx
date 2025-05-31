@@ -32,7 +32,7 @@ function Footer() {
 
       <div className="text-center sm:my-2">
         <p className="text-sm text-gray-400">
-          © 2025 DesignToolbox. All rights reserved. <span className="sm:inline hidden">|{" "}</span>
+          © 2025 Briefox.com - All rights reserved. <span className="sm:inline hidden">|{" "}</span>
           <br className="sm:hidden"/>
           <a
             className="hover:underline underline-offset-2 hover:text-blue-500 transition-all"
