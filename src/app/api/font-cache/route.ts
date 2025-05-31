@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     );
 
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
     return NextResponse.json({ result });
   } catch (error) {
     return error instanceof Error ? error.message : "Something went wrong!";

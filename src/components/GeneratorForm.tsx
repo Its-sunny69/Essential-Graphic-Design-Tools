@@ -102,14 +102,15 @@ incorporate this into the brief accordingly.`
 
   return (
     <div className="animate-fade-up">
-      <p className="text-4xl font-bold text-center">
-        Design Smarter. Start with an AI Brief
+      <p className="sm:text-4xl text-2xl font-bold text-center">
+        Design Smarter.
+        <br className="sm:hidden inline" /> Start with an AI Brief
       </p>
-      <div className="border p-8 my-8 rounded-xl shadow-md">
+      <div className="sm:w-[85%] mx-auto border p-8 my-8 rounded-xl shadow-md">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="grid grid-flow-row grid-cols-2 gap-x-4 gap-y-6"
+            className="grid grid-flow-row sm:grid-cols-2 gap-x-4 gap-y-6"
           >
             <FormField
               control={form.control}
@@ -273,10 +274,12 @@ incorporate this into the brief accordingly.`
         {loading ? (
           <div className="p-4 my-8">
             <div className="mb-8">
-              <p className="text-3xl font-bold">Crafting Your Prompt...⚡</p>
+              <p className="sm:text-3xl text-2xl font-bold">
+                Crafting Your Prompt...⚡
+              </p>
             </div>
 
-            <div className="p-4">
+            <div>
               <Skeleton className="h-6 rounded-xl" />
             </div>
           </div>
@@ -286,7 +289,7 @@ incorporate this into the brief accordingly.`
               {apiError ? (
                 <div>
                   <div className="mb-8">
-                    <p className="text-3xl font-bold">
+                    <p className="sm:text-3xl text-2xl font-bold">
                       ⚠️ Reached limit, Try again tomorrow!
                     </p>
                   </div>
@@ -298,7 +301,7 @@ incorporate this into the brief accordingly.`
                 result && (
                   <div className="animate-fade">
                     <div className="flex justify-between items-center mb-8">
-                      <p className="text-3xl font-bold">
+                      <p className="sm:text-3xl text-2xl font-bold">
                         Your Custom Prompt is Ready! 🎉
                       </p>
                       <button
@@ -324,7 +327,9 @@ incorporate this into the brief accordingly.`
       </div>
 
       <div className="mt-16 mb-8">
-        <p className="text-4xl font-bold mb-6">How Prompt Generator works ?</p>
+        <p className="sm:text-3xl text-2xl font-bold mb-6">
+          How Prompt Generator works ?
+        </p>
 
         <ul className="pl-4 list-decimal">
           <li className="my-2">
@@ -359,7 +364,7 @@ incorporate this into the brief accordingly.`
 
       <div className="my-8">
         <header>
-          <h1 className="text-4xl mb-6 font-bold">
+          <h1 className="sm:text-3xl text-2xl mb-6 font-bold">
             The Best Free AI Prompt Generator to Supercharge Your Creative
             Workflow
           </h1>
@@ -533,7 +538,7 @@ incorporate this into the brief accordingly.`
       </div>
 
       <div className="my-8">
-        <p className="text-4xl font-bold mb-6">FAQs</p>
+        <p className="sm:text-3xl text-2xl font-bold mb-6">FAQs</p>
 
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
