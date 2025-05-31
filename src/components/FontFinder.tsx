@@ -36,6 +36,7 @@ function FontFinder() {
   const route = process.env.NEXT_PUBLIC_FONT_FINDER_ROUTE!;
   const fontCacheRoute = process.env.NEXT_PUBLIC_FONT_CACHE_ROUTE!;
   const { sendPrompt, loading, apiError, result } = useGeminiAPI(route);
+  const [responseLoading, setResponseLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -66,6 +67,8 @@ function FontFinder() {
           fontCacheRoute
         );
         setResponse(res);
+
+        setResponseLoading(false);
       } catch (error) {
         toast.error((error as Error).message || "Internal Server Error");
       } finally {
@@ -76,10 +79,10 @@ function FontFinder() {
 
   return (
     <div className="animate-fade-up">
-      <p className="text-4xl font-bold text-center">
-        Type a Word, Get Stunning Fonts
+      <p className="sm:text-4xl text-2xl font-bold text-center">
+        Type a Word, <br className="sm:hidden inline" /> Get Stunning Fonts
       </p>
-      <div className="border p-8 my-8 rounded-xl shadow-md space-y-4">
+      <div className="sm:w-[85%] mx-auto border p-8 my-8 rounded-xl shadow-md space-y-4">
         <div>
           <Label htmlFor="keyword">
             Tell us your theme. One word is all it takes!
@@ -110,13 +113,13 @@ function FontFinder() {
       <div key={fontLoading ? "loading" : "loaded"} className="animate-fade">
         {fontLoading ? (
           <div className="p-4 my-8">
-            <p className="text-3xl font-bold">Searching for Font...🔍</p>
+            <p className="sm:text-3xl text-2xl font-bold">Searching for Font...🔍</p>
 
-            <div className="my-8">
+            <div className="sm:w-[50%] my-8">
               <Skeleton className="h-5 rounded-xl" />
               <Skeleton className="h-9 mt-4 rounded-xl" />
             </div>
-            <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="grid sm:grid-cols-2 gap-4 mb-8">
               <Skeleton className="h-56 rounded-xl" />
               <Skeleton className="h-56 rounded-xl" />
             </div>
@@ -126,33 +129,32 @@ function FontFinder() {
             <div className="p-4 rounded-md my-8">
               <p className="text-3xl font-bold">Here Are Your Font Matches!</p>
 
-              <div className="my-8">
-                <Label htmlFor="keyword">
-                  Want a Sneak Peek? Enter Your Text Below
-                </Label>
-                <Input
-                  id="previewText"
-                  type="text"
-                  placeholder="Enter a your text..."
-                  value={previewText}
-                  onChange={handlePreviewChange}
-                  className="mt-4"
-                  maxLength={50}
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                {response.map((font, index) => (
-                  <FontCard key={index} font={font} previewText={previewText} />
-                ))}
-              </div>
+            <div className="sm:w-[50%] my-8">
+              <Label htmlFor="keyword">
+                Want a Sneak Peek? Enter Your Text Below
+              </Label>
+              <Input
+                id="previewText"
+                type="text"
+                placeholder="Enter a your text..."
+                value={previewText}
+                onChange={handlePreviewChange}
+                className="mt-4"
+                maxLength={50}
+              />
             </div>
-          )
-        )}
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              {response.map((font, index) => (
+                <FontCard key={index} font={font} previewText={previewText} />
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="mt-16 mb-8">
-        <p className="text-4xl font-bold mb-6">How Font Finder works ?</p>
+        <p className="sm:text-3xl text-2xl font-bold mb-6">How Font Finder works ?</p>
 
         <ul className="pl-4 list-decimal">
           <li className="my-2">
@@ -186,7 +188,7 @@ function FontFinder() {
 
       <div className="my-8">
         <header>
-          <h1 className="text-4xl font-bold leading-tight tracking-tight">
+          <h1 className="sm:text-3xl text-2xl font-bold leading-tight tracking-tight">
             The Best Free AI Font Finder to Instantly Discover Your Perfect
             Typeface
           </h1>
@@ -340,9 +342,9 @@ function FontFinder() {
       </div>
 
       <div className="my-8">
-        <p className="text-4xl font-bold mb-6">FAQs</p>
+        <p className="sm:text-3xl text-2xl font-bold mb-6">FAQs</p>
 
-        <Accordion type="single" className="pl-4" collapsible>
+        <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger>
               What kind of keywords should I use?

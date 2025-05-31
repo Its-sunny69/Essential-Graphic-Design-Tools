@@ -2,14 +2,11 @@
 
 import { useEffect, useState, useRef, JSX } from "react";
 import { motion, PanInfo, useMotionValue, useTransform } from "framer-motion";
-// replace icons with your own if needed
-import {
-  FiCircle,
-  FiCode,
-  FiFileText,
-  FiLayers,
-  FiLayout,
-} from "react-icons/fi";
+import { EB_Garamond } from "next/font/google";
+
+const edGaramond = EB_Garamond({
+  subsets: ["latin"], // required for optimization
+});
 
 export interface CarouselItem {
   description: string;
@@ -192,7 +189,7 @@ export default function Carousel({
               transition={effectiveTransition}
             >
               <div className={`${round ? "p-0 m-0" : "mb-4 p-5"}`}>
-                <p className="text-lg text-white">{item.description}</p>
+                <p className={`${edGaramond.className} text-lg text-white`}>&ldquo; {item.description} &rdquo;</p>
               </div>
             </motion.div>
           );

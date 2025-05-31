@@ -96,7 +96,7 @@ const ColorExtractor: React.FC = () => {
 
   return (
     <div className="animate-fade-up">
-      <p className="text-4xl font-bold text-center">
+      <p className="sm:text-4xl text-2xl font-bold text-center">
         Image-Based Color Palette Generator
       </p>
 
@@ -163,9 +163,9 @@ const ColorExtractor: React.FC = () => {
       <div>
         {loading ? (
           <div className="p-4 my-8">
-            <p className="text-3xl font-bold">Painting Your Palette...🖌️</p>
+            <p className="sm:text-3xl text-2xl font-bold">Painting Your Palette...🖌️</p>
 
-            <div className="grid grid-flow-row grid-cols-2 gap-4 my-8">
+            <div className="grid grid-flow-row sm:grid-cols-2 gap-4 my-8">
               <div className="flex border py-2 px-3 justify-center items-center rounded-xl bg-slate-50">
                 <Skeleton className="w-12 h-12 rounded border" />
                 <div className="w-full py-2 pl-4 flex flex-col gap-4 font-mono">
@@ -186,13 +186,13 @@ const ColorExtractor: React.FC = () => {
         ) : (
           palette.length > 0 && (
             <div className="p-4 my-8 animate-fade">
-              <p className="text-3xl font-bold">
+              <p className="sm:text-3xl text-2xl font-bold">
                 Here’s Your Custom Color Palette 🎨
               </p>
 
               <div
                 ref={paletteRef}
-                className="grid grid-flow-row grid-cols-2 gap-4 my-8"
+                className="h-fit grid grid-flow-row sm:grid-cols-2 gap-4 py-8"
               >
                 {palette.map((color, i) => {
                   const hex = rgbToHex(color);
@@ -283,7 +283,7 @@ const ColorExtractor: React.FC = () => {
       </div>
 
       <div className="mt-16 mb-8">
-        <p className="text-4xl font-bold mb-6">How Color Extractor works ?</p>
+        <p className="sm:text-3xl text-2xl font-bold mb-6">How Color Extractor works ?</p>
 
         <ul className="pl-4 list-decimal text-lg">
           <li className="my-2">
@@ -317,7 +317,7 @@ const ColorExtractor: React.FC = () => {
 
       <div className="my-8">
         <header>
-          <h1 className="text-4xl font-bold leading-tight tracking-tight">
+          <h1 className="sm:text-3xl text-2xl font-bold leading-tight tracking-tight">
             Discover Stunning Color Palettes with Our AI Color Palette Generator
           </h1>
           <p className="mt-2 ">
@@ -469,9 +469,9 @@ const ColorExtractor: React.FC = () => {
       </div>
 
       <div className="my-8">
-        <p className="text-4xl font-bold mb-6">FAQs</p>
+        <p className="sm:text-3xl text-2xl font-bold mb-6">FAQs</p>
 
-        <Accordion type="single" className="pl-4" collapsible>
+        <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger>
               What file formats are supported?

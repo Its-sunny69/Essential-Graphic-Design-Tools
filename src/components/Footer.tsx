@@ -4,8 +4,8 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="w-full bg-black text-white border-b py-2 px-8 bottom-0">
-      <div className="flex justify-between items-center my-4">
+    <div className="w-full bg-black text-white border-b py-2 sm:px-8 px-2 bottom-0">
+      <div className="flex sm:flex-row flex-col justify-between items-center my-4">
         <div className="hover:scale-105 active:scale-95 transition-all">
           <Link href="/" className="flex justify-center items-center font-bold">
             <Image width={56} height={56} alt="logo" src="/logoLight.svg" className="mr-1"></Image>
@@ -14,7 +14,7 @@ function Footer() {
           </Link>
         </div>
 
-        <div className="flex">
+        <div className="flex my-4 sm:my-0">
           <div className="hover:text-gray-400 group mx-4 active:scale-95 transition-all">
             <Link href="/features">Features</Link>
             <div className="w-0 transition-all h-[2px] bg-white group-hover:w-full"></div>
@@ -30,9 +30,10 @@ function Footer() {
         </div>
       </div>
 
-      <div className="text-center my-2">
+      <div className="text-center sm:my-2">
         <p className="text-sm text-gray-400">
-          © 2025 DesignToolbox. All rights reserved. |{" "}
+          © 2025 DesignToolbox. All rights reserved. <span className="sm:inline hidden">|{" "}</span>
+          <br className="sm:hidden"/>
           <a
             className="hover:underline underline-offset-2 hover:text-blue-500 transition-all"
             href="https://x.com/dynamos_dev"

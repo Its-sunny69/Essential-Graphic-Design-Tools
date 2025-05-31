@@ -1,7 +1,7 @@
 export default function Features() {
   return (
-    <div className="w-[50%] mx-auto">
-      <h1 className="text-6xl my-8 font-bold text-center">About</h1>
+    <div className="md:w-[70%] sm:w-[80%] w-[90%] mx-auto">
+      <h1 className="md:text-6xl sm:text-5xl text-4xl my-8 font-bold text-center">About</h1>
 
       <section className="my-8">
         <p className="text-lg text-justify">
@@ -15,9 +15,9 @@ export default function Features() {
       </section>
 
       <section className="my-8">
-        <h1 className="text-4xl font-bold">&#128640; Why It Exists</h1>
+        <h1 className="sm:text-3xl text-2xl font-bold">&#128640; Why It Exists</h1>
 
-        <ul className="list-disc mt-4 pl-4 text-lg">
+        <ul className="list-disc mt-4 pl-4 ">
           <li>
             Design briefs often take too long to write — now AI does it for you.
           </li>
@@ -33,11 +33,11 @@ export default function Features() {
       </section>
 
       <section className="my-8">
-        <h1 className="text-4xl font-bold">
+        <h1 className="sm:text-3xl text-2xl font-bold">
           &#128736;&#65039; What's Included
         </h1>
 
-        <ul className="list-disc mt-4 pl-4 text-lg">
+        <ul className="list-disc mt-4 pl-4 ">
           <li>
             <b>AI Design Brief Generator</b>
             <ul>
@@ -69,11 +69,11 @@ export default function Features() {
       </section>
 
       <section className="my-8">
-        <h1 className="text-4xl font-bold">
+        <h1 className="sm:text-3xl text-2xl font-bold">
           &#x1F4E2; No Logins. No Paywalls.
         </h1>
 
-        <p className="text-justify mt-4 pl-4 text-lg">
+        <p className="text-justify mt-4 pl-4 ">
           Everything is completely free to use — no sign-up required, no
           subscriptions, and no annoying blockers. This is built for designers,
           by someone who understands the hustle of getting creative work done

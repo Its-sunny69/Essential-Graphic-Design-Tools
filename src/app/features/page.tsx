@@ -33,9 +33,9 @@ export default function Features() {
   };
 
   return (
-    <div className="w-[50%] mx-auto">
+    <div className="md:w-[70%] sm:w-[80%] w-[90%] mx-auto">
       <div className="my-8">
-        <p className="text-6xl font-bold text-center">
+        <p className="md:text-6xl sm:text-5xl text-4xl font-bold text-center">
           Features That Fuel Creative Productivity
         </p>
 
@@ -45,12 +45,12 @@ export default function Features() {
         </p>
       </div>
 
-      <div className="my-12 flex justify-between items-center">
+      <div className="my-12 flex sm:flex-row flex-col sm:justify-around justify-center items-center sm:gap-0 gap-4">
         {options.map((option) => (
           <button
             key={option}
             onClick={() => setCurrentFeature(option)}
-            className={` relative px-8 py-4 rounded-full bg-gray-50 text-gray-500 ${
+            className={`sm:w-fit w-64 relative px-8 py-4 rounded-full bg-gray-50 text-gray-500 ${
               currentFeature === option ? "text-gray-900" : "border"
             } hover:text-gray-800 hover:bg-gray-100 transition-all`}
           >
