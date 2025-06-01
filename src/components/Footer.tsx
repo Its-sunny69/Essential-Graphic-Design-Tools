@@ -24,7 +24,7 @@ function Footer() {
             <div className="w-0 transition-all h-[2px] bg-white group-hover:w-full"></div>
           </div>
           <div className="hover:text-gray-400 group mx-4 active:scale-95 transition-all">
-            <Link href="/">Privacy & policy</Link>
+            <Link href="/privacy-policy">Privacy & policy</Link>
             <div className="w-0 transition-all h-[2px] bg-white group-hover:w-full"></div>
           </div>
         </div>
