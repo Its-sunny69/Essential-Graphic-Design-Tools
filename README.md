@@ -12,17 +12,17 @@
 
 ## 📸 Screenshots
 
-`![Briefox Homepage](./public/screenshots/homepage.png) `
+![Briefox Homepage](screenshots/homepage.png)
 
 ---
 
 ## 📌 Table of Contents
 
-- [Screenshots](#screenshots)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Deployment](#deployment)
+- [Screenshots](#-screenshots)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Getting Started](#-getting-started)
+- [Deployment](#-deployment)
 
 ---
 
@@ -87,10 +87,6 @@ yarn install
 Create a `.env.local` file at the root and add the following:
 
 ```
-NEXT_PUBLIC_GOOGLE_CLOUD_API=your_google_font_api_key
-NEXT_PUBLIC_GEMINI_API=your_gemini_api_key
-MONGODB_URI=your_mongodb_connection_uri
-
 GEMINI_API=your_gemini_api_key
 GOOGLE_CLOUD_API=your_google_cloud_api_key
 MONGODB_URI=your_mongodb_connection_uri
@@ -109,11 +105,7 @@ npm run dev	// Run dev server (localhost:3000)
 npm run build	// Build the app
 ```
 
-
-
 ---
-
-
 
 ## 📤 Deployment
 
