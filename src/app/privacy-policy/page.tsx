@@ -138,10 +138,10 @@ export default function PrivacyPolicy() {
           object to advertising personalization, and request details about the
           data collected. Contact us at:{" "}
           <a
-            href="mailto:support@briefox.com"
+            href="mailto:Briefox.official@gmail.com"
             className="text-blue-600 underline"
           >
-            support@briefox.com
+            Briefox.official@gmail.com
           </a>
         </p>
       </section>
@@ -166,10 +166,10 @@ export default function PrivacyPolicy() {
           <li>
             <strong>Email:</strong>{" "}
             <a
-              href="mailto:support@briefox.com"
+              href="mailto:Briefox.official@gmail.com"
               className="text-blue-600 underline"
             >
-              support@briefox.com
+              Briefox.official@gmail.com
             </a>
           </li>
           <li>

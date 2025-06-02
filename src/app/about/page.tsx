@@ -203,6 +203,24 @@ export default function Features() {
           This is not just a tool — it's a design partner.
         </p>
       </section>
+
+        <section className="my-8">
+        <h2 className="sm:text-3xl text-2xl font-bold">Contact Us</h2>
+        <p className="mt-4">
+          You can give Feedback or Contact Us by Our Email.
+        </p>
+        <ul>
+          <li>
+            <strong>Email:</strong>{" "}
+            <a
+              href="mailto:Briefox.official@gmail.com"
+              className="text-blue-600 underline"
+            >
+              Briefox.official@gmail.com
+            </a>
+          </li>
+        </ul>
+      </section>
     </div>
   );
 }

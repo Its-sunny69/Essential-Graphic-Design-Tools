@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🦊 Briefox.com — AI-Powered Design Tools
 
-## Getting Started
+**Briefox** is a modern web application built with Next.js and Tailwind CSS that offers free, AI-powered design utilities to boost creative productivity. From generating professional design briefs to recommending perfect Google Fonts and extracting color palettes from images — Briefox simplifies your workflow.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🌐 Live Site
+
+👉 [https://www.briefox.com](https://www.briefox.com)
+
+---
+
+## 📸 Screenshots
+
+`![Briefox Homepage](./public/screenshots/homepage.png) `
+
+---
+
+## 📌 Table of Contents
+
+- [Screenshots](#screenshots)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Deployment](#deployment)
+
+---
+
+## 🚀 Features
+
+Briefox includes three core tools to assist designers, developers, and creators:
+
+### 1. 🎯 AI Design Brief Generator
+
+- Automatically generates professional and concise design briefs.
+- Input your design type, industry, and style preference.
+- Uses Gemini AI for smart prompt generation.
+- No login or subscription required.
+
+### 2. ✒️ Keyword-Based Font Finder
+
+- Input a keyword and get font suggestions from Google Fonts.
+- AI selects top 5 fonts that best represent the mood or style.
+- Live preview with custom text.
+- 100% free-to-use fonts.
+
+### 3. 🌈 Image-Based Color Palette Extractor
+
+- Upload an image and extract the top 10 dominant colors.
+- Provides HEX and RGB formats.
+- Download palette as PNG, JSON, or CSS Variables.
+- Built using Color Thief.
+
+---
+
+## ⚙️ Tech Stack
+
+- **Framework:** [Next.js 14](https://nextjs.org)
+- **Styling:** Tailwind CSS
+- **Animation:** Shadcn UI + Magic UI
+- **AI Backend:** Google Gemini Pro via API
+- **Rate Limiting:** MongoDB (IP-based with TTL logic)
+- **Hosting:** Vercel (with custom domain)
+- **Database:** MongoDB Atlas (Rate Limit model)
+
+---
+
+## 🛠 Getting Started
+
+### 1. Clone the Repo
+
+```
+git clone https://github.com/your-username/briefox.git
+cd briefox
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm install
+# or
+yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Set Up Environment Variables
 
-## Learn More
+Create a `.env.local` file at the root and add the following:
 
-To learn more about Next.js, take a look at the following resources:
+```
+NEXT_PUBLIC_GOOGLE_CLOUD_API=your_google_font_api_key
+NEXT_PUBLIC_GEMINI_API=your_gemini_api_key
+MONGODB_URI=your_mongodb_connection_uri
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+GEMINI_API=your_gemini_api_key
+GOOGLE_CLOUD_API=your_google_cloud_api_key
+MONGODB_URI=your_mongodb_connection_uri
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+NEXT_PUBLIC_FONT_FINDER_ROUTE = /api/font-finder
+NEXT_PUBLIC_PROMPT_ROUTE = /api/generate-brief
+NEXT_PUBLIC_FONT_CACHE_ROUTE = /api/font-cache
+```
 
-## Deploy on Vercel
+Make sure Google Font API is Enabled in your Google Cloude.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 4. Run Project
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+npm run dev	// Run dev server (localhost:3000)
+npm run build	// Build the app
+```
+
+
+
+---
+
+
+
+## 📤 Deployment
+
+> Briefox is deployed on [**Vercel**](https://vercel.com/)
+
+* CI/CD is managed automatically via GitHub integration.
+* Every push to `main` auto-deploys the latest version.
