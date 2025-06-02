@@ -12,7 +12,7 @@
 
 ## 📸 Screenshots
 
-![Briefox Homepage](screenshots/homepage.png)
+![Briefox Homepage](/src/screenshots/homepage.png)
 
 ---
 
@@ -53,7 +53,7 @@ Briefox includes three core tools to assist designers, developers, and creators:
 
 ---
 
-## ⚙️ Tech Stack
+## ⚙ Tech Stack
 
 - **Framework:** [Next.js 14](https://nextjs.org)
 - **Styling:** Tailwind CSS
