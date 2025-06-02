@@ -22,6 +22,7 @@
     "colorthief": "^2.6.0",
     "essential-graphic-design-tools": "file:",
     "framer-motion": "^11.18.2",
+    "heic2any": "^0.0.4",
     "html-to-image": "^1.11.13",
     "lucide-react": "^0.511.0",
     "mongoose": "^8.15.0",

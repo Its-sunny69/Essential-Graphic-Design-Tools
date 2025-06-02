@@ -26,6 +26,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { getPreviewUrl } from "../utils/imageUtils";
 
 const ColorExtractor: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -35,14 +36,16 @@ const ColorExtractor: React.FC = () => {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    console.log(file);
     if (!file) return;
-
-    const url = URL.createObjectURL(file);
-    setImageUrl(url);
-
-    e.target.value = "";
+    try {
+      const previewUrl = await getPreviewUrl(file);
+      setImageUrl(previewUrl);
+    } catch (error) {
+      console.error("Unsupported image format or conversion failed.");
+    }
   };
 
   const extractColors = () => {
@@ -163,7 +166,9 @@ const ColorExtractor: React.FC = () => {
       <div>
         {loading ? (
           <div className="p-4 my-8">
-            <p className="sm:text-3xl text-2xl font-bold">Painting Your Palette...🖌️</p>
+            <p className="sm:text-3xl text-2xl font-bold">
+              Painting Your Palette...🖌️
+            </p>
 
             <div className="grid grid-flow-row sm:grid-cols-2 gap-4 my-8">
               <div className="flex border py-2 px-3 justify-center items-center rounded-xl bg-slate-50">
@@ -283,7 +288,9 @@ const ColorExtractor: React.FC = () => {
       </div>
 
       <div className="mt-16 mb-8">
-        <p className="sm:text-3xl text-2xl font-bold mb-6">How Color Extractor works ?</p>
+        <p className="sm:text-3xl text-2xl font-bold mb-6">
+          How Color Extractor works ?
+        </p>
 
         <ul className="pl-4 list-decimal text-lg">
           <li className="my-2">
