@@ -1,5 +1,19 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
+
+interface OprWindow extends Window {
+  opr?: {
+    addons?: unknown;
+  };
+  opera?: unknown;
+}
+
+interface BraveNavigator extends Navigator {
+  brave?: {
+    isBrave: () => Promise<boolean>;
+  };
+}
 
 function AdDetection({ children }: { children: React.ReactNode }) {
   const [isChecked, setIsChecked] = useState(false);
@@ -7,19 +21,19 @@ function AdDetection({ children }: { children: React.ReactNode }) {
   const [isAdBlockerDetected, setIsAdBlockerDetected] = useState(false);
 
   useEffect(() => {
+    const win = window as OprWindow;
+    const nav = navigator as BraveNavigator;
     async function detectBrowserAndAdBlocker() {
       //Browser detection
       const isOpera =
-        (!!(window as any).opr && !!(window as any).opr.addons) ||
-        !!(window as any).opera ||
-        navigator.userAgent.indexOf(" OPR/") >= 0;
+        (typeof win.opr !== "undefined" &&
+          typeof win.opr.addons !== "undefined") ||
+        typeof win.opera !== "undefined" ||
+        nav.userAgent.indexOf(" OPR/") >= 0;
 
       let isBrave = false;
-      if (
-        (navigator as any).brave &&
-        typeof (navigator as any).brave.isBrave === "function"
-      ) {
-        isBrave = await (navigator as any).brave.isBrave();
+      if (nav.brave && typeof nav.brave.isBrave === "function") {
+        isBrave = await nav.brave.isBrave();
       }
 
       if (isOpera || isBrave) {

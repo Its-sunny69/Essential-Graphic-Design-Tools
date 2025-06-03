@@ -4,21 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState("Home");
 
   const pathname = usePathname();
-
-  useEffect(() => {
-    const nextPage =
-      navOption.find((item) => item.href === pathname)?.name || "";
-
-    setCurrentPage(nextPage);
-  }, [pathname]);
-
   const navOption = [
     {
       name: "Home",
@@ -33,6 +25,12 @@ function Header() {
       href: "/about",
     },
   ];
+  useEffect(() => {
+    const nextPage =
+      navOption.find((item) => item.href === pathname)?.name || "";
+
+    setCurrentPage(nextPage);
+  }, [pathname, navOption]);
 
   return (
     <div className="w-full border-b backdrop-blur-md sticky top-0 z-50">

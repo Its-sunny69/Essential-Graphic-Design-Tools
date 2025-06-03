@@ -5,12 +5,11 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 import toast from "react-hot-toast";
-import { Divide, Loader2 } from "lucide-react";
-import { FontPreview } from "./FontPreview";
+import { Loader2 } from "lucide-react";
 import { getFontsFromCache } from "@/utils/getFontsFromCache";
 import FontCard from "./FontCard";
 import { Skeleton } from "./ui/skeleton";
-// import { geminiFontResponse } from "@/utils/geminiFontResponse";
+
 import {
   Accordion,
   AccordionContent,
@@ -18,7 +17,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useGeminiAPI } from "@/hooks/useGeminiAPI";
-import { string } from "zod";
 type FontItem = {
   family: string;
   files: {
@@ -35,8 +33,7 @@ function FontFinder() {
   const [fontLoading, setFontLoading] = useState(false);
   const route = process.env.NEXT_PUBLIC_FONT_FINDER_ROUTE!;
   const fontCacheRoute = process.env.NEXT_PUBLIC_FONT_CACHE_ROUTE!;
-  const { sendPrompt, loading, apiError, result } = useGeminiAPI(route);
-  const [responseLoading, setResponseLoading] = useState(false);
+  const { sendPrompt } = useGeminiAPI(route);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -111,7 +108,9 @@ function FontFinder() {
       <div key={fontLoading ? "loading" : "loaded"} className="animate-fade">
         {fontLoading ? (
           <div className="p-4 my-8">
-            <p className="sm:text-3xl text-2xl font-bold">Searching for Font...🔍</p>
+            <p className="sm:text-3xl text-2xl font-bold">
+              Searching for Font...🔍
+            </p>
 
             <div className="sm:w-[50%] my-8">
               <Skeleton className="h-5 rounded-xl" />
@@ -127,36 +126,42 @@ function FontFinder() {
             <div className="p-4 rounded-md my-8">
               <p className="text-3xl font-bold">Here Are Your Font Matches!</p>
 
-            <div className="sm:w-[50%] my-8">
-              <Label htmlFor="keyword">
-                Want a Sneak Peek? Enter Your Text Below
-              </Label>
-              <Input
-                id="previewText"
-                type="text"
-                placeholder="Enter a your text..."
-                value={previewText}
-                onChange={handlePreviewChange}
-                className="mt-4"
-                maxLength={50}
-              />
-            </div>
+              <div className="sm:w-[50%] my-8">
+                <Label htmlFor="keyword">
+                  Want a Sneak Peek? Enter Your Text Below
+                </Label>
+                <Input
+                  id="previewText"
+                  type="text"
+                  placeholder="Enter a your text..."
+                  value={previewText}
+                  onChange={handlePreviewChange}
+                  className="mt-4"
+                  maxLength={50}
+                />
+              </div>
 
-            <div className="grid sm:grid-cols-2 gap-4">
-              {response.map((font, index) => (
-                <FontCard key={index} font={font} previewText={previewText} />
-              ))}
+              <div className="grid sm:grid-cols-2 gap-4">
+                {response.map((font, index) => (
+                  <FontCard key={index} font={font} previewText={previewText} />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        )}
       </div>
 
       <div className="mt-16 mb-8">
-        <p className="sm:text-3xl text-2xl font-bold mb-6">How Font Finder works ?</p>
+        <p className="sm:text-3xl text-2xl font-bold mb-6">
+          How Font Finder works ?
+        </p>
 
         <ul className="pl-4 list-decimal">
           <li className="my-2">
-            Enter a keyword like "modern", "comic", "tech", or "elegant".
+            <p>
+              Enter a keyword like &quot;modern&quot;, &quot;comic&quot;,
+              &quot;tech&quot;, or &quot;elegant&quot;.
+            </p>
           </li>
           <li className="my-2">
             Our AI analyzes the mood, tone, and context of your keyword.
@@ -202,15 +207,15 @@ function FontFinder() {
           <h2 className="text-2xl font-semibold mb-2">
             Why Font Choice Matters in Design
           </h2>
-          <p className="mt-2 ">
+          <p className="mt-2">
             Fonts are more than just letters — they’re visual tone-setters.
             Choosing the right font influences how your brand or message is
-            perceived. The wrong typeface can undermine your message, while the
+            perceived.The wrong typeface can undermine your message, while the
             right one enhances professionalism, emotion, and readability.
           </p>
-          <p className="mt-2 ">
-            Whether you're designing a website, logo, poster, or app interface,
-            font selection should be purposeful. Our{" "}
+          <p className="mt-2">
+            Whether you&apos;re designing a website, logo, poster, or app
+            interface, font selection should be purposeful. Our{" "}
             <strong>AI Font Finder</strong> simplifies this process by analyzing
             your input and recommending top-matching Google Fonts tailored to
             your needs.

@@ -6,7 +6,7 @@ type FontItem = {
   category: string;
 };
 
-let fontCache: any[] = [];
+let fontCache: FontItem[] = [];
 let lastFetchTime = 0;
 const TTL = 1000 * 60 * 60 * 24; // 24 hours
 
@@ -31,7 +31,7 @@ export async function getFontsFromCache(
     lastFetchTime = Date.now();
   }
 
-  const selectedFonts = fontCache.filter((font: any) =>
+  const selectedFonts = fontCache.filter((font) =>
     fontFamily.includes(font.family)
   );
 

@@ -4,8 +4,7 @@ import FontFinder from "@/components/FontFinder";
 import GeneratorForm from "@/components/GeneratorForm";
 import ColorExtractor from "@/components/ImageColorPalette";
 import { BorderBeam } from "@/components/magicui/border-beam";
-import { ShineBorder } from "@/components/magicui/shine-border";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 
 export default function Features() {
@@ -14,22 +13,20 @@ export default function Features() {
   );
   const params = useSearchParams();
   const router = useRouter();
-
-  useEffect(() => {
-    const tool = params.get("tool");
-
-    if (tool) {
-      options.forEach((item, index) => {
-        if (item.includes(tool)) setCurrentFeature(item);
-      });
-    }
-  }, [params]);
-
   const options = [
     "prompt-generator-\u2728",
     "font-finder-\u2712\uFE0F",
     "color-extractor-\u{1F308}",
   ];
+  useEffect(() => {
+    const tool = params.get("tool");
+
+    if (tool) {
+      options.forEach((item) => {
+        if (item.includes(tool)) setCurrentFeature(item);
+      });
+    }
+  }, [params]);
 
   const featureComponent: { [key: string]: ReactNode } = {
     "prompt-generator-\u2728": <GeneratorForm />,

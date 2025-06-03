@@ -1,4 +1,3 @@
-import { Sparkle, Sparkles } from "lucide-react";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import Link from "next/link";
 import Carousel from "@/components/ui/Carousel/Carousel";
@@ -134,8 +133,9 @@ export default function Home() {
                   as="button"
                   className="px-2 py-2 rounded-xl bg-black text-sm text-white text-justify mt-4"
                 >
-                  Enter a theme-related keyword like "school", "luxury", or
-                  "comic", and get 5 free commercial-use fonts.
+                  Enter a theme-related keyword like &quot;school&quot;,
+                  &quot;luxury&quot;, or &quot;comic&quot;, and get 5 free
+                  commercial-use fonts.
                 </CardItem>
               </CardBody>
             </CardContainer>

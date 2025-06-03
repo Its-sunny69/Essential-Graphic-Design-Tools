@@ -55,8 +55,6 @@ const formSchema = z.object({
 });
 
 function GeneratorForm() {
-  // const [prompt, setPrompt] = useState<string | undefined>("");
-  const [error, setError] = useState<string | undefined>("");
   const [copied, setCopied] = useState<boolean>(false);
   const route = process.env.NEXT_PUBLIC_PROMPT_ROUTE!;
   const { sendPrompt, apiError, loading, result } = useGeminiAPI(route);
@@ -80,13 +78,7 @@ function GeneratorForm() {
 incorporate this into the brief accordingly.`
     } Provide a concise and professional design brief suitable for a creative designer. The output should be max 70 words`;
 
-    try {
-      const res = await sendPrompt(basePrompt);
-
-      setError("");
-    } catch (error) {
-      setError((error as Error).message);
-    }
+    await sendPrompt(basePrompt);
   }
 
   const handleCopy = () => {
@@ -381,7 +373,7 @@ incorporate this into the brief accordingly.`
           </h2>
           <p className="mt-2">
             In today’s fast-paced creative world, having a clear and structured
-            design brief can make or break a project. Whether you're a
+            design brief can make or break a project. Whether you&apos;re a
             freelancer, agency designer, or hobbyist, the ideation phase can be
             mentally taxing. This is where an{" "}
             <strong>AI prompt generator</strong> steps in to simplify and
@@ -394,10 +386,13 @@ incorporate this into the brief accordingly.`
             point crafted by a machine that understands industry context.
           </p>
           <p className="mt-2">
-            If you've ever typed "ai prompt generator" or "free ai prompt
-            generator" into Google, you're likely seeking a tool that can
-            eliminate creative blocks and help you get started instantly. Our{" "}
-            <strong>AI Design Brief Generator</strong> does exactly that.
+            <p>
+              If you&apos;ve ever typed &quot;ai prompt generator&quot; or
+              &quot;free ai prompt generator&quot; into Google, you&apos;re
+              likely seeking a tool that can eliminate creative blocks and help
+              you get started instantly. Our{" "}
+              <strong>AI Design Brief Generator</strong> does exactly that.
+            </p>
           </p>
         </section>
 
@@ -442,9 +437,9 @@ incorporate this into the brief accordingly.`
             user inputs like design type, industry, and style preferences.
           </p>
           <p className="mt-2">
-            Whether you're designing a sleek logo for a fintech startup or a
-            vibrant poster for an event, the tool adapts to your needs, ensuring
-            every brief feels personalized.
+            Whether you&apos;re designing a sleek logo for a fintech startup or
+            a vibrant poster for an event, the tool adapts to your needs,
+            ensuring every brief feels personalized.
           </p>
           <h3 className="text-xl font-semibold mt-4">Key Features</h3>
           <ul className="list-disc list-inside mt-2">
@@ -512,12 +507,14 @@ incorporate this into the brief accordingly.`
           </p>
           <ul className="list-disc list-inside mt-2">
             <li>It removes the blank-page syndrome entirely</li>
-            <li>It’s reliable under deadlines</li>
+            <li>It&apos;s reliable under deadlines</li>
             <li>It offers professional tone briefs every time</li>
-            <li>It’s useful for client projects and internal ideation alike</li>
+            <li>
+              It&apos;s useful for client projects and internal ideation alike
+            </li>
           </ul>
           <p className="mt-2">
-            Whether you're a student trying to meet a tight deadline or a
+            Whether you&apos;re a student trying to meet a tight deadline or a
             freelancer juggling multiple clients, this tool ensures consistency
             and clarity.
           </p>
@@ -531,7 +528,7 @@ incorporate this into the brief accordingly.`
             not about replacing creativity — it’s about accelerating it.
           </p>
           <p className="mt-2">
-            If you're ready to work smarter, try our free tool and join
+            If you&apos;re ready to work smarter, try our free tool and join
             thousands of designers already supercharging their workflow.
           </p>
         </section>
@@ -547,7 +544,7 @@ incorporate this into the brief accordingly.`
             </AccordionTrigger>
             <AccordionContent>
               The briefs are crafted using advanced language models to match
-              your design type, industry, and style. While concise, they're
+              your design type, industry, and style. While concise, they&apos;re
               tailored to spark creative direction effectively.
             </AccordionContent>
           </AccordionItem>
@@ -583,8 +580,8 @@ incorporate this into the brief accordingly.`
           <AccordionItem value="item-5">
             <AccordionTrigger>Is the tool completely free?</AccordionTrigger>
             <AccordionContent>
-              Yes, it's free and doesn’t require login. We simply limit overuse
-              to keep it accessible for everyone.
+              Yes, it&apos;s free and doesn’t require login. We simply limit
+              overuse to keep it accessible for everyone.
             </AccordionContent>
           </AccordionItem>
         </Accordion>

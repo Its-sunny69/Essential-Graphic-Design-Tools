@@ -1,4 +1,5 @@
-"use client"
+"use client";
+/* eslint-disable react-hooks/rules-of-hooks */
 
 import { useEffect, useState, useRef, JSX } from "react";
 import { motion, PanInfo, useMotionValue, useTransform } from "framer-motion";
@@ -27,7 +28,7 @@ const DEFAULT_ITEMS: CarouselItem[] = [
   { description: "Smooth animations for your projects." },
   { description: "Reusable components for your projects." },
   { description: "Beautiful backgrounds and patterns for your projects." },
-  { description: "Common UI components are coming soon!" }
+  { description: "Common UI components are coming soon!" },
 ];
 
 const DRAG_BUFFER = 0;
@@ -107,7 +108,7 @@ export default function Carousel({
 
   const handleDragEnd = (
     _: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo,
+    info: PanInfo
   ): void => {
     const offset = info.offset.x;
     const velocity = info.velocity.x;
@@ -139,9 +140,7 @@ export default function Carousel({
     <div
       ref={containerRef}
       className={`relative overflow-hidden p-2.5 sm:p-4 ${
-        round
-          ? "rounded-full border border-white"
-          : "rounded-[24px]"
+        round ? "rounded-full border border-white" : "rounded-[24px]"
       }`}
       style={{
         width: `${baseWidth}px`,
@@ -156,7 +155,9 @@ export default function Carousel({
           width: itemWidth,
           gap: `${GAP}px`,
           perspective: 1000,
-          perspectiveOrigin: `${currentIndex * trackItemOffset + itemWidth / 2}px 50%`,
+          perspectiveOrigin: `${
+            currentIndex * trackItemOffset + itemWidth / 2
+          }px 50%`,
           x,
         }}
         onDragEnd={handleDragEnd}
@@ -189,7 +190,9 @@ export default function Carousel({
               transition={effectiveTransition}
             >
               <div className={`${round ? "p-0 m-0" : "mb-4 p-5"}`}>
-                <p className={`${edGaramond.className} text-lg text-white`}>&ldquo; {item.description} &rdquo;</p>
+                <p className={`${edGaramond.className} text-lg text-white`}>
+                  &ldquo; {item.description} &rdquo;
+                </p>
               </div>
             </motion.div>
           );
@@ -210,8 +213,8 @@ export default function Carousel({
                     ? "bg-white"
                     : "bg-[#333333]"
                   : round
-                    ? "bg-[#555]"
-                    : "bg-[rgba(0,0,0,0.4)]"
+                  ? "bg-[#555]"
+                  : "bg-[rgba(0,0,0,0.4)]"
               }`}
               animate={{
                 scale: currentIndex % items.length === index ? 1.2 : 1,

@@ -38,13 +38,14 @@ const ColorExtractor: React.FC = () => {
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    console.log(file);
     if (!file) return;
     try {
       const previewUrl = await getPreviewUrl(file);
       setImageUrl(previewUrl);
     } catch (error) {
-      console.error("Unsupported image format or conversion failed.");
+      console.error(
+        (error as Error) || "Unsupported image format or conversion failed."
+      );
     }
   };
 
@@ -329,8 +330,8 @@ const ColorExtractor: React.FC = () => {
           </h1>
           <p className="mt-2 ">
             Transform your images into professional-grade color palettes in
-            seconds. Whether you're designing a brand, building a website, or
-            crafting a presentation — our AI-powered tool extracts the top 10
+            seconds. Whether you&apos;re designing a brand, building a website,
+            or crafting a presentation — our AI-powered tool extracts the top 10
             dominant colors with precision.
           </p>
         </header>
@@ -347,9 +348,9 @@ const ColorExtractor: React.FC = () => {
             <strong>AI Color Palette Generator</strong> solves this instantly.
           </p>
           <p className="mt-2 ">
-            Whether you're branding, creating a website, or designing packaging,
-            consistent and compelling colors enhance user experience and brand
-            recall.
+            Whether you&apos;re branding, creating a website, or designing
+            packaging, consistent and compelling colors enhance user experience
+            and brand recall.
           </p>
         </section>
 
