@@ -42,9 +42,9 @@ export async function POST(req: Request) {
 
     const result = await generateContent(prompt);
     return NextResponse.json({ result });
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
-      { error: error.message || "Something went wrong" },
+      { error: (error as Error).message || "Something went wrong" },
       { status: 500 }
     );
   }

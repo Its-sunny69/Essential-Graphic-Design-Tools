@@ -15,10 +15,10 @@ export default function Features() {
         <p className="text-lg text-justify">
           This <i>Web App</i> was created with one simple goal: to empower
           designers with fast, intelligent, and practical tools that reduce
-          creative friction and accelerate the design process. Whether you're
-          crafting a logo, building a brand identity, designing for social
-          media, or simply exploring creative directions — these tools are here
-          to support you, instantly and for free.
+          creative friction and accelerate the design process. Whether
+          you&apos;re crafting a logo, building a brand identity, designing for
+          social media, or simply exploring creative directions &mdash; these
+          tools are here to support you, instantly and for free.
         </p>
         <p className="text-lg text-justify mt-4">
           We live in a time where design demands are high, deadlines are tight,
@@ -37,8 +37,8 @@ export default function Features() {
             in seconds.
           </li>
           <li>
-            Finding the perfect font shouldn't require endless browsing — we
-            automate and match it based on intent.
+            Finding the perfect font shouldn&apos;t require endless browsing —
+            we automate and match it based on intent.
           </li>
           <li>
             Color palettes inspired by real-world images are essential — we make
@@ -56,7 +56,7 @@ export default function Features() {
       </section>
 
       <section className="my-8">
-        <h2 className="sm:text-3xl text-2xl font-bold">What's Included</h2>
+        <h2 className="sm:text-3xl text-2xl font-bold">What&apos;s Included</h2>
         <ul className="list-disc mt-4 pl-4  space-y-4">
           <li>
             <b>AI Design Brief Generator</b>
@@ -122,8 +122,8 @@ export default function Features() {
         <p className="text-justify mt-4 ">
           We believe in removing friction from the creative process. That’s why
           every tool on this platform is accessible immediately — whether you’re
-          a first-time user or a repeat visitor. You won't see pop-ups, login
-          forms, or upgrade prompts here.
+          a first-time user or a repeat visitor. You won&apos;t see pop-ups,
+          login forms, or upgrade prompts here.
         </p>
       </section>
 
@@ -144,7 +144,7 @@ export default function Features() {
       </section>
 
       <section className="my-8">
-        <h2 className="sm:text-3xl text-2xl font-bold">Who It's For</h2>
+        <h2 className="sm:text-3xl text-2xl font-bold">Who It&apos;s For</h2>
         <ul className="list-disc pl-4 mt-4 ">
           <li>
             <strong>Graphic Designers</strong> – Save time and ideate faster
@@ -200,11 +200,11 @@ export default function Features() {
         </ul>
         <p className=" mt-4">
           We’re just getting started. As feedback grows, so will the ecosystem.
-          This is not just a tool — it's a design partner.
+          This is not just a tool — it&apos;s a design partner.
         </p>
       </section>
 
-        <section className="my-8">
+      <section className="my-8">
         <h2 className="sm:text-3xl text-2xl font-bold">Contact Us</h2>
         <p className="mt-4">
           You can give Feedback or Contact Us by Our Email.

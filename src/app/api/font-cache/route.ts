@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST() {
   const API_KEY = process.env.GOOGLE_CLOUD_API;
   try {
     const response = await fetch(
@@ -10,6 +10,8 @@ export async function POST(req: Request) {
     const result = await response.json();
     return NextResponse.json({ result });
   } catch (error) {
-    return error instanceof Error ? error.message : "Something went wrong!";
+    const message =
+      error instanceof Error ? error.message : "Something went wrong!";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
