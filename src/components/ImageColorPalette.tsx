@@ -35,16 +35,33 @@ const ColorExtractor: React.FC = () => {
   const paletteRef = useRef<HTMLDivElement>(null);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
+  const [imgLoading, setImgLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError(null);
+    setImgLoading(true);
+
     const file = e.target.files?.[0];
+
+    e.target.value = "";
+
     console.log(file);
-    if (!file) return;
+
+    if (!file) {
+      setImgLoading(false);
+      return;
+    }
+
     try {
       const previewUrl = await getPreviewUrl(file);
+
       setImageUrl(previewUrl);
-    } catch (error) {
-      console.error("Unsupported image format or conversion failed.");
+    } catch (err) {
+      setError((err as Error).message);
+      setImageUrl(null);
+    } finally {
+      setImgLoading(false);
     }
   };
 
@@ -97,6 +114,8 @@ const ColorExtractor: React.FC = () => {
     return `rgb(${newR}, ${newG}, ${newB})`;
   }
 
+  console.log("imgurl", imageUrl);
+
   return (
     <div className="animate-fade-up">
       <h2 className="sm:text-4xl text-2xl font-bold text-center">
@@ -120,7 +139,10 @@ const ColorExtractor: React.FC = () => {
                   and drop
                 </p>
                 <p className="text-xs text-gray-500">
-                  SVG, PNG, JPG, JPEG or GIF
+                  SVG, PNG, JPG, JPEG, HEIC or GIF
+                </p>
+                <p className="text-xs font-semibold text-gray-500">
+                  Note: HEIF formate is not supported!
                 </p>
               </div>
               <Input
@@ -134,27 +156,45 @@ const ColorExtractor: React.FC = () => {
           </div>
         </div>
 
-        {imageUrl && (
+        {imgLoading ? (
           <div className="mb-8 animate-fade">
-            <div className="mb-4 flex justify-between items-center">
-              <p className="font-semibold">Uploaded Image: </p>
-              <button
-                className="text-red-500 active:scale-95 transition-all hover:opacity-70"
-                onClick={handleDeleteImage}
-              >
-                <Trash2Icon />
-              </button>
+            <div className="mb-4">
+              <Skeleton className="h-6 rounded-xl" />
             </div>
 
-            <Image
-              width={800}
-              height={400}
-              src={imageUrl}
-              ref={imgRef}
-              crossOrigin="anonymous"
-              alt="Uploaded"
-              className="w-full h-80 rounded-xl shadow-md object-contain border"
-            />
+            <Skeleton className="w-full h-80 rounded-xl shadow-md object-contain border" />
+          </div>
+        ) : (
+          <div className="mb-8 animate-fade">
+            {error ? (
+              <div className="w-full h-80 flex items-center justify-center text-red-500 rounded-xl shadow-md object-contain border">
+                {error}
+              </div>
+            ) : (
+              imageUrl && (
+                <>
+                  <div className="mb-4 flex justify-between items-center">
+                    <p className="font-semibold">Uploaded Image: </p>
+                    <button
+                      className="text-red-500 active:scale-95 transition-all hover:opacity-70"
+                      onClick={handleDeleteImage}
+                    >
+                      <Trash2Icon />
+                    </button>
+                  </div>
+
+                  <Image
+                    width={800}
+                    height={400}
+                    src={imageUrl}
+                    ref={imgRef}
+                    crossOrigin="anonymous"
+                    alt="Uploaded"
+                    className="w-full h-80 rounded-xl shadow-md object-contain border"
+                  />
+                </>
+              )
+            )}
           </div>
         )}
 
