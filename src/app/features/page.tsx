@@ -55,35 +55,37 @@ export default function Features() {
   };
 
   return (
-    <div className="md:w-[70%] sm:w-[80%] w-[90%] mx-auto">
-      <div className="my-8">
-        <p className="md:text-6xl sm:text-5xl text-4xl font-bold text-center">
-          Features That Fuel Creative Productivity
-        </p>
+    <section>
+      <div className="md:w-[70%] sm:w-[80%] w-[90%] mx-auto">
+        <div className="my-8">
+          <h1 className="md:text-6xl sm:text-5xl text-4xl font-bold text-center">
+            Features That Fuel Creative Productivity
+          </h1>
 
-        <p className="mt-6 mb-14 text-center text-lg">
-          Discover how each tool is designed to simplify your design process,
-          reduce friction, and spark creativity.
-        </p>
-      </div>
+          <p className="mt-6 mb-14 text-center text-lg">
+            Discover how each tool is designed to simplify your design process,
+            reduce friction, and spark creativity.
+          </p>
+        </div>
 
-      <div className="my-12 flex sm:flex-row flex-col sm:justify-around justify-center items-center sm:gap-0 gap-4">
-        {options.map((option) => (
-          <button
-            key={option}
-            onClick={() => handleOption(option)}
-            className={`sm:w-fit w-64 relative px-8 py-4 rounded-full bg-gray-50 text-gray-500 ${
-              currentFeature === option ? "text-gray-900" : "border"
-            } hover:text-gray-800 hover:bg-gray-100 transition-all`}
-          >
-            {formateText(option)}
-            {currentFeature === option && (
-              <BorderBeam duration={8} size={100} />
-            )}
-          </button>
-        ))}
+        <div className="my-12 flex sm:flex-row flex-col sm:justify-around justify-center items-center sm:gap-0 gap-4">
+          {options.map((option) => (
+            <button
+              key={option}
+              onClick={() => handleOption(option)}
+              className={`sm:w-fit w-64 relative px-8 py-4 rounded-full bg-gray-50 text-gray-500 ${
+                currentFeature === option ? "text-gray-900" : "border"
+              } hover:text-gray-800 hover:bg-gray-100 transition-all`}
+            >
+              {formateText(option)}
+              {currentFeature === option && (
+                <BorderBeam duration={8} size={100} />
+              )}
+            </button>
+          ))}
+        </div>
+        <div>{featureComponent[currentFeature]}</div>
       </div>
-      <div>{featureComponent[currentFeature]}</div>
-    </div>
+    </section>
   );
 }

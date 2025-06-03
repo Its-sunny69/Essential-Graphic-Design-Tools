@@ -26,7 +26,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: {
     default: "Briefox",
-    template: "%s - My Awesome Tools",
+    template: "%s | Briefox",
   },
   description: "Come and use this awesome tools",
 };

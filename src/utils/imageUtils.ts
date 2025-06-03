@@ -1,6 +1,6 @@
 import heic2any from "heic2any";
 
-export const convertHeicToJpg = async (file: File): Promise<string> => {
+export const convertHeicToJpg = async (file: File) => {
   try {
     const outputBlob = await heic2any({
       blob: file,
@@ -14,12 +14,14 @@ export const convertHeicToJpg = async (file: File): Promise<string> => {
     return URL.createObjectURL(convertedBlob);
   } catch (error) {
     console.error("HEIC conversion failed:", error);
-    throw error;
+    return "";
   }
 };
 
 export const getPreviewUrl = async (file: File): Promise<string> => {
-  const isHeic = file.name.toLowerCase().endsWith(".heic");
+  const isHeic =
+    file.name.toLowerCase().endsWith(".heic") ||
+    file.name.toLowerCase().endsWith(".heif");
 
   if (isHeic) {
     return await convertHeicToJpg(file);

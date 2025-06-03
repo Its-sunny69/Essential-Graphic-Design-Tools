@@ -99,9 +99,9 @@ const ColorExtractor: React.FC = () => {
 
   return (
     <div className="animate-fade-up">
-      <p className="sm:text-4xl text-2xl font-bold text-center">
+      <h2 className="sm:text-4xl text-2xl font-bold text-center">
         Image-Based Color Palette Generator
-      </p>
+      </h2>
 
       <div className="border p-8 my-8 rounded-xl shadow-md">
         <div className="mb-8">

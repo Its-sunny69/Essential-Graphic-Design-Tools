@@ -14,64 +14,66 @@ export default function Home() {
 
   return (
     <div className=" md:w-[70%] sm:w-[80%] w-[90%] mx-auto">
-      <div className="sm:my-20 my-14">
-        <h1 className="tracking-tighter md:text-7xl sm:text-6xl text-5xl text-center font-bold">
-          Unlock Smarter Design with
-          <br />
-          <p className="bg-gradient-to-r from-purple-700 via-blue-500 to-green-400 text-transparent bg-clip-text bg-300% animate-gradient">
-            AI-Powered Tools
-          </p>
-        </h1>
+      <section>
+        <div className="sm:my-20 my-14">
+          <h1 className="tracking-tighter md:text-7xl sm:text-6xl text-5xl text-center font-bold">
+            Unlock Smarter Design with
+            <br />
+            <p className="bg-gradient-to-r from-purple-700 via-blue-500 to-green-400 text-transparent bg-clip-text bg-300% animate-gradient">
+              AI-Powered Tools
+            </p>
+          </h1>
 
-        <p className="sm:mt-8 mt-6 sm:mb-14 mb-10 sm:text-center text-justify text-lg">
-          Fast-track your creative workflow using intelligent design generators
-          <br className="md:inline hidden" />
-          from design briefs to color palettes and perfect fonts.
-        </p>
+          <p className="sm:mt-8 mt-6 sm:mb-14 mb-10 sm:text-center text-justify text-lg">
+            Fast-track your creative workflow using intelligent design
+            generators
+            <br className="md:inline hidden" />
+            from design briefs to color palettes and perfect fonts.
+          </p>
 
-        <div className="text-center">
-          <Link
-            href="/features"
-            className="bg-black text-white text-lg px-10 py-3 font-semibold tracking-wider rounded-full hover:outline hover:outline-gray-400 hover:outline-1 hover:bg-gray-50 hover:text-gray-900 transition-all"
-          >
-            Try Now
-          </Link>
-          <p className="text-xs text-gray-600 italic mt-3">
-            No login required. 100% free.
-          </p>
-        </div>
-      </div>
-
-      <div className="sm:my-20 my-14 md:grid grid-cols-2">
-        <div className="md:text-left text-justify">
-          <p className="md:text-6xl text-4xl md:text-left text-center font-bold">
-            Spark Creativity?
-          </p>
-          <p className="md:mt-8 mt-4 text-lg ">
-            {" "}
-            Try these amazing AI-powered prompts to jumpstart your next design,
-            unlock fresh ideas, and bring your creative vision to life —
-            instantly.
-          </p>
+          <div className="text-center">
+            <Link
+              href="/features"
+              className="bg-black text-white text-lg px-10 py-3 font-semibold tracking-wider rounded-full hover:outline hover:outline-gray-400 hover:outline-1 hover:bg-gray-50 hover:text-gray-900 transition-all"
+            >
+              Try Now
+            </Link>
+            <p className="text-xs text-gray-600 italic mt-3">
+              No login required. 100% free.
+            </p>
+          </div>
         </div>
 
-        <div className="flex md:justify-end justify-center items-center">
-          <Carousel
-            baseWidth={350}
-            autoplay={true}
-            autoplayDelay={3000}
-            pauseOnHover={true}
-            loop={true}
-            round={false}
-            items={carouselItem}
-          />
-        </div>
-      </div>
+        <div className="sm:my-20 my-14 md:grid grid-cols-2">
+          <div className="md:text-left text-justify">
+            <h2 className="md:text-6xl text-4xl md:text-left text-center font-bold">
+              Spark Creativity?
+            </h2>
+            <p className="md:mt-8 mt-4 text-lg ">
+              {" "}
+              Try these amazing AI-powered prompts to jumpstart your next
+              design, unlock fresh ideas, and bring your creative vision to life
+              — instantly.
+            </p>
+          </div>
 
-      <div className="sm:my-20 my-14">
-        <p className="md:text-6xl text-4xl font-bold text-center">
+          <div className="flex md:justify-end justify-center items-center">
+            <Carousel
+              baseWidth={350}
+              autoplay={true}
+              autoplayDelay={3000}
+              pauseOnHover={true}
+              loop={true}
+              round={false}
+              items={carouselItem}
+            />
+          </div>
+        </div>
+      </section>
+      <section className="sm:my-20 my-14">
+        <h2 className="md:text-6xl text-4xl font-bold text-center">
           What we Offer ?
-        </p>
+        </h2>
 
         <div className="sm:grid grid-cols-3 gap-2 pt-8">
           <Link
@@ -173,7 +175,7 @@ export default function Home() {
             </CardContainer>
           </Link>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
