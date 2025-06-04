@@ -1,4 +1,3 @@
-// app/api/generate-brief/route.ts
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import RateLimit from "@/models/RateLimit";

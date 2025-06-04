@@ -4,9 +4,11 @@
 import { useEffect, useState, useRef, JSX } from "react";
 import { motion, PanInfo, useMotionValue, useTransform } from "framer-motion";
 import { EB_Garamond } from "next/font/google";
+import { Check, Copy } from "lucide-react";
+import { copyToClipboard } from "@/utils/clipboard";
 
 const edGaramond = EB_Garamond({
-  subsets: ["latin"], // required for optimization
+  subsets: ["latin"],
 });
 
 export interface CarouselItem {
@@ -54,6 +56,7 @@ export default function Carousel({
   const x = useMotionValue(0);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isResetting, setIsResetting] = useState<boolean>(false);
+  const [copied, setCopied] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -75,7 +78,7 @@ export default function Carousel({
       const timer = setInterval(() => {
         setCurrentIndex((prev) => {
           if (prev === items.length - 1 && loop) {
-            return prev + 1; // Animate to clone.
+            return prev + 1;
           }
           if (prev === carouselItems.length - 1) {
             return loop ? 0 : prev;
@@ -124,6 +127,17 @@ export default function Carousel({
       } else {
         setCurrentIndex((prev) => Math.max(prev - 1, 0));
       }
+    }
+  };
+
+  const handleCopy = (text: string) => {
+    if (text) {
+      copyToClipboard(text, {
+        onSuccess: () => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1000);
+        },
+      });
     }
   };
 
@@ -189,6 +203,14 @@ export default function Carousel({
               }}
               transition={effectiveTransition}
             >
+              <div className="w-full flex justify-end items-center">
+                <button
+                  className="rounded mx-4 my-1 text-white hover:text-gray-400 active:scale-95 transition-all"
+                  onClick={() => handleCopy(item.description)}
+                >
+                  {copied ? <Check  width="1em"/> : <Copy  width="1em"/>}
+                </button>
+              </div>
               <div className={`${round ? "p-0 m-0" : "mb-4 p-5"}`}>
                 <p className={`${edGaramond.className} text-lg text-white`}>
                   &ldquo; {item.description} &rdquo;

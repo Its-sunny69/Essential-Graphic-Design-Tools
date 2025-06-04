@@ -1,5 +1,5 @@
 "use client";
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { cn } from "@/lib/utils";
 
 import React, {
@@ -8,6 +8,8 @@ import React, {
   useContext,
   useRef,
   useEffect,
+  ComponentPropsWithoutRef,
+  ElementType,
 } from "react";
 
 const MouseEnterContext = createContext<
@@ -102,8 +104,8 @@ export const CardBody = ({
   );
 };
 
-export const CardItem = ({
-  as: Tag = "div",
+export const CardItem = <T extends ElementType = "div">({
+  as: Tag="div",
   children,
   className,
   translateX = 0,
@@ -123,8 +125,7 @@ export const CardItem = ({
   rotateX?: number | string;
   rotateY?: number | string;
   rotateZ?: number | string;
-  [key: string]: any;
-}) => {
+} & ComponentPropsWithoutRef<T>) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isMouseEntered] = useMouseEnter();
   const [isMobile, setIsMobile] = useState(false);
@@ -159,7 +160,6 @@ export const CardItem = ({
   );
 };
 
-// Create a hook to use the context
 export const useMouseEnter = () => {
   const context = useContext(MouseEnterContext);
   if (context === undefined) {

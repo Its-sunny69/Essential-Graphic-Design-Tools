@@ -46,8 +46,6 @@ const ColorExtractor: React.FC = () => {
 
     e.target.value = "";
 
-    console.log(file);
-
     if (!file) {
       setImgLoading(false);
       return;
@@ -58,8 +56,8 @@ const ColorExtractor: React.FC = () => {
 
       setImageUrl(previewUrl);
     } catch (err) {
-      setError((err as Error).message);
-      setImageUrl(null);
+      const errorText = (err as Error).message.split("-")[1];
+      setError(errorText);
     } finally {
       setImgLoading(false);
     }
@@ -85,7 +83,7 @@ const ColorExtractor: React.FC = () => {
 
   const handleDeleteImage = () => {
     if (imageUrl) {
-      URL.revokeObjectURL(imageUrl); // Clean up URL
+      URL.revokeObjectURL(imageUrl);
       setImageUrl(null);
       setPalette([]);
     }
@@ -113,8 +111,6 @@ const ColorExtractor: React.FC = () => {
 
     return `rgb(${newR}, ${newG}, ${newB})`;
   }
-
-  console.log("imgurl", imageUrl);
 
   return (
     <div className="animate-fade-up">
@@ -167,7 +163,7 @@ const ColorExtractor: React.FC = () => {
         ) : (
           <div className="mb-8 animate-fade">
             {error ? (
-              <div className="w-full h-80 flex items-center justify-center text-red-500 rounded-xl shadow-md object-contain border">
+              <div className="w-full h-80 p-4 flex items-center justify-center text-red-500 rounded-xl shadow-md object-contain border">
                 {error}
               </div>
             ) : (

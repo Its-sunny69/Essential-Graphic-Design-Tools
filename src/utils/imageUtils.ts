@@ -13,7 +13,11 @@ export const convertHeicToJpg = async (file: File) => {
       : outputBlob;
     return URL.createObjectURL(convertedBlob);
   } catch (error) {
-    throw new Error("Unsupported file formate(.HIEF is not supported!)");
+    throw new Error(
+      `${
+        (error as Error).message
+      }-Unsupported file format (.HIEF is not supported!)`
+    );
   }
 };
 
@@ -22,8 +26,7 @@ export const getPreviewUrl = async (file: File): Promise<string> => {
     file.name.toLowerCase().endsWith(".heic") ||
     file.name.toLowerCase().endsWith(".heif");
 
-if (isHeic) {
-    console.log("isHeic");
+  if (isHeic) {
     return await convertHeicToJpg(file);
   } else {
     return URL.createObjectURL(file);

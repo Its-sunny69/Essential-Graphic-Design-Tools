@@ -386,13 +386,11 @@ incorporate this into the brief accordingly.`
             point crafted by a machine that understands industry context.
           </p>
           <p className="mt-2">
-            <p>
-              If you&apos;ve ever typed &quot;ai prompt generator&quot; or
-              &quot;free ai prompt generator&quot; into Google, you&apos;re
-              likely seeking a tool that can eliminate creative blocks and help
-              you get started instantly. Our{" "}
-              <strong>AI Design Brief Generator</strong> does exactly that.
-            </p>
+            If you&apos;ve ever typed &quot;ai prompt generator&quot; or
+            &quot;free ai prompt generator&quot; into Google, you&apos;re likely
+            seeking a tool that can eliminate creative blocks and help you get
+            started instantly. Our <strong>AI Design Brief Generator</strong>{" "}
+            does exactly that.
           </p>
         </section>
 
