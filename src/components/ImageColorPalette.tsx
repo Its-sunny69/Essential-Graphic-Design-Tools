@@ -138,7 +138,7 @@ const ColorExtractor: React.FC = () => {
                   SVG, PNG, JPG, JPEG, HEIC or GIF
                 </p>
                 <p className="text-xs font-semibold text-gray-500">
-                  Note: HEIF formate is not supported!
+                  Note: HEIF format is not supported!
                 </p>
               </div>
               <Input
@@ -194,7 +194,7 @@ const ColorExtractor: React.FC = () => {
           </div>
         )}
 
-        <Button onClick={extractColors} disabled={!imageUrl}>
+        <Button onClick={extractColors} disabled={!imageUrl || imgLoading}>
           Generate Palette 🌈
         </Button>
       </div>
