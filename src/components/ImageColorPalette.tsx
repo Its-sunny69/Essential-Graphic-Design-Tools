@@ -1,6 +1,6 @@
 "use client";
 
-import React, { HtmlHTMLAttributes, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import ColorThief from "colorthief";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";

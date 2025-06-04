@@ -23,14 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { ArrowLeft, ArrowRight, Check, Clipboard, Loader2 } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import { Skeleton } from "./ui/skeleton";
@@ -65,12 +57,9 @@ const formSchema = z.object({
 function GeneratorForm() {
   const [copied, setCopied] = useState<boolean>(false);
   const route = process.env.NEXT_PUBLIC_PROMPT_ROUTE!;
-  const { sendPrompt, apiError, loading, result } = useGeminiAPI(route);
+  const { sendPrompt, apiError, loading } = useGeminiAPI(route);
   const [promptArr, setPromptArr] = useState<string[]>([]);
   const [count, setCount] = useState(promptArr.length);
-  const [disabled, setDisabled] = useState(false);
-
-  const textArr = ["aaaaa", "bbbbb", "ccccc"];
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -427,7 +416,7 @@ incorporate this into the brief accordingly.`
           </h2>
           <p className="mt-2">
             In today’s fast-paced creative world, having a clear and structured
-            design brief can make or break a project. Whether you're a
+            design brief can make or break a project. Whether you&apos;re a
             freelancer, agency designer, or hobbyist, the ideation phase can be
             mentally taxing. This is where an{" "}
             <strong>AI Brief Generator</strong> steps in to simplify and
@@ -435,13 +424,13 @@ incorporate this into the brief accordingly.`
           </p>
           <p className="mt-2">
             These tools not only reduce the time spent brainstorming, but also
-            improve clarity between clients and designers. You're not starting
-            from a blank page — you're launching from an intelligent starting
+            improve clarity between clients and designers. You&apos;re not starting
+            from a blank page — you&apos;re launching from an intelligent starting
             point crafted by a machine that understands industry context.
           </p>
           <p className="mt-2">
-            If you've ever typed "ai brief generator" or "free ai brief
-            generator" into Google, you're likely seeking a tool that can
+            If you&apos;ve ever typed &quot;ai brief generator&quot; or &quot;free ai brief
+            generator&quot; into Google, you&apos;re likely seeking a tool that can
             eliminate creative blocks and help you get started instantly. Our{" "}
             <strong>AI Design Brief Generator</strong> does exactly that.
           </p>
@@ -490,7 +479,7 @@ incorporate this into the brief accordingly.`
             style.
           </p>
           <p className="mt-2">
-            Whether you're building a brand identity or designing for social
+            Whether you&apos;re building a brand identity or designing for social
             campaigns, this generator understands your intent and delivers
             targeted results.
           </p>
@@ -555,7 +544,7 @@ incorporate this into the brief accordingly.`
           </h2>
           <p className="mt-2">
             Designers trust this tool for its simplicity, speed, and
-            intelligence. Here's why it's a daily driver:
+            intelligence. Here&apos;s why it&apos;s a daily driver:
           </p>
           <ul className="list-disc list-inside mt-2">
             <li>Eliminates blank canvas anxiety</li>
@@ -564,7 +553,7 @@ incorporate this into the brief accordingly.`
             <li>Useful for both client-facing and internal creative work</li>
           </ul>
           <p className="mt-2">
-            Whether you're a solo freelancer or part of a busy design team, the
+            Whether you&apos;re a solo freelancer or part of a busy design team, the
             AI Brief Generator supports your workflow without distractions.
           </p>
         </section>
@@ -578,7 +567,7 @@ incorporate this into the brief accordingly.`
             instantly.
           </p>
           <p className="mt-2">
-            If you're ready to work faster, stay inspired, and reduce friction
+            If you&apos;re ready to work faster, stay inspired, and reduce friction
             between your ideas and output — give it a try. No accounts. No
             limits. Just smart assistance.
           </p>
