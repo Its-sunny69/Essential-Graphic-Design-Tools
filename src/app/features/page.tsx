@@ -43,7 +43,7 @@ export default function Features() {
     router.push(`/features?${newParams.toString()}`);
   };
 
-  const formateText = (input: string) => {
+  const formatText = (input: string) => {
     const text = input
       .replace(/-/g, " ")
       .replace(/\b\w/g, (c) => c.toUpperCase());
@@ -74,7 +74,7 @@ export default function Features() {
                 currentFeature === option ? "text-gray-900" : "border"
               } hover:text-gray-800 hover:bg-gray-100 transition-all`}
             >
-              {formateText(option)}
+              {formatText(option)}
               {currentFeature === option && (
                 <BorderBeam duration={8} size={100} />
               )}
