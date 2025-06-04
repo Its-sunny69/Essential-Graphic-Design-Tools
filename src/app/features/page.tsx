@@ -9,12 +9,12 @@ import { ReactNode, useEffect, useState } from "react";
 
 export default function Features() {
   const [currentFeature, setCurrentFeature] = useState<string>(
-    "prompt-generator-\u2728"
+    "AI-brief-generator-\u2728"
   );
   const params = useSearchParams();
   const router = useRouter();
   const options = [
-    "prompt-generator-\u2728",
+    "AI-brief-generator-\u2728",
     "font-finder-\u2712\uFE0F",
     "color-extractor-\u{1F308}",
   ];
@@ -29,7 +29,7 @@ export default function Features() {
   }, [params]);
 
   const featureComponent: { [key: string]: ReactNode } = {
-    "prompt-generator-\u2728": <GeneratorForm />,
+    "AI-brief-generator-\u2728": <GeneratorForm />,
     "font-finder-\u2712\uFE0F": <FontFinder />,
     "color-extractor-\u{1F308}": <ColorExtractor />,
   };

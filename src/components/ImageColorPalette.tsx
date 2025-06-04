@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { HtmlHTMLAttributes, useRef, useState } from "react";
 import ColorThief from "colorthief";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -37,6 +37,20 @@ const ColorExtractor: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [imgLoading, setImgLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const processFile = async (file: File) => {
+    try {
+      const previewUrl = await getPreviewUrl(file);
+
+      setImageUrl(previewUrl);
+    } catch (err) {
+      const errorText = (err as Error).message.split("-")[1];
+      setError(errorText);
+    } finally {
+      setImgLoading(false);
+    }
+  };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(null);
@@ -51,16 +65,38 @@ const ColorExtractor: React.FC = () => {
       return;
     }
 
-    try {
-      const previewUrl = await getPreviewUrl(file);
+    await processFile(file);
+  };
 
-      setImageUrl(previewUrl);
-    } catch (err) {
-      const errorText = (err as Error).message.split("-")[1];
-      setError(errorText);
-    } finally {
+  const handleDragEnter = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+  const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+
+    e.dataTransfer.dropEffect = "move";
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = async (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+
+    setError(null);
+    setImgLoading(true);
+
+    const file = e.dataTransfer.files?.[0];
+
+    if (!file) {
       setImgLoading(false);
+      return;
     }
+
+    await processFile(file);
   };
 
   const extractColors = () => {
@@ -125,7 +161,13 @@ const ColorExtractor: React.FC = () => {
           <div className="flex items-center justify-center w-full">
             <Label
               htmlFor="dropzone-file"
-              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 hover:border-gray-900 border-dashed rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all"
+              className={`flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 hover:border-gray-900 border-dashed rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 ${
+                isDragging ? "border-gray-900 bg-gray-100" : ""
+              } transition-all`}
+              onDragEnter={handleDragEnter}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
             >
               <div className="flex flex-col items-center justify-center">
                 <UploadCloudIcon size={64} className="text-gray-400" />

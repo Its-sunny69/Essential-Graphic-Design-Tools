@@ -76,7 +76,7 @@ export default function Home() {
 
         <div className="sm:grid grid-cols-3 gap-2 pt-8">
           <Link
-            href="/features?tool=prompt-generator"
+            href="/features?tool=AI-brief-generator"
             className="cursor-pointer"
           >
             <CardContainer>

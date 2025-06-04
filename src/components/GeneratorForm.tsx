@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,7 +23,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Check, Clipboard, Loader2 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { ArrowLeft, ArrowRight, Check, Clipboard, Loader2 } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import { Skeleton } from "./ui/skeleton";
 import { copyToClipboard } from "@/utils/clipboard";
@@ -58,6 +66,11 @@ function GeneratorForm() {
   const [copied, setCopied] = useState<boolean>(false);
   const route = process.env.NEXT_PUBLIC_PROMPT_ROUTE!;
   const { sendPrompt, apiError, loading, result } = useGeminiAPI(route);
+  const [promptArr, setPromptArr] = useState<string[]>([]);
+  const [count, setCount] = useState(promptArr.length);
+  const [disabled, setDisabled] = useState(false);
+
+  const textArr = ["aaaaa", "bbbbb", "ccccc"];
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -78,12 +91,17 @@ function GeneratorForm() {
 incorporate this into the brief accordingly.`
     } Provide a concise and professional design brief suitable for a creative designer. The output should be max 70 words`;
 
-    await sendPrompt(basePrompt);
+    const text = await sendPrompt(basePrompt);
+
+    if (text) {
+      setPromptArr((prev) => [...prev, text]);
+      setCount(promptArr.length);
+    }
   }
 
-  const handleCopy = () => {
-    if (result) {
-      copyToClipboard(result, {
+  const handleCopy = (text: string) => {
+    if (text) {
+      copyToClipboard(text, {
         onSuccess: () => {
           setCopied(true);
           setTimeout(() => setCopied(false), 1000);
@@ -91,6 +109,23 @@ incorporate this into the brief accordingly.`
       });
     }
   };
+
+  const handlePrev = () => {
+    if (count !== 0) {
+      setCount(count - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (count !== promptArr.length - 1) {
+      setCount(count + 1);
+    }
+  };
+
+  useEffect(() => {
+    console.log("count", count);
+    console.log(promptArr[count]);
+  }, [count]);
 
   return (
     <div className="animate-fade-up">
@@ -276,51 +311,70 @@ incorporate this into the brief accordingly.`
             </div>
           </div>
         ) : (
-          (apiError || result) && (
-            <div className="p-4 rounded-md my-8">
-              {apiError ? (
-                <div>
-                  <div className="mb-8">
-                    <p className="sm:text-3xl text-2xl font-bold">
-                      ⚠️ Reached limit, Try again tomorrow!
+          <div className="p-4 rounded-md my-8">
+            {apiError && (
+              <div className="mb-8">
+                <div className="mb-8">
+                  <p className="sm:text-3xl text-2xl font-bold">
+                    ⚠️ Reached limit, Try again tomorrow!
+                  </p>
+                </div>
+                <div className="bg-red-100 border-l-4 border-red-300 border text-red-600 rounded-xl p-4">
+                  {apiError}
+                </div>
+              </div>
+            )}
+            {promptArr.length !== 0 && (
+              <div className="animate-fade">
+                <div className="mb-8">
+                  <p className="sm:text-3xl text-2xl font-bold mb-4">
+                    Your Custom Prompt is Ready! 🎉
+                  </p>
+
+                  <div className="w-full flex justify-end items-center">
+                    <button
+                      onClick={handlePrev}
+                      className={`${
+                        count === 0 ? "opacity-50" : ""
+                      } active:scale-95 transition-all`}
+                    >
+                      <ArrowLeft size={20} />
+                    </button>
+                    <p>
+                      {count + 1}/{promptArr.length}
                     </p>
+                    <button
+                      onClick={handleNext}
+                      className={`${
+                        count === promptArr.length - 1 ? "opacity-50" : ""
+                      } active:scale-95 transition-all`}
+                    >
+                      <ArrowRight size={20} />
+                    </button>
+                    <button
+                      className=" rounded p-2 m-1 hover:bg-gray-100 active:scale-95 transition-all"
+                      onClick={() => handleCopy(promptArr[count])}
+                      data-tooltip-id="clipboard-tooltip"
+                      data-tooltip-content="Copy to clipboard"
+                      data-tooltip-place="top"
+                    >
+                      {copied ? <Check size={20} /> : <Clipboard size={20} />}
+                    </button>
                   </div>
-                  <div className="bg-red-100 border-l-4 border-red-300 border text-red-600 rounded-xl p-4">
-                    {apiError}
+
+                  <div className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4">
+                    <Markdown>{promptArr[count]}</Markdown>
                   </div>
                 </div>
-              ) : (
-                result && (
-                  <div className="animate-fade">
-                    <div className="flex justify-between items-center mb-8">
-                      <p className="sm:text-3xl text-2xl font-bold">
-                        Your Custom Prompt is Ready! 🎉
-                      </p>
-                      <button
-                        className=" rounded p-2 m-1 hover:bg-gray-100 active:scale-95 transition-all"
-                        onClick={handleCopy}
-                        data-tooltip-id="clipboard-tooltip"
-                        data-tooltip-content="Copy to clipboard"
-                        data-tooltip-place="top"
-                      >
-                        {copied ? <Check /> : <Clipboard />}
-                      </button>
-                    </div>
-
-                    <div className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4">
-                      <Markdown>{result}</Markdown>
-                    </div>
-                  </div>
-                )
-              )}
-            </div>
-          )
+              </div>
+            )}
+          </div>
         )}
       </div>
 
-      <div className="mt-16 mb-8">
+      <div className="my-8">
         <p className="sm:text-3xl text-2xl font-bold mb-6">
-          How Prompt Generator works ?
+          How AI Brief Generator works ?
         </p>
 
         <ul className="pl-4 list-decimal">
@@ -357,51 +411,51 @@ incorporate this into the brief accordingly.`
       <div className="my-8">
         <header>
           <h1 className="sm:text-3xl text-2xl mb-6 font-bold">
-            The Best Free AI Prompt Generator to Supercharge Your Creative
+            The Best Free AI Brief Generator to Supercharge Your Creative
             Workflow
           </h1>
           <p className="mt-2">
-            Discover the top AI prompt generator designed for creatives.
-            Generate high-quality design briefs instantly and for free. No login
+            Discover the top AI brief generator designed for creatives. Generate
+            high-quality design briefs instantly and for free. No login
             required.
           </p>
         </header>
 
         <section>
           <h2 className="text-2xl font-semibold mt-8">
-            Why AI Prompt Generators Are Game-Changers
+            Why AI Brief Generators Are Game-Changers
           </h2>
           <p className="mt-2">
             In today’s fast-paced creative world, having a clear and structured
-            design brief can make or break a project. Whether you&apos;re a
+            design brief can make or break a project. Whether you're a
             freelancer, agency designer, or hobbyist, the ideation phase can be
             mentally taxing. This is where an{" "}
-            <strong>AI prompt generator</strong> steps in to simplify and
+            <strong>AI Brief Generator</strong> steps in to simplify and
             supercharge your creative process.
           </p>
           <p className="mt-2">
             These tools not only reduce the time spent brainstorming, but also
-            improve clarity between clients and designers. You’re not starting
-            from a blank page — you’re launching from an intelligent starting
+            improve clarity between clients and designers. You're not starting
+            from a blank page — you're launching from an intelligent starting
             point crafted by a machine that understands industry context.
           </p>
           <p className="mt-2">
-            If you&apos;ve ever typed &quot;ai prompt generator&quot; or
-            &quot;free ai prompt generator&quot; into Google, you&apos;re likely
-            seeking a tool that can eliminate creative blocks and help you get
-            started instantly. Our <strong>AI Design Brief Generator</strong>{" "}
-            does exactly that.
+            If you've ever typed "ai brief generator" or "free ai brief
+            generator" into Google, you're likely seeking a tool that can
+            eliminate creative blocks and help you get started instantly. Our{" "}
+            <strong>AI Design Brief Generator</strong> does exactly that.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mt-8">
-            What Is an AI Prompt Generator?
+            What Is an AI Brief Generator?
           </h2>
           <p className="mt-2">
-            An AI prompt generator is a smart tool that leverages artificial
-            intelligence to create well-structured prompts or briefs based on
-            user inputs. These prompts can be used for various tasks such as:
+            An AI Brief Generator is a smart tool that leverages artificial
+            intelligence to create well-structured design briefs based on user
+            inputs. These briefs are used for a variety of creative and branding
+            needs including:
           </p>
           <ul className="list-disc list-inside mt-2">
             <li>Graphic design projects</li>
@@ -412,15 +466,15 @@ incorporate this into the brief accordingly.`
             <li>Ad copy or social media creatives</li>
           </ul>
           <p className="mt-2">
-            Unlike traditional generators that offer random suggestions,
-            AI-driven tools analyze context and generate results that are highly
-            relevant and actionable. They learn from large datasets and
-            understand patterns in how good briefs are structured — giving users
-            a head start.
+            Unlike traditional templates that offer generic suggestions,
+            AI-driven tools analyze context and generate results that are
+            specific, relevant, and immediately useful. These tools understand
+            how real-world briefs are written and adapt that knowledge for your
+            use case.
           </p>
           <p className="mt-2">
-            These generators can serve as idea accelerators, allowing teams to
-            align quickly and move forward with clarity.
+            This makes AI brief generators a must-have for fast-paced teams and
+            independent creatives alike.
           </p>
         </section>
 
@@ -430,47 +484,47 @@ incorporate this into the brief accordingly.`
           </h2>
           <p className="mt-2">
             Our <strong>AI Design Brief Generator</strong> is built specifically
-            for designers who need high-quality, concise, and clear design
-            briefs. It uses advanced AI (powered by Google Gemini) to understand
-            user inputs like design type, industry, and style preferences.
+            for designers who need quick, precise, and insightful briefs. It
+            uses advanced AI (powered by Google Gemini) to interpret inputs like
+            your chosen design type, industry niche, and preferred aesthetic
+            style.
           </p>
           <p className="mt-2">
-            Whether you&apos;re designing a sleek logo for a fintech startup or
-            a vibrant poster for an event, the tool adapts to your needs,
-            ensuring every brief feels personalized.
+            Whether you're building a brand identity or designing for social
+            campaigns, this generator understands your intent and delivers
+            targeted results.
           </p>
           <h3 className="text-xl font-semibold mt-4">Key Features</h3>
           <ul className="list-disc list-inside mt-2">
+            <li>No Login Required – Use it immediately without any sign-up.</li>
             <li>
-              No Login Required – Use it instantly, no signup or payment needed.
-            </li>
-            <li>
-              Fast & Responsive – Generate a complete brief in less than 5
+              Lightning Fast – Generate structured design briefs in under 5
               seconds.
             </li>
             <li>
-              Customizable – Input brand name, select style, and industry.
-            </li>
-            <li>Copy-Ready Output – Easy to copy and paste wherever needed.</li>
-            <li>
-              Mobile Friendly – Works seamlessly on smartphones and tablets.
+              Highly Customizable – Tailor inputs with brand names, industries,
+              and styles.
             </li>
             <li>
-              Minimal Interface – Clean UI focused purely on generating your
-              brief.
+              Ready-to-Copy Output – Seamlessly copy and use in client pitches
+              or mockups.
             </li>
+            <li>
+              Works on All Devices – Fully responsive and mobile-optimized.
+            </li>
+            <li>Minimal UI – No clutter, just focused design assistance.</li>
           </ul>
           <p className="mt-2">
-            The generator removes the guesswork from brainstorming and acts as a
-            virtual assistant for creatives under deadlines.
+            It’s like having a creative strategist in your browser — always
+            ready to draft the perfect starting point.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mt-8">Real-World Examples</h2>
           <p className="mt-2">
-            Here are a few sample outputs generated using different input
-            combinations:
+            See how various designers have used the AI Brief Generator to
+            kickstart their work:
           </p>
           <ul className="list-disc list-inside mt-2">
             <li>
@@ -490,44 +544,43 @@ incorporate this into the brief accordingly.`
             </li>
           </ul>
           <p className="mt-2">
-            These examples showcase the versatility of the AI engine and its
-            ability to interpret context.
+            These examples show how flexible the generator is — from corporate
+            branding to creative campaigns.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mt-8">
-            Why Designers Love This Tool
+            Why Designers Choose Our AI Brief Generator
           </h2>
           <p className="mt-2">
-            Designers appreciate tools that reduce repetitive thinking and
-            increase creativity. Our AI Brief Generator is trusted because:
+            Designers trust this tool for its simplicity, speed, and
+            intelligence. Here's why it's a daily driver:
           </p>
           <ul className="list-disc list-inside mt-2">
-            <li>It removes the blank-page syndrome entirely</li>
-            <li>It&apos;s reliable under deadlines</li>
-            <li>It offers professional tone briefs every time</li>
-            <li>
-              It&apos;s useful for client projects and internal ideation alike
-            </li>
+            <li>Eliminates blank canvas anxiety</li>
+            <li>Provides consistent tone and structure</li>
+            <li>Streamlines collaboration with clients</li>
+            <li>Useful for both client-facing and internal creative work</li>
           </ul>
           <p className="mt-2">
-            Whether you&apos;re a student trying to meet a tight deadline or a
-            freelancer juggling multiple clients, this tool ensures consistency
-            and clarity.
+            Whether you're a solo freelancer or part of a busy design team, the
+            AI Brief Generator supports your workflow without distractions.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mt-8">Conclusion</h2>
           <p className="mt-2">
-            In a world where speed and clarity are crucial, having a reliable
-            partner like an AI Prompt Generator makes a huge difference. It’s
-            not about replacing creativity — it’s about accelerating it.
+            Design is all about vision, but execution starts with direction. A
+            good brief makes everything smoother. The{" "}
+            <strong>AI Brief Generator</strong> gives you that clarity,
+            instantly.
           </p>
           <p className="mt-2">
-            If you&apos;re ready to work smarter, try our free tool and join
-            thousands of designers already supercharging their workflow.
+            If you're ready to work faster, stay inspired, and reduce friction
+            between your ideas and output — give it a try. No accounts. No
+            limits. Just smart assistance.
           </p>
         </section>
       </div>
