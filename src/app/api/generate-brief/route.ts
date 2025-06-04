@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       entry.count = 1;
       entry.lastRequest = now;
       await entry.save();
-    } else if (entry.count >= 5) {
+    } else if (entry.count >= 4) {
       return NextResponse.json(
         {
           blocked: true,
