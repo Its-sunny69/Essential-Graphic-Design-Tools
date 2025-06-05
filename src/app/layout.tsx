@@ -6,6 +6,7 @@ import AdDetection from "@/components/AdDetection";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Script from "next/script";
+import AnalyticsProvider from "@/components/AnalyticsProvider";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -49,7 +50,10 @@ export default function RootLayout({
       <body className={`${roboto.variable} font-roboto h-full flex flex-col`}>
         <AdDetection>
           <Header />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <AnalyticsProvider />
+            {children}
+          </main>
           <Footer />
         </AdDetection>
         <Toaster position="top-right" />

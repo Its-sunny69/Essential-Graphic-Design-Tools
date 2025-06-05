@@ -17,6 +17,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useGeminiAPI } from "@/hooks/useGeminiAPI";
+import { trackEvent } from "@/lib/ga";
 type FontItem = {
   family: string;
   files: {
@@ -51,7 +52,7 @@ function FontFinder() {
     if (keyword?.trim() === "") {
       setError("Please enter a keyword!");
     } else {
-      const basePrompt = `You are a font recommendation AI. The user will provide a single array of word. Your task is to understand the meaning and connotation of the following word and recommend only 5 best Google Font family name that best visually represents it. The word is: "${keyword}". Output only the font family name array. Do not include any other text, explanations, or formatting.`;
+      const basePrompt = `You are a font recommendation AI. The user will provide a single array of word. Your task is to understand the meaning and connotation of the following word and recommend only 20 best Google Font family name that best visually represents it. The word is: "${keyword}". Output only the font family name array. Do not include any other text, explanations, or formatting.`;
       try {
         const fontFamily = await sendPrompt(basePrompt);
         if (!fontFamily) {
@@ -64,6 +65,7 @@ function FontFinder() {
           fontCacheRoute
         );
         setResponse(res);
+        trackEvent("font-finder", "button-click", "limmit-exceed");
       } catch (error) {
         toast.error((error as Error).message || "Internal Server Error");
       } finally {

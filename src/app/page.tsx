@@ -1,6 +1,9 @@
+"use client"
+
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import Link from "next/link";
 import Carousel from "@/components/ui/Carousel/Carousel";
+import { trackEvent } from "@/lib/ga";
 
 export default function Home() {
   const carouselItem = [
@@ -10,6 +13,10 @@ export default function Home() {
     { description: "Beautiful backgrounds and patterns for your projects." },
     { description: "Common UI components are coming soon!" },
   ];
+
+  const handleAction = (tool: string) => {
+    trackEvent("home-to-features", "click", tool);
+  };
 
   return (
     <div className=" md:w-[70%] sm:w-[80%] w-[90%] mx-auto">
@@ -76,8 +83,9 @@ export default function Home() {
 
         <div className="sm:grid grid-cols-3 gap-2 pt-8">
           <Link
-            href="/features?tool=AI-brief-generator"
+            href="/features?tool=design-brief-generator"
             className="cursor-pointer"
+            onClick={() => handleAction("design-brief-generator")}
           >
             <CardContainer>
               <CardBody className="bg-gray-50 relative group/card border-black/[0.1] rounded-xl md:p-6 p-3 border">
@@ -109,7 +117,11 @@ export default function Home() {
             </CardContainer>
           </Link>
 
-          <Link href="/features?tool=font-finder" className="cursor-pointer">
+          <Link
+            href="/features?tool=font-finder"
+            className="cursor-pointer"
+            onClick={() => handleAction("font-finder")}
+          >
             <CardContainer>
               <CardBody className="bg-gray-50 relative group/card border-black/[0.1] rounded-xl md:p-6 p-3 border">
                 <CardItem
@@ -144,6 +156,7 @@ export default function Home() {
           <Link
             href="/features?tool=color-extractor"
             className="cursor-pointer"
+            onClick={() => handleAction("color-extractor")}
           >
             <CardContainer>
               <CardBody className="bg-gray-50 relative group/card border-black/[0.1] rounded-xl md:p-6 p-3 border">

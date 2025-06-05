@@ -35,6 +35,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useGeminiAPI } from "@/hooks/useGeminiAPI";
+import { trackEvent } from "@/lib/ga";
 
 const formSchema = z.object({
   designType: z.string().min(1, {
@@ -85,6 +86,9 @@ incorporate this into the brief accordingly.`
     if (text) {
       setPromptArr((prev) => [...prev, text]);
       setCount(promptArr.length);
+      trackEvent("design-Brief", "button-click", "generate-success");
+    } else {
+      trackEvent("design-brief", "button-click", "limmit-exceed");
     }
   }
 
@@ -120,7 +124,7 @@ incorporate this into the brief accordingly.`
     <div className="animate-fade-up">
       <p className="sm:text-4xl text-2xl font-bold text-center">
         Design Smarter.
-        <br className="sm:hidden inline" /> Start with an AI Brief
+        <br className="sm:hidden inline" /> Start with an Design Brief
       </p>
       <div className="sm:w-[85%] mx-auto border p-8 my-8 rounded-xl shadow-md">
         <Form {...form}>
@@ -363,7 +367,7 @@ incorporate this into the brief accordingly.`
 
       <div className="my-8">
         <p className="sm:text-3xl text-2xl font-bold mb-6">
-          How AI Brief Generator works ?
+          How Design Brief Generator works ?
         </p>
 
         <ul className="pl-4 list-decimal">
@@ -397,179 +401,180 @@ incorporate this into the brief accordingly.`
         </p>
       </div>
 
+      {/* new */}
       <div className="my-8">
         <header>
           <h1 className="sm:text-3xl text-2xl mb-6 font-bold">
-            The Best Free AI Brief Generator to Supercharge Your Creative
+            The Best Free Design Brief Generator to Supercharge Your Creative
             Workflow
           </h1>
           <p className="mt-2">
-            Discover the top AI brief generator designed for creatives. Generate
-            high-quality design briefs instantly and for free. No login
-            required.
+            Discover the top design brief generator created for modern
+            creatives. Generate high-quality project briefs instantly and for
+            free. No login required.
           </p>
         </header>
 
         <section>
           <h2 className="text-2xl font-semibold mt-8">
-            Why AI Brief Generators Are Game-Changers
+            Why Design Brief Generators Are Game-Changers
           </h2>
           <p className="mt-2">
-            In today’s fast-paced creative world, having a clear and structured
-            design brief can make or break a project. Whether you&apos;re a
-            freelancer, agency designer, or hobbyist, the ideation phase can be
-            mentally taxing. This is where an{" "}
-            <strong>AI Brief Generator</strong> steps in to simplify and
-            supercharge your creative process.
+            In today&apos;s fast-paced creative world, having a clear and
+            structured design brief can make or break a project. Whether
+            you&apos;re a freelancer, agency designer, or hobbyist, the ideation
+            phase can be mentally taxing. This is where a{" "}
+            <strong>Design Brief Generator</strong>
+            steps in to simplify and supercharge your creative process.
           </p>
           <p className="mt-2">
             These tools not only reduce the time spent brainstorming, but also
-            improve clarity between clients and designers. You&apos;re not starting
-            from a blank page — you&apos;re launching from an intelligent starting
-            point crafted by a machine that understands industry context.
+            improve clarity between clients and designers. You&apos;re not
+            starting from a blank page — you&apos;re launching from an
+            intelligent starting point crafted by a system that understands
+            industry context.
           </p>
           <p className="mt-2">
-            If you&apos;ve ever typed &quot;ai brief generator&quot; or &quot;free ai brief
-            generator&quot; into Google, you&apos;re likely seeking a tool that can
-            eliminate creative blocks and help you get started instantly. Our{" "}
-            <strong>AI Design Brief Generator</strong> does exactly that.
+            If you&apos;ve ever typed &quot;design brief generator&quot; or
+            &quot;free design brief generator&quot; into Google, you&apos;re
+            likely seeking a tool that can eliminate creative blocks and help
+            you get started instantly. Our{" "}
+            <strong>Design Brief Generator</strong>
+            does exactly that.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mt-8">
-            What Is an AI Brief Generator?
+            What Is a Design Brief Generator?
           </h2>
           <p className="mt-2">
-            An AI Brief Generator is a smart tool that leverages artificial
-            intelligence to create well-structured design briefs based on user
-            inputs. These briefs are used for a variety of creative and branding
-            needs including:
+            A Design Brief Generator is an intelligent tool that leverages
+            artificial intelligence to create structured briefs based on user
+            inputs. These briefs are useful for a wide range of creative and
+            branding needs such as:
           </p>
           <ul className="list-disc list-inside mt-2">
             <li>Graphic design projects</li>
-            <li>Branding & logo design</li>
+            <li>Branding &amp; logo design</li>
             <li>Marketing campaigns</li>
             <li>Content planning</li>
             <li>Website layout guidance</li>
             <li>Ad copy or social media creatives</li>
           </ul>
           <p className="mt-2">
-            Unlike traditional templates that offer generic suggestions,
-            AI-driven tools analyze context and generate results that are
-            specific, relevant, and immediately useful. These tools understand
-            how real-world briefs are written and adapt that knowledge for your
-            use case.
+            Unlike generic templates, AI-powered generators assess user input
+            and deliver results that are relevant, contextual, and immediately
+            actionable. These tools understand what makes an effective design
+            brief and generate suggestions tailored to each scenario.
           </p>
           <p className="mt-2">
-            This makes AI brief generators a must-have for fast-paced teams and
-            independent creatives alike.
+            As a result, Design Brief Generators are essential tools for
+            fast-moving teams and solo creatives alike.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mt-8">
-            Meet Our AI Design Brief Generator
+            Meet Our Design Brief Generator
           </h2>
           <p className="mt-2">
-            Our <strong>AI Design Brief Generator</strong> is built specifically
-            for designers who need quick, precise, and insightful briefs. It
-            uses advanced AI (powered by Google Gemini) to interpret inputs like
-            your chosen design type, industry niche, and preferred aesthetic
-            style.
+            Our <strong>Design Brief Generator</strong> is built for creatives
+            who need fast, accurate, and professional briefs. It uses
+            cutting-edge AI (powered by Google Gemini) to understand your inputs
+            — like project type, industry, and style preferences — and turns
+            them into powerful briefing text.
           </p>
           <p className="mt-2">
-            Whether you&apos;re building a brand identity or designing for social
-            campaigns, this generator understands your intent and delivers
-            targeted results.
+            Whether you&apos;re launching a brand, designing packaging, or
+            promoting an event, this generator helps you start with a
+            crystal-clear direction.
           </p>
           <h3 className="text-xl font-semibold mt-4">Key Features</h3>
           <ul className="list-disc list-inside mt-2">
-            <li>No Login Required – Use it immediately without any sign-up.</li>
+            <li>No Login Required – Access instantly without registration.</li>
+            <li>Lightning Fast – Generate a high-quality brief in seconds.</li>
             <li>
-              Lightning Fast – Generate structured design briefs in under 5
-              seconds.
+              Highly Customizable – Input your brand name, select your industry,
+              and choose your visual style.
             </li>
             <li>
-              Highly Customizable – Tailor inputs with brand names, industries,
-              and styles.
+              Copy-Friendly – Output is easy to copy and use in client documents
+              or creative tools.
             </li>
+            <li>Responsive – Optimized for mobile and desktop devices.</li>
             <li>
-              Ready-to-Copy Output – Seamlessly copy and use in client pitches
-              or mockups.
+              Minimal Interface – Focused layout that gets the job done without
+              distractions.
             </li>
-            <li>
-              Works on All Devices – Fully responsive and mobile-optimized.
-            </li>
-            <li>Minimal UI – No clutter, just focused design assistance.</li>
           </ul>
           <p className="mt-2">
-            It’s like having a creative strategist in your browser — always
-            ready to draft the perfect starting point.
+            Think of it as your digital creative assistant — always ready to
+            deliver a professional brief when you need it most.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mt-8">Real-World Examples</h2>
           <p className="mt-2">
-            See how various designers have used the AI Brief Generator to
-            kickstart their work:
+            Explore how creatives are using the Design Brief Generator across
+            industries:
           </p>
           <ul className="list-disc list-inside mt-2">
             <li>
-              <strong>Logo for a tech company</strong>: “Design a modern,
-              geometric logo for a cybersecurity startup. Use dark blue and
-              silver tones.”
+              <strong>Logo for a tech startup</strong>: &quot;Design a modern,
+              geometric logo for a cybersecurity company using cool blue and
+              silver shades.&quot;
             </li>
             <li>
-              <strong>Poster for a music festival</strong>: “Create a playful
-              and bold poster for an indie music fest targeting college
-              students.”
+              <strong>Poster for a college event</strong>: &quot;Create a
+              colorful and energetic poster for a university music festival
+              aimed at Gen Z audiences.&quot;
             </li>
             <li>
-              <strong>Packaging for organic tea</strong>: “Design a minimalist
-              package for an herbal tea brand with earthy colors and elegant
-              typography.”
+              <strong>Tea packaging design</strong>: &quot;Design an earthy,
+              minimal label for organic green tea using natural colors and soft
+              typography.&quot;
             </li>
           </ul>
           <p className="mt-2">
-            These examples show how flexible the generator is — from corporate
-            branding to creative campaigns.
+            These examples show how versatile the tool is — perfect for
+            agencies, solopreneurs, and side projects alike.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mt-8">
-            Why Designers Choose Our AI Brief Generator
+            Why Designers Love the Design Brief Generator
           </h2>
           <p className="mt-2">
-            Designers trust this tool for its simplicity, speed, and
-            intelligence. Here&apos;s why it&apos;s a daily driver:
+            Creatives love this tool because it delivers clarity without
+            compromise. Here&apos;s what sets it apart:
           </p>
           <ul className="list-disc list-inside mt-2">
-            <li>Eliminates blank canvas anxiety</li>
-            <li>Provides consistent tone and structure</li>
-            <li>Streamlines collaboration with clients</li>
-            <li>Useful for both client-facing and internal creative work</li>
+            <li>Ends the &quot;blank page&quot; problem</li>
+            <li>Provides structured, concise starting points</li>
+            <li>Accelerates collaboration and approval cycles</li>
+            <li>Adaptable for both personal and commercial work</li>
           </ul>
           <p className="mt-2">
-            Whether you&apos;re a solo freelancer or part of a busy design team, the
-            AI Brief Generator supports your workflow without distractions.
+            Whether you&apos;re freelancing or building in-house assets, the
+            Design Brief Generator saves time and boosts results.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-semibold mt-8">Conclusion</h2>
           <p className="mt-2">
-            Design is all about vision, but execution starts with direction. A
-            good brief makes everything smoother. The{" "}
-            <strong>AI Brief Generator</strong> gives you that clarity,
-            instantly.
+            Clear briefs create better outcomes. The{" "}
+            <strong>Design Brief Generator</strong> delivers structure, clarity,
+            and direction at the click of a button — helping you focus more on
+            creativity and less on planning.
           </p>
           <p className="mt-2">
-            If you&apos;re ready to work faster, stay inspired, and reduce friction
-            between your ideas and output — give it a try. No accounts. No
-            limits. Just smart assistance.
+            Ready to skip the friction and unlock flow? Start using the free
+            Design Brief Generator today and take control of your creative
+            workflow.
           </p>
         </section>
       </div>

@@ -27,6 +27,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { getPreviewUrl } from "../utils/imageUtils";
+import { trackEvent } from "@/lib/ga";
 
 const ColorExtractor: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -115,6 +116,7 @@ const ColorExtractor: React.FC = () => {
     }
 
     setLoading(false);
+    trackEvent("color-extractor", "button-click", "color-palette-generated");
   };
 
   const handleDeleteImage = () => {

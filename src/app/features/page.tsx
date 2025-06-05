@@ -4,17 +4,18 @@ import FontFinder from "@/components/FontFinder";
 import GeneratorForm from "@/components/GeneratorForm";
 import ColorExtractor from "@/components/ImageColorPalette";
 import { BorderBeam } from "@/components/magicui/border-beam";
+import { trackEvent } from "@/lib/ga";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 
 export default function Features() {
   const [currentFeature, setCurrentFeature] = useState<string>(
-    "AI-brief-generator-\u2728"
+    "design-brief-generator-\u2728"
   );
   const params = useSearchParams();
   const router = useRouter();
   const options = [
-    "AI-brief-generator-\u2728",
+    "design-brief-generator-\u2728",
     "font-finder-\u2712\uFE0F",
     "color-extractor-\u{1F308}",
   ];
@@ -29,7 +30,7 @@ export default function Features() {
   }, [params]);
 
   const featureComponent: { [key: string]: ReactNode } = {
-    "AI-brief-generator-\u2728": <GeneratorForm />,
+    "design-brief-generator-\u2728": <GeneratorForm />,
     "font-finder-\u2712\uFE0F": <FontFinder />,
     "color-extractor-\u{1F308}": <ColorExtractor />,
   };
@@ -41,6 +42,7 @@ export default function Features() {
     const keyword = option.split(/-(?=[^-]*$)/)[0]; // extract 'prompt', 'font', etc.
     newParams.set("tool", keyword);
     router.push(`/features?${newParams.toString()}`);
+    trackEvent("features", "click", keyword);
   };
 
   const formatText = (input: string) => {
