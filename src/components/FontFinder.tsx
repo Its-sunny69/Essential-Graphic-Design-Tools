@@ -52,7 +52,11 @@ function FontFinder() {
     if (keyword?.trim() === "") {
       setError("Please enter a keyword!");
     } else {
-      const basePrompt = `You are a font recommendation AI. The user will provide a single array of word. Your task is to understand the meaning and connotation of the following word and recommend only 20 best Google Font family name that best visually represents it. The word is: "${keyword}". Output only the font family name array. Do not include any other text, explanations, or formatting.`;
+      const basePrompt = `You are a font recommendation AI. The user will provide a single keyword. Your task is to understand the meaning and connotation of the keyword and return exactly 20 Google Font family names that best visually represent it. The output must be a plain array of 20 font family names—no more, no less, and no explanations or additional text. Use only the following format:
+      
+      ["Font Name 1", "Font Name 2", ..., "Font Name 20"]
+      
+      The keyword is: "${keyword}"`;
       try {
         const fontFamily = await sendPrompt(basePrompt);
         if (!fontFamily) {
@@ -68,7 +72,9 @@ function FontFinder() {
         trackEvent("font-finder", "button-click", "limmit-exceed");
       } catch (error) {
         console.error("Caught error:", error);
-        toast.error("Some thing went wrong, please referesh the page and try again!");
+        toast.error(
+          "Some thing went wrong, please referesh the page and try again!"
+        );
       } finally {
         setFontLoading(false);
       }
@@ -374,8 +380,8 @@ function FontFinder() {
           <AccordionItem value="item-3">
             <AccordionTrigger>How many fonts will it show?</AccordionTrigger>
             <AccordionContent>
-              You’ll get a curated list of 20 fonts that visually align with your
-              keyword.
+              You’ll get a curated list of 20 fonts that visually align with
+              your keyword.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-4">
