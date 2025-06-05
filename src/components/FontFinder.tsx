@@ -67,7 +67,8 @@ function FontFinder() {
         setResponse(res);
         trackEvent("font-finder", "button-click", "limmit-exceed");
       } catch (error) {
-        toast.error((error as Error).message || "Internal Server Error");
+        console.error("Caught error:", error);
+        toast.error("Some thing went wrong, please referesh the page and try again!");
       } finally {
         setFontLoading(false);
       }
@@ -169,7 +170,7 @@ function FontFinder() {
             Our AI analyzes the mood, tone, and context of your keyword.
           </li>
           <li className="my-2">
-            It recommends the top 5 matching Google Fonts that reflect the
+            It recommends the top 20 matching Google Fonts that reflect the
             style.
           </li>
           <li className="my-2">
@@ -250,7 +251,7 @@ function FontFinder() {
             </li>
             <li>Click “Find Font.”</li>
             <li>
-              The tool fetches and displays the top 5 matching Google Fonts.
+              The tool fetches and displays the top 20 matching Google Fonts.
             </li>
             <li>Type your own text to see real-time previews in each font.</li>
             <li>
@@ -373,7 +374,7 @@ function FontFinder() {
           <AccordionItem value="item-3">
             <AccordionTrigger>How many fonts will it show?</AccordionTrigger>
             <AccordionContent>
-              You’ll get a curated list of 5 fonts that visually align with your
+              You’ll get a curated list of 20 fonts that visually align with your
               keyword.
             </AccordionContent>
           </AccordionItem>

@@ -84,8 +84,12 @@ incorporate this into the brief accordingly.`
     const text = await sendPrompt(basePrompt);
 
     if (text) {
-      setPromptArr((prev) => [...prev, text]);
-      setCount(promptArr.length);
+      setPromptArr((prev) => {
+        const updated = [...prev, text];
+        setCount(updated.length - 1); // ✅ point to the new one
+        return updated;
+      });
+
       trackEvent("design-Brief", "button-click", "generate-success");
     } else {
       trackEvent("design-brief", "button-click", "limmit-exceed");
@@ -317,7 +321,7 @@ incorporate this into the brief accordingly.`
                 </div>
               </div>
             )}
-            {promptArr.length !== 0 && (
+            {promptArr.length !== 0 && promptArr[count] && (
               <div className="animate-fade">
                 <div className="mb-8">
                   <p className="sm:text-3xl text-2xl font-bold mb-4">
@@ -401,7 +405,6 @@ incorporate this into the brief accordingly.`
         </p>
       </div>
 
-      {/* new */}
       <div className="my-8">
         <header>
           <h1 className="sm:text-3xl text-2xl mb-6 font-bold">
