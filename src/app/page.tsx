@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import Link from "next/link";
 import Carousel from "@/components/ui/Carousel/Carousel";
 import { trackEvent } from "@/lib/ga";
+import AdBanner from "@/components/AdBanner";
 
 export default function Home() {
   const carouselItem = [
@@ -49,7 +50,21 @@ export default function Home() {
             </p>
           </div>
         </div>
-
+        <div className="">
+          <AdBanner
+            id="tool-1"
+            className="bg-green-400"
+            optionsScript={`
+              atOptions = {
+                  'key' : 'c9458f4005dcdfff434c815bac568ffa',
+                  'format' : 'iframe',
+                  'height' : 60,
+                  'width' : 468,
+                  'params' : {}
+	            }`}
+            srcScript="//www.highperformanceformat.com/c9458f4005dcdfff434c815bac568ffa/invoke.js"
+          />
+        </div>
         <div className="sm:my-20 my-14 md:grid grid-cols-2">
           <div className="md:text-left text-justify">
             <h2 className="md:text-6xl text-4xl md:text-left text-center font-bold">
