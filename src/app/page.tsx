@@ -4,7 +4,7 @@ import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import Link from "next/link";
 import Carousel from "@/components/ui/Carousel/Carousel";
 import { trackEvent } from "@/lib/ga";
-import AdBanner from "@/components/AdBanner";
+// import AdBanner from "@/components/AdBanner";
 
 export default function Home() {
   const carouselItem = [
