@@ -43,127 +43,129 @@ export default function Home() {
     },
   ];
 
-  const designPromptData = [
-    {
-      title: "Design Trend Analysis",
-      content:
-        "Act as an expert graphic design analyst for the year 2025. Provide a detailed summary of top current and emerging trends, with a focus on branding and UI/UX. Make it suitable for professional designers and include actionable insights.",
-      list: [
-        "Popular color schemes and their psychological impact",
-        "Trending typography styles and font usage",
-        "Popular design elements (e.g., minimalism, 3D, abstract shapes)",
-        "Use of technology in design (AI tools, AR, motion graphics)",
-        "Sustainability and eco-conscious design trends",
-        "Impact on brand identity and user experience",
-      ],
-    },
-    {
-      title: "Color Palette Suggestions",
-      content:
-        "Act as a professional color consultant for a floral brand with a calming summer vibe. Suggest a pastel color palette and describe its emotional tone and applications.",
-      list: [
-        "Hex code for each color",
-        "Mood/emotion each color conveys",
-        "How the colors complement each other",
-        "Use of the palette in logos, packaging, digital media",
-      ],
-    },
-    {
-      title: "Client Communication Templates",
-      content:
-        "Write a friendly, professional email requesting feedback on design revisions. Encourage constructive input and reassure the client about the revision process.",
-      list: [
-        "Express gratitude for their time and trust",
-        "Summarize what has been delivered",
-        "Invite specific feedback",
-        "Reassure your commitment to quality",
-        "Suggest a feedback timeline",
-      ],
-    },
-    {
-      title: "Packaging Design Inspiration",
-      content:
-        "Act as a consultant for eco-friendly skincare packaging. Provide sustainable, luxurious packaging ideas and explain how they appeal to eco-conscious consumers.",
-      list: [
-        "Premium yet sustainable material suggestions",
-        "Texture/finish ideas (matte, embossed, soft-touch)",
-        "Color schemes and natural visual elements",
-        "Retail usability and shelf appeal",
-      ],
-    },
-    {
-      title: "Design Presentation Script",
-      content:
-        "Write a confident and simple presentation script for a logo design, tailored for non-designer clients.",
-      list: [
-        "Inspiration behind the logo",
-        "Color choices and brand personality",
-        "Typography relevance",
-        "Business goals and audience alignment",
-        "Logo versatility across platforms",
-      ],
-    },
-    {
-      title: "Design Software Shortcut Tips",
-      content:
-        "As an Adobe Illustrator expert, list 10 keyboard shortcuts that improve productivity, with explanations and usage tips.",
-      list: [
-        "Shortcut key (Windows & Mac)",
-        "What the shortcut does",
-        "When and how to use it",
-        "Time-saving tips",
-      ],
-    },
-    {
-      title: "Portfolio Review Checklist",
-      content:
-        "Create a checklist to review your design portfolio before submitting to clients/employers. Include actionable advice under each item.",
-      list: [
-        "Work diversity (styles, mediums)",
-        "Presentation quality (resolution, layout)",
-        "Clarity in descriptions and case studies",
-        "Visual consistency and branding",
-        "Relevance to job/client",
-        "Client results or testimonials",
-        "Contact info and call-to-action",
-      ],
-    },
-    {
-      title: "Infographic Content Outline",
-      content:
-        "Draft an outline for an infographic on climate change impacts. Organize the content clearly for a general audience.",
-      list: [
-        "Intro and key facts",
-        "Major causes of climate change",
-        "Environmental and social effects (with stats)",
-        "Visual ideas (charts, timelines, icons)",
-        "Action steps for individuals and communities",
-      ],
-    },
-    {
-      title: "Packaging Copywriting Help",
-      content:
-        "Write a short and attractive product description for a natural tea brand. Emphasize organic ingredients and wellness.",
-      list: [
-        "Highlight flavor and aroma",
-        "Health benefits and natural ingredients",
-        "Tone: calm, inviting, authentic",
-        "Keep it concise and packaging-friendly",
-      ],
-    },
-    {
-      title: "Design Inspiration Sources",
-      content:
-        "List 5 websites/platforms for high-quality design inspiration. Explain how designers can use them effectively.",
-      list: [
-        "Type of design featured (e.g., UI/UX, branding)",
-        "Unique features/community aspect",
-        "Tips on usage",
-        "Popular examples available",
-        "Free vs premium access info",
-      ],
-    },
-  ];
+ const designPrompts = [
+  {
+    title: "Design Trend Analysis",
+    content:
+      "I want you to act as an expert graphic design analyst for the year 2025. Please provide a comprehensive and detailed summary of the top current and emerging graphic design trends, with a special focus on branding and UI/UX design. Cover aspects such as:",
+    list: [
+      "Popular color schemes and their psychological impact",
+      "Trending typography styles and font usage",
+      "Design elements and motifs gaining popularity (e.g., minimalism, 3D, abstract shapes)",
+      "Use of technology in design, such as AI tools, augmented reality, or motion graphics",
+      "Sustainability and eco-conscious design trends",
+      "How these trends influence brand identity and user experience. Make the explanation suitable for professional designers looking to stay ahead in their projects, including actionable insights they can apply. Please organize your response in clear sections or bullet points."
+    ],
+  },
+  {
+    title: "Color Palette Suggestions",
+    content:
+      "Act as a professional color consultant for branding. I am creating a floral brand that needs a natural, soothing, and calming visual identity. Please suggest a detailed color palette consisting of 5-7 colors, primarily pastel shades, which evoke freshness and a summer vibe. For each color, provide:",
+    list: [
+      "The hex code",
+      "A brief description of the mood or emotion it conveys",
+      "How it complements the other colors in the palette. Also, explain how this palette can be effectively used across different branding materials such as logos, packaging, and digital media to create a cohesive and appealing look."
+    ],
+  },
+  {
+    title: "Client Communication Templates",
+    content:
+      "You are a professional graphic designer communicating with a client. Please draft a polite, clear, and professional email template requesting detailed feedback for design revisions. The tone should be friendly and approachable, encouraging the client to provide constructive criticism and preferences without hesitation. The email should:",
+    list: [
+      "Express gratitude for the client’s time and trust",
+      "Summarize what has been delivered so far",
+      "Invite specific feedback and mention that revisions are part of the process",
+      "Reassure the client of your commitment to delivering the best outcome",
+      "Politely suggest a timeline for the feedback. Make sure the language is formal but warm, suitable for business communication."
+    ],
+  },
+  {
+    title: "Packaging Design Inspiration",
+    content:
+      "Please act as a creative packaging design consultant specialized in sustainable products. I am developing packaging ideas for an organic skincare product line. Provide a detailed list of innovative and eco-friendly packaging design concepts that:",
+    list: [
+      "Emphasize premium quality while maintaining sustainability",
+      "Include suggestions for materials (e.g., recycled paper, biodegradable plastics, glass)",
+      "Describe suitable textures and finishes (e.g., matte, embossed, soft-touch)",
+      "Recommend color schemes and visual elements that communicate natural ingredients and environmental responsibility",
+      "Consider usability and shelf appeal for retail environments. Include examples or references where possible, and explain why each concept is effective in attracting environmentally conscious customers while maintaining luxury appeal."
+    ],
+  },
+  {
+    title: "Design Presentation Script",
+    content:
+      "You are preparing to present a logo design to a client. Write a confident, professional, and engaging presentation script that explains:",
+    list: [
+      "The inspiration behind the logo design",
+      "The choice of colors and how they reflect the brand’s personality",
+      "The typography selection and its relevance to the brand identity",
+      "How the logo design aligns with the client’s business goals and target audience",
+      "The versatility and scalability of the logo across different media. Make the script concise yet persuasive, using language that a non-designer client can easily understand, while showcasing your expertise."
+    ],
+  },
+  {
+    title: "Design Software Shortcut Tips",
+    content:
+      "Act as an Adobe Illustrator expert and provide a detailed list of the top 10 keyboard shortcuts that significantly enhance productivity for graphic designers. For each shortcut, include:",
+    list: [
+      "The exact key combination for both Windows and Mac (if applicable)",
+      "A clear explanation of what the shortcut does",
+      "Practical examples of how and when to use it during common design tasks",
+      "Tips on how mastering this shortcut can save time or improve workflow. Present the list in a clear, easy-to-read format for intermediate to advanced users."
+    ],
+  },
+  {
+    title: "Portfolio Review Checklist",
+    content:
+      "Create a thorough and detailed checklist for graphic designers to review their portfolio before submitting it to potential clients or employers. Include categories such as:",
+    list: [
+      "Diversity and range of work (different styles, mediums, and projects)",
+      "Presentation quality (image resolution, layout, consistency)",
+      "Clarity and professionalism of project descriptions and case studies",
+      "Visual consistency across the portfolio reflecting personal brand",
+      "Relevance and tailoring to the specific job or client target",
+      "Inclusion of measurable results or client testimonials (if available)",
+      "Contact information and call to action. Provide actionable advice for each checklist item and explain why it is important."
+    ],
+  },
+  {
+    title: "Infographic Content Outline",
+    content:
+      "I want you to act as a content strategist for infographics. Please draft a detailed content outline for an infographic about the impacts of climate change. Organize the content into clear sections such as:",
+    list: [
+      "Introduction and key facts about climate change",
+      "Major causes of climate change with brief explanations",
+      "Environmental and societal effects illustrated with relevant statistics",
+      "Visual representation ideas (charts, icons, timelines) for each section",
+      "Suggested actionable steps for individuals and communities to mitigate climate change. Make sure the outline balances informative content with visual appeal and simplicity to ensure the infographic communicates effectively to a general audience."
+    ],
+  },
+  {
+    title: "Packaging Copywriting Help",
+    content:
+      "You are a copywriter specialized in natural products. Write a concise, attractive, and compelling product description for the packaging of a natural tea brand. The description should:",
+    list: [
+      "Highlight the unique flavors and aroma of the tea",
+      "Emphasize the health benefits and organic, all-natural ingredients",
+      "Convey a sense of calm, wellness, and authenticity",
+      "Be engaging and easy to read, appealing to health-conscious and environmentally aware consumers",
+      "Fit within a short space suitable for product packaging. Please write in a warm, inviting tone that resonates with the target audience."
+    ],
+  },
+  {
+    title: "Design Inspiration Sources",
+    content:
+      "Please act as a design mentor and list the top 5 websites or platforms where graphic designers can find high-quality design inspiration. For each platform, include:",
+    list: [
+      "The primary focus or types of design showcased (e.g., branding, UI/UX, illustration, print)",
+      "Unique features or community aspects that make it valuable",
+      "How designers can best use the platform to stay updated and inspired",
+      "Examples of popular or noteworthy content available",
+      "Any free or premium access details relevant to new users. Format the response as a detailed guide suitable for designers at various levels seeking reliable inspiration resources."
+    ],
+  },
+];
+
 
   const handleAction = (tool: string) => {
     trackEvent("home-to-features", "click", tool);
@@ -432,7 +434,7 @@ export default function Home() {
           </div>
 
           <div className="sm:grid grid-cols-3 gap-4 pt-8">
-            {designPromptData.map((item, index) => (
+            {designPrompts.map((item, index) => (
               <PromptCard key={index} {...item} />
             ))}
           </div>

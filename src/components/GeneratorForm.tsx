@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -97,11 +97,7 @@ function GeneratorForm() {
 
     <b> Font Keywords : </b> [List of keywords describing appropriate fonts for this design]`;
 
-    console.log(basePrompt);
-
     const text = await sendPrompt(basePrompt);
-
-    console.log(text);
 
     if (text) {
       setPromptArr((prev) => {
@@ -138,11 +134,6 @@ function GeneratorForm() {
       setCount(count + 1);
     }
   };
-
-  useEffect(() => {
-    console.log("count", count);
-    console.log(promptArr[count]);
-  }, [count]);
 
   return (
     <div className="animate-fade-up">

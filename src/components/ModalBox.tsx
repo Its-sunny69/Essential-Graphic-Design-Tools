@@ -20,7 +20,7 @@ export const ModalBox = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-      <div className="bg-gray-50 border max-w-xl w-full m-6 p-6 rounded-xl shadow-xl">
+      <div className="bg-gray-50 border max-w-xl w-full max-h-[40rem] sm:max-h-[35rem] m-6 p-6 rounded-xl shadow-xl overflow-auto">
         <div className="text-end">
           <button
             onClick={onClose}
