@@ -40,7 +40,7 @@ Briefox includes three core tools to assist designers, developers, and creators:
 ### 2. ✒️ Keyword-Based Font Finder
 
 - Input a keyword and get font suggestions from Google Fonts.
-- AI selects top 5 fonts that best represent the mood or style.
+- AI selects top 20 fonts that best represent the mood or style.
 - Live preview with custom text.
 - 100% free-to-use fonts.
 
