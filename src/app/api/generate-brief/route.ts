@@ -29,7 +29,7 @@ export async function POST(req: Request) {
         {
           blocked: true,
           message:
-            "Due to high usage, you have reached the maximum number of AI design brief requests for today. Please try again after 12:00 Midnight.",
+            "Due to high usage, you have reached the maximum number of design brief requests for today. Please try again after 12:00 Midnight.",
         },
         { status: 429 }
       );

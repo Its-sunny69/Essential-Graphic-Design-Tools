@@ -1,5 +1,7 @@
 "use client";
 
+import AdBanner from "@/components/Ads/AdBanner";
+import AdNativeBanner from "@/components/Ads/AdNativeBanner";
 import FontFinder from "@/components/FontFinder";
 import GeneratorForm from "@/components/GeneratorForm";
 import ColorExtractor from "@/components/ImageColorPalette";
@@ -19,6 +21,14 @@ export default function Features() {
     "font-finder-\u2712\uFE0F",
     "color-extractor-\u{1F308}",
   ];
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth <= 640) {
+      setIsMobile(true);
+    }
+  }, []);
+
   useEffect(() => {
     const tool = params.get("tool");
 
@@ -55,35 +65,90 @@ export default function Features() {
 
   return (
     <section>
-      <div className="md:w-[70%] sm:w-[80%] w-[90%] mx-auto">
-        <div className="my-8">
-          <h1 className="md:text-6xl sm:text-5xl text-4xl font-bold text-center">
-            Features That Fuel Creative Productivity
-          </h1>
-
-          <p className="mt-6 mb-14 text-center text-lg">
-            Discover how each tool is designed to simplify your design process,
-            reduce friction, and spark creativity.
-          </p>
+      <div className="flex">
+        <div className="w-1/6">
+          {!isMobile && (
+            <AdNativeBanner
+              containerId="container-d3598d23f6d94cef0c4e821a00490f93"
+              scriptSrc="//pl26848652.profitableratecpm.com/d3598d23f6d94cef0c4e821a00490f93/invoke.js"
+              className="overflow-hidden "
+            />
+          )}
         </div>
 
-        <div className="my-12 flex sm:flex-row flex-col sm:justify-around justify-center items-center sm:gap-0 gap-4">
-          {options.map((option) => (
-            <button
-              key={option}
-              onClick={() => handleOption(option)}
-              className={`sm:w-fit w-64 relative px-8 py-4 rounded-full bg-gray-50 text-gray-500 ${
-                currentFeature === option ? "text-gray-900" : "border"
-              } hover:text-gray-800 hover:bg-gray-100 transition-all`}
-            >
-              {formatText(option)}
-              {currentFeature === option && (
-                <BorderBeam duration={8} size={100} />
-              )}
-            </button>
-          ))}
+        <div>
+          <div className="my-8">
+            <h1 className="md:text-6xl sm:text-5xl text-4xl font-bold text-center">
+              Features That Fuel Creative Productivity
+            </h1>
+
+            <p className="mt-6 mb-14 text-center text-lg">
+              Discover how each tool is designed to simplify your design
+              process, reduce friction, and spark creativity.
+            </p>
+          </div>
+
+          <div className="my-12 flex sm:flex-row flex-col sm:justify-around justify-center items-center sm:gap-0 gap-4">
+            {options.map((option) => (
+              <button
+                key={option}
+                onClick={() => handleOption(option)}
+                className={`sm:w-fit w-64 relative px-8 py-4 rounded-full bg-gray-50 text-gray-500 ${
+                  currentFeature === option ? "text-gray-900" : "border"
+                } hover:text-gray-800 hover:bg-gray-100 transition-all`}
+              >
+                {formatText(option)}
+                {currentFeature === option && (
+                  <BorderBeam duration={8} size={100} />
+                )}
+              </button>
+            ))}
+          </div>
+
+          <div className="tool-one flex justify-center items-center">
+            {isMobile ? (
+              <AdBanner
+                id="adtool-five"
+                className="w-fit"
+                optionsScript={`
+                atOptions = {
+                  'key' : '8b87cd9aeb3337f3a7ea3c3b2d0808a5',
+                  'format' : 'iframe',
+                  'height' : 250,
+                  'width' : 300,
+                  'params' : {}
+                }`}
+                srcScript="//www.highperformanceformat.com/8b87cd9aeb3337f3a7ea3c3b2d0808a5/invoke.js"
+              />
+            ) : (
+              <AdBanner
+                id="adtool-six"
+                className="w-fit h-fit"
+                optionsScript={`
+                atOptions = {
+                    'key' : '3cc4b180d3a64b5885ba379ca002ec21',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                }`}
+                srcScript="//www.highperformanceformat.com/3cc4b180d3a64b5885ba379ca002ec21/invoke.js"
+              />
+            )}
+          </div>
+
+          <div>{featureComponent[currentFeature]}</div>
         </div>
-        <div>{featureComponent[currentFeature]}</div>
+
+        <div className="w-1/6">
+          {!isMobile && (
+            <AdNativeBanner
+              containerId="container-d3598d23f6d94cef0c4e821a00490f93"
+              scriptSrc="//pl26848652.profitableratecpm.com/d3598d23f6d94cef0c4e821a00490f93/invoke.js"
+              className="overflow-hidden "
+            />
+          )}
+        </div>
       </div>
     </section>
   );

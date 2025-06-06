@@ -13,6 +13,7 @@ const edGaramond = EB_Garamond({
 
 export interface CarouselItem {
   description: string;
+  author?: string;
 }
 
 export interface CarouselProps {
@@ -206,14 +207,21 @@ export default function Carousel({
               <div className="w-full flex justify-end items-center">
                 <button
                   className="rounded mx-4 my-1 text-white hover:text-gray-400 active:scale-95 transition-all"
-                  onClick={() => handleCopy(item.description)}
+                  onClick={() =>
+                    handleCopy(`${item.description} - ${item.author}`)
+                  }
                 >
-                  {copied ? <Check  width="1em"/> : <Copy  width="1em"/>}
+                  {copied ? <Check width="1em" /> : <Copy width="1em" />}
                 </button>
               </div>
-              <div className={`${round ? "p-0 m-0" : "mb-4 p-5"}`}>
+              <div className={`${round ? "p-0 m-0" : "mb-4 px-5 py-1"}`}>
                 <p className={`${edGaramond.className} text-lg text-white`}>
                   &ldquo; {item.description} &rdquo;
+                </p>
+                <p
+                  className={`${edGaramond.className} text-end text-lg text-white`}
+                >
+                  - {item.author}
                 </p>
               </div>
             </motion.div>

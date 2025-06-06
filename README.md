@@ -30,7 +30,7 @@
 
 Briefox includes three core tools to assist designers, developers, and creators:
 
-### 1. 🎯 AI Design Brief Generator
+### 1. 🎯 Design Brief Generator
 
 - Automatically generates professional and concise design briefs.
 - Input your design type, industry, and style preference.

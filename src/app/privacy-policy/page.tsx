@@ -6,13 +6,13 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicy() {
   return (
-    <div className="md:w-[70%] sm:w-[80%] w-[90%] mx-auto">
+    <div className="sm:mx-28 mx-6">
       <h1 className="md:text-6xl sm:text-5xl text-4xl my-8 font-bold text-center">
         Privacy Policy
       </h1>
 
       <section className="my-8">
-        <p className="text-gray-600">Effective Date: August 2025</p>
+        <p className="text-gray-600">Effective Date: June 2025</p>
         <p className="text-lg text-justify">
           Welcome to <strong>Briefox.com</strong> — a suite of AI-powered design
           tools to help creatives move faster. This Privacy Policy explains how

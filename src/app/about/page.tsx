@@ -4,9 +4,9 @@ export const metadata: Metadata = {
   title: "About",
 };
 
-export default function Features() {
+export default function About() {
   return (
-    <div className="md:w-[70%] sm:w-[80%] w-[90%] mx-auto">
+    <div className="sm:mx-28 mx-6">
       <h1 className="md:text-6xl sm:text-5xl text-4xl my-8 font-bold text-center">
         About
       </h1>
@@ -59,7 +59,7 @@ export default function Features() {
         <h2 className="sm:text-3xl text-2xl font-bold">What&apos;s Included</h2>
         <ul className="list-disc mt-4 pl-4  space-y-4">
           <li>
-            <b>AI Design Brief Generator</b>
+            <b>Design Brief Generator</b>
             <ul className="list-disc pl-6 mt-2">
               <li>
                 Generates structured, professional briefs tailored to your
@@ -82,7 +82,7 @@ export default function Features() {
             <b>Keyword-Based Font Finder</b>
             <ul className="list-disc pl-6 mt-2">
               <li>
-                Input a descriptive word and get 5 matching fonts from Google
+                Input a descriptive word and get 20 matching fonts from Google
                 Fonts.
               </li>
               <li>

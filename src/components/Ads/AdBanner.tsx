@@ -15,8 +15,8 @@ export default function AdBanner({
   id,
   optionsScript,
   srcScript,
-  width = 468,
-  height = 60,
+  width,
+  height,
   className = "",
   style = {},
 }: AdScriptProps) {
@@ -51,7 +51,7 @@ export default function AdBanner({
   return (
     <div
       id={id}
-      className={className}
+       className={`relative overflow-hidden ${className}`}
       style={{ width, height, margin: "20px auto", ...style }}
       ref={containerRef}
     />

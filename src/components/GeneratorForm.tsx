@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Markdown from "react-markdown";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -73,15 +72,36 @@ function GeneratorForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const basePrompt = `Please create a ${values.stylePreference} ${
+    const basePrompt = `Act as a professional brand strategist. Write a short design brief in simple and clear English for a ${
       values.designType
-    } for a brand operating in the ${values.industry} industry. ${
-      values.brandName &&
-      `The brand name is "${values.brandName}". Please 
-incorporate this into the brief accordingly.`
-    } Provide a concise and professional design brief suitable for a creative designer. The output should be max 70 words`;
+    } in the ${values.industry} industry.
+    ${
+      values.brandName
+        ? `The brand name is "${values.brandName}". Please include this in the brief.`
+        : `If the brand name is not provided, invent a suitable one that fits the ${values.industry} industry and has a ${values.stylePreference} style.`
+    }
+
+    Format the response strictly in HTML using only these tags: <b>, <p>, and <br>.
+    Use <b> for section titles like Industry, Design Type, Color Palette and Font Keywords.
+    Use <br> to break lines.
+    Use <p> only for the final paragraph.
+    Do not use lists or any other tags.
+
+    Follow this exact structure:
+
+    <b>Industry:</b> ${values.industry}<br>
+    <b>Design Type:</b> ${values.designType}<br>
+    <b>Color Palette (optional – suggest what fits best):</b> [Suggest a suitable color palette]<br><br>
+
+    <p>[Write a short paragraph (max 70 words) in simple English. Clearly describe the design idea, look, tone, and who it is for. Make it easy to understand for non-designers.]</p>
+
+    <b> Font Keywords : </b> [List of keywords describing appropriate fonts for this design]`;
+
+    console.log(basePrompt);
 
     const text = await sendPrompt(basePrompt);
+
+    console.log(text);
 
     if (text) {
       setPromptArr((prev) => {
@@ -359,9 +379,10 @@ incorporate this into the brief accordingly.`
                     </button>
                   </div>
 
-                  <div className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4">
-                    <Markdown>{promptArr[count]}</Markdown>
-                  </div>
+                  <div
+                    className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4"
+                    dangerouslySetInnerHTML={{ __html: promptArr[count] }}
+                  />
                 </div>
               </div>
             )}
