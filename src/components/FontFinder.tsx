@@ -102,7 +102,7 @@ function FontFinder() {
           {error && <p className="text-sm text-red-500">{error}</p>}
         </div>
 
-        <Button onClick={handleSearch} disabled={fontLoading}>
+        <Button onClick={handleSearch} disabled={fontLoading || !keyword}>
           {fontLoading ? (
             <>
               <Loader2 className="animate-spin" />

@@ -35,6 +35,7 @@ import {
 } from "@/components/ui/accordion";
 import { useGeminiAPI } from "@/hooks/useGeminiAPI";
 import { trackEvent } from "@/lib/ga";
+import Markdown from 'react-markdown'
 
 const formSchema = z.object({
   designType: z.string().min(1, {
@@ -72,30 +73,31 @@ function GeneratorForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const basePrompt = `Act as a professional brand strategist. Write a short design brief in simple and clear English for a ${
-      values.designType
-    } in the ${values.industry} industry.
-    ${
-      values.brandName
-        ? `The brand name is "${values.brandName}". Please include this in the brief.`
-        : `If the brand name is not provided, invent a suitable one that fits the ${values.industry} industry and has a ${values.stylePreference} style.`
-    }
+    const basePrompt = `Act as a professional brand strategist. Write a short and clear design brief for a ${values.designType} in the ${values.industry} industry.  
+${values.brandName 
+  ? `The brand name is "${values.brandName}". Use this clearly in the brief.` 
+  : `If no brand name is provided, create a realistic and relevant brand name that suits the ${values.industry} industry and matches a "${values.stylePreference}" style.`}
 
-    Format the response strictly in HTML using only these tags: <b>, <p>, and <br>.
-    Use <b> for section titles like Industry, Design Type, Color Palette and Font Keywords.
-    Use <br> to break lines.
-    Use <p> only for the final paragraph.
-    Do not use lists or any other tags.
+The response should follow this structure:
 
-    Follow this exact structure:
+Industry: ${values.industry}  
+Design Type: ${values.designType}  
+Color Palette: Suggest a palette that fits the ${values.industry} industry and "${values.stylePreference}" style  
+Font Style Keywords: Suggest 2–4 keywords like modern, elegant, bold, clean
+{note: after this add one line space}
 
-    <b>Industry:</b> ${values.industry}<br>
-    <b>Design Type:</b> ${values.designType}<br>
-    <b>Color Palette (optional – suggest what fits best):</b> [Suggest a suitable color palette]<br><br>
+Do not include "Logo Type" unless the design type is a logo or branding system.
 
-    <p>[Write a short paragraph (max 70 words) in simple English. Clearly describe the design idea, look, tone, and who it is for. Make it easy to understand for non-designers.]</p>
+Then write a short paragraph (max 200 words) that:
+- Describes the visual tone, feeling, and audience
+- Explains the layout or structure of the design
+- Clearly lists what content is typically included for a ${values.designType}
+- Generate fake but realistic placeholder content (e.g., name, date, title, location, phone number, etc.)
+- Make sure the content and structure are relevant *only* to the design type requested
 
-    <b> Font Keywords : </b> [List of keywords describing appropriate fonts for this design]`;
+Keep the language simple, easy to understand, and useful for any designer to visualize the end product.
+
+Ensure all fields like "Industry", "Design Type", "Brand Name", etc., start on new lines using proper Markdown line breaks (double spaces or blank lines). Bold the titles. keep one line space between titles and short paragrah.`
 
     const text = await sendPrompt(basePrompt);
 
@@ -310,7 +312,7 @@ function GeneratorForm() {
           <div className="p-4 my-8">
             <div className="mb-8">
               <p className="sm:text-3xl text-2xl font-bold">
-                Crafting Your Prompt...⚡
+                Crafting Your Brief...⚡
               </p>
             </div>
 
@@ -336,7 +338,7 @@ function GeneratorForm() {
               <div className="animate-fade">
                 <div className="mb-8">
                   <p className="sm:text-3xl text-2xl font-bold mb-4">
-                    Your Custom Prompt is Ready! 🎉
+                    Your Brief is Ready! 🎉
                   </p>
 
                   <div className="w-full flex justify-end items-center">
@@ -370,10 +372,13 @@ function GeneratorForm() {
                     </button>
                   </div>
 
-                  <div
+                  {/* <div
                     className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4"
                     dangerouslySetInnerHTML={{ __html: promptArr[count] }}
-                  />
+                  /> */}
+                  <div  className="bg-gray-100 border-l-4 border-gray-300 border rounded-xl p-4">
+                    <Markdown>{promptArr[count]}</Markdown>
+                  </div>
                 </div>
               </div>
             )}
@@ -403,7 +408,7 @@ function GeneratorForm() {
             client communication.
           </li>
           <li className="my-2">
-            Generated prompts are instantly copyable for use in proposals or
+            Generated briefs are instantly copyable for use in proposals or
             creative direction.
           </li>
         </ul>

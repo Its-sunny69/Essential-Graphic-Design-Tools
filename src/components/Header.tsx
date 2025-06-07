@@ -5,7 +5,6 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import AdSocialBannner from "./Ads/AdSocialBanner";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -123,7 +122,7 @@ function Header() {
           </div>
         )}
       </div>
-      <AdSocialBannner scriptSrc="//pl26849404.profitableratecpm.com/03/d5/77/03d5773862e942dea80f69e53f667b7a.js" />
+      {/* <AdSocialBannner scriptSrc="//pl26849404.profitableratecpm.com/03/d5/77/03d5773862e942dea80f69e53f667b7a.js" /> */}
     </div>
   );
 }
