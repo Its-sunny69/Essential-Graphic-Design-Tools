@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import Script from "next/script";
 import AnalyticsProvider from "@/components/AnalyticsProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-
+import { Analytics } from "@vercel/analytics/next";
 const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
@@ -53,6 +53,7 @@ export default function RootLayout({
           <Header />
           <main className="flex-1">
             <AnalyticsProvider />
+            <Analytics />
             <SpeedInsights />
             {children}
           </main>
